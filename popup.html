@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="popup.css" />
+    </head>
+
+    <body>
+        <div>
+            <h3>Clear container storage</h3>
+            <ul id="container-list"></ul>
+            <p id="container-loading">Waiting for Firefox...</p>
+            <fieldset>
+                <legend>When:</legend>
+                <input
+                    type="radio"
+                    id="clear-range-lastHour"
+                    name="clear-range"
+                />
+                <label for="clear-range-lastHour">Last hour</label>
+                <input
+                    type="radio"
+                    id="clear-range-lastTwoHours"
+                    name="clear-range"
+                />
+                <label for="clear-range-lastTwoHours">Last two hours</label>
+                <input
+                    type="radio"
+                    id="clear-range-lastFourHours"
+                    name="clear-range"
+                />
+                <label for="clear-range-lastFourHours">Last four hours</label>
+                <input
+                    type="radio"
+                    id="clear-range-sinceMidnight"
+                    name="clear-range"
+                />
+                <label for="clear-range-sinceMidnight">Since 12:00 AM</label>
+                <hr />
+                <input
+                    type="radio"
+                    id="clear-range-everything"
+                    name="clear-range"
+                />
+                <label for="clear-range-everything">Everything</label>
+            </fieldset>
+        </div>
+
+        <template id="container">
+            <li class="container">
+                <span class="container-name">CONTAINER NAME</span>
+                <span class="clear-confirm">Are you sure?</span>
+                <span class="clear-progress">In progress...</span>
+                <span class="clear-done">Cleared.</span>
+            </li>
+        </template>
+
+        <script src="popup.js"></script>
+    </body>
+</html>

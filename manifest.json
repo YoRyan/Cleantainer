@@ -6,14 +6,14 @@
     "description": "__MSG_extensionDescription__",
     "developer": {
         "name": "Ryan Young",
-        "url": "https://github.com/YoRyan/tipple"
+        "url": "https://github.com/YoRyan/emptainer"
     },
     "browser_specific_settings": {
         "gecko": {
-            "id": "tipple@youngryan.com"
+            "id": "emptainer@youngryan.com"
         }
     },
-    "permissions": ["menus", "storage", "browsingData"],
+    "permissions": ["menus", "storage", "browsingData", "contextualIdentities"],
 
     "background": {
         "scripts": ["background/background.js"]
@@ -21,6 +21,7 @@
     "action": {
         "default_area": "navbar",
         "default_title": "__MSG_extensionName__ - __MSG_actionTitleDefault__",
+        "default_popup": "popup.html",
         "theme_icons": [
             {
                 "light": "icons/placeholder-16.png",
