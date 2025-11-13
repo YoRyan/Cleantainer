@@ -49,15 +49,13 @@ function minutesAgo(mins: number) {
     return () => new Date().getTime() - mins * 60 * 1000;
 }
 
-async function main() {
+async function popupMain() {
     const { clearRange } = await readLocalStorage();
-    for (const key of Object.keys(clearSince)) {
-        const radio = document.getElementById(
-            "clear-range-" + key,
-        ) as HTMLInputElement;
-        radio.checked = key === clearRange;
-        radio.addEventListener("click", rangeClickHandler);
-    }
+    const rangeSelect = document.querySelector(
+        "#clear-range",
+    ) as HTMLSelectElement;
+    rangeSelect.value = clearRange;
+    rangeSelect.addEventListener("change", rangeChangeHandler);
 
     const userContainers = (await browser.contextualIdentities.query(
         {},
@@ -99,8 +97,8 @@ async function readLocalStorage(): Promise<LocalStorage> {
     }
 }
 
-async function rangeClickHandler(this: HTMLElement, ev: MouseEvent) {
-    const clearRange = this.id.replace(/^clear-range-/, "");
+async function rangeChangeHandler(this: HTMLSelectElement, ev: Event) {
+    const clearRange = this.value;
     await browser.storage.local.set({ clearRange });
 }
 
@@ -155,4 +153,4 @@ async function clearBrowsingData(cookieStoreId: string, since: number) {
     ]);
 }
 
-main();
+popupMain();

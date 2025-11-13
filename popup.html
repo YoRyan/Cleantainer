@@ -15,50 +15,27 @@
             <p id="container-loading">
                 <span is="i18n-message">loadContainers</span>
             </p>
-            <fieldset>
-                <legend><span is="i18n-message">rangeLabel</span></legend>
-                <input
-                    type="radio"
-                    id="clear-range-lastHour"
-                    name="clear-range"
-                />
-                <label for="clear-range-lastHour"
-                    ><span is="i18n-message">rangeOneHour</span></label
-                >
-                <input
-                    type="radio"
-                    id="clear-range-lastTwoHours"
-                    name="clear-range"
-                />
-                <label for="clear-range-lastTwoHours"
-                    ><span is="i18n-message">rangeTwoHours</span></label
-                >
-                <input
-                    type="radio"
-                    id="clear-range-lastFourHours"
-                    name="clear-range"
-                />
-                <label for="clear-range-lastFourHours"
-                    ><span is="i18n-message">rangeFourHours</span></label
-                >
-                <input
-                    type="radio"
-                    id="clear-range-sinceMidnight"
-                    name="clear-range"
-                />
-                <label for="clear-range-sinceMidnight"
-                    ><span is="i18n-message">rangeSinceMidnight</span></label
-                >
-                <hr />
-                <input
-                    type="radio"
-                    id="clear-range-everything"
-                    name="clear-range"
-                />
-                <label for="clear-range-everything"
-                    ><span is="i18n-message">rangeUnlimited</span></label
-                >
-            </fieldset>
+            <label>
+                <span is="i18n-message">rangeLabel</span>
+                <select id="clear-range">
+                    <option value="lastHour" data-i18n-message>
+                        rangeOneHour
+                    </option>
+                    <option value="lastTwoHours" data-i18n-message>
+                        rangeTwoHours
+                    </option>
+                    <option value="lastFourHours" data-i18n-message>
+                        rangeFourHours
+                    </option>
+                    <option value="sinceMidnight" data-i18n-message>
+                        rangeSinceMidnight
+                    </option>
+                    <hr />
+                    <option value="everything" data-i18n-message>
+                        rangeUnlimited
+                    </option>
+                </select>
+            </label>
         </div>
 
         <template id="container">
