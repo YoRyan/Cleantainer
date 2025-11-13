@@ -4,58 +4,76 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="popup.css" />
+        <script src="i18n.js" defer></script>
+        <script src="popup.js" defer></script>
     </head>
 
     <body>
         <div>
-            <h3>Clear container storage</h3>
+            <h3><span is="i18n-message">popupTitle</span></h3>
             <ul id="container-list"></ul>
-            <p id="container-loading">Waiting for Firefox...</p>
+            <p id="container-loading">
+                <span is="i18n-message">loadContainers</span>
+            </p>
             <fieldset>
-                <legend>When:</legend>
+                <legend><span is="i18n-message">rangeLabel</span></legend>
                 <input
                     type="radio"
                     id="clear-range-lastHour"
                     name="clear-range"
                 />
-                <label for="clear-range-lastHour">Last hour</label>
+                <label for="clear-range-lastHour"
+                    ><span is="i18n-message">rangeOneHour</span></label
+                >
                 <input
                     type="radio"
                     id="clear-range-lastTwoHours"
                     name="clear-range"
                 />
-                <label for="clear-range-lastTwoHours">Last two hours</label>
+                <label for="clear-range-lastTwoHours"
+                    ><span is="i18n-message">rangeTwoHours</span></label
+                >
                 <input
                     type="radio"
                     id="clear-range-lastFourHours"
                     name="clear-range"
                 />
-                <label for="clear-range-lastFourHours">Last four hours</label>
+                <label for="clear-range-lastFourHours"
+                    ><span is="i18n-message">rangeFourHours</span></label
+                >
                 <input
                     type="radio"
                     id="clear-range-sinceMidnight"
                     name="clear-range"
                 />
-                <label for="clear-range-sinceMidnight">Since 12:00 AM</label>
+                <label for="clear-range-sinceMidnight"
+                    ><span is="i18n-message">rangeSinceMidnight</span></label
+                >
                 <hr />
                 <input
                     type="radio"
                     id="clear-range-everything"
                     name="clear-range"
                 />
-                <label for="clear-range-everything">Everything</label>
+                <label for="clear-range-everything"
+                    ><span is="i18n-message">rangeUnlimited</span></label
+                >
             </fieldset>
         </div>
 
         <template id="container">
             <li class="container">
                 <span class="container-name">CONTAINER NAME</span>
-                <span class="clear-confirm">Are you sure?</span>
-                <span class="clear-progress">In progress...</span>
-                <span class="clear-done">Cleared.</span>
+                <span class="clear-confirm"
+                    ><span is="i18n-message">clearConfirm</span></span
+                >
+                <span class="clear-progress"
+                    ><span is="i18n-message">clearProgress</span></span
+                >
+                <span class="clear-done"
+                    ><span is="i18n-message">clearDone</span></span
+                >
             </li>
         </template>
-
-        <script src="popup.js"></script>
     </body>
 </html>

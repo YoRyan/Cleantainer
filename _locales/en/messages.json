@@ -7,36 +7,48 @@
         "message": "Cleans cookies and local storage from Firefox containers.",
         "description": "Description of the extension."
     },
-    "clearDataCommand": {
-        "message": "Clear cookies and storage",
-        "description": "Description for the clear data shortcut command."
+    "popupTitle": {
+        "message": "Clear container storage",
+        "description": "Title for the extension's popup."
     },
-    "setTimeFiveMinutes": {
-        "message": "Limit to last five minutes",
-        "description": "Change the clear timespan to the last 5 minutes."
+    "loadContainers": {
+        "message": "Waiting for Firefox...",
+        "description": "Status message when the extension is loading the container list."
     },
-    "setTimeTwoHours": {
-        "message": "Limit to last two hours",
-        "description": "Change the clear timespan to the last 2 hours."
+    "rangeLabel": {
+        "message": "When:",
+        "description": "Label for the time range selector."
     },
-    "setTimeOneDay": {
-        "message": "Limit to last 24 hours",
-        "description": "Change the clear timespan to the last 24 hours."
+    "rangeOneHour": {
+        "message": "Last hour",
+        "description": "Set the time range to the previous hour."
     },
-    "setTimeEverything": {
-        "message": "Clear everything",
-        "description": "Change the clear timespan to unlimited."
+    "rangeTwoHours": {
+        "message": "Last two hours",
+        "description": "Set the time range to the previous 2 hours."
     },
-    "actionTitleDefault": {
-        "message": "Clear cookies and local storage",
-        "description": "Tooltip for the action button in the default state."
+    "rangeFourHours": {
+        "message": "Last four hours",
+        "description": "Set the time range to the previous 2 hours."
     },
-    "actionTitleConfirm": {
-        "message": "Select again to confirm clear",
-        "description": "Tooltip for the action button when a further confirmation is required to clear data."
+    "rangeSinceMidnight": {
+        "message": "Since 12:00 AM",
+        "description": "Set the time range to since midnight."
     },
-    "actionTitleDone": {
-        "message": "Data has been cleared",
-        "description": "Tooltip for the action button immediately after data has been cleared."
+    "rangeUnlimited": {
+        "message": "Everything",
+        "description": "Set the time range to unlimited."
+    },
+    "clearConfirm": {
+        "message": "Are you sure?",
+        "description": "Status message when a further confirmation is requested to clear data."
+    },
+    "clearProgress": {
+        "message": "In progress...",
+        "description": "Status message when a clear operation is in progress."
+    },
+    "clearDone": {
+        "message": "Cleared.",
+        "description": "Status message when a clear is complete."
     }
 }

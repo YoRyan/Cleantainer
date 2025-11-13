@@ -6,5 +6,5 @@
         "moduleResolution": "bundler",
         "types": ["firefox-webext-browser"]
     },
-    "files": ["popup.ts"]
+    "files": ["i18n.ts", "popup.ts"]
 }
