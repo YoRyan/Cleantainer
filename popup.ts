@@ -5,6 +5,12 @@ type Container = {
     color: string;
 };
 
+type ControlState =
+    | "ready"
+    | { confirmTimer: number }
+    | "inProgress"
+    | { doneTimer: number };
+
 const builtInContainers: Container[] = [
     {
         cookieStoreId: "firefox-default",
@@ -50,32 +56,71 @@ async function popupMain() {
 
 async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
     const { dataset } = this;
-    const { confirmTimer, doneTimer } = dataset;
-    if (confirmTimer) {
-        clearTimeout(parseInt(confirmTimer));
-        delete dataset.confirmTimer;
-        dataset.inProgress = "";
+    const current = readControlState(dataset);
 
-        const { cookieStoreId } = dataset;
-        await clearBrowsingData(cookieStoreId as string);
-
-        dataset.doneTimer =
-            "" +
-            setTimeout(async () => {
-                delete dataset.doneTimer;
-            }, doneTimeoutMs);
-        delete dataset.inProgress;
-    } else {
-        if (doneTimer) {
-            clearTimeout(parseInt(doneTimer));
-            delete dataset.doneTimer;
+    let next: ControlState;
+    if (current === "inProgress") {
+        next = "inProgress"; // Do nothing.
+    } else if (current === "ready" || "doneTimer" in current) {
+        if (current !== "ready") {
+            const { doneTimer } = current;
+            clearTimeout(doneTimer);
         }
 
-        dataset.confirmTimer =
-            "" +
-            setTimeout(async () => {
-                delete dataset.confirmTimer;
-            }, confirmTimeoutMs);
+        const confirmTimer = setTimeout(
+            () => setControlState(dataset, "ready"),
+            confirmTimeoutMs,
+        );
+        next = { confirmTimer };
+    } else {
+        const { confirmTimer } = current;
+        clearTimeout(confirmTimer);
+
+        (async () => {
+            const { cookieStoreId } = dataset;
+            await clearBrowsingData(cookieStoreId as string);
+            const doneTimer = setTimeout(
+                () => setControlState(dataset, "ready"),
+                doneTimeoutMs,
+            );
+            setControlState(dataset, { doneTimer });
+        })();
+
+        next = "inProgress";
+    }
+    setControlState(dataset, next);
+}
+
+function readControlState(dataset: DOMStringMap): ControlState {
+    const { confirmTimer, doneTimer, inProgress } = dataset;
+    if (confirmTimer) {
+        return { confirmTimer: parseInt(confirmTimer) };
+    } else if (doneTimer) {
+        return { doneTimer: parseInt(doneTimer) };
+    } else if (inProgress) {
+        return "inProgress";
+    } else {
+        return "ready";
+    }
+}
+
+function setControlState(dataset: DOMStringMap, state: ControlState) {
+    if (state === "ready") {
+        delete dataset.confirmTimer;
+        delete dataset.doneTimer;
+        delete dataset.inProgress;
+    } else if (state === "inProgress") {
+        delete dataset.confirmTimer;
+        delete dataset.doneTimer;
+        dataset.inProgress = "";
+    } else if ("confirmTimer" in state) {
+        dataset.confirmTimer = "" + state.confirmTimer;
+        delete dataset.doneTimer;
+        delete dataset.inProgress;
+    } else {
+        delete dataset.confirmTimer;
+        dataset.doneTimer = "" + state.doneTimer;
+        delete dataset.inProgress;
     }
 }
 
