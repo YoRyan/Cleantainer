@@ -4,15 +4,6 @@ type Container = {
     icon: string;
     color: string;
 };
-type ClearRange =
-    | "lastHour"
-    | "lastTwoHours"
-    | "lastFourHours"
-    | "sinceMidnight"
-    | "everything";
-type LocalStorage = {
-    clearRange: ClearRange;
-};
 
 const builtInContainers: Container[] = [
     {
@@ -28,35 +19,10 @@ const builtInContainers: Container[] = [
         color: "purple",
     },
 ];
-const clearSince: { [ClearRange: string]: () => number } = {
-    lastHour: minutesAgo(60),
-    lastTwoHours: minutesAgo(120),
-    lastFourHours: minutesAgo(240),
-    sinceMidnight: () => {
-        const d = new Date();
-        d.setHours(0);
-        d.setMinutes(0);
-        d.setSeconds(0);
-        d.setMilliseconds(0);
-        return d.getTime();
-    },
-    everything: () => 0,
-};
 const confirmTimeoutMs = 3000;
 const doneTimeoutMs = 1000;
 
-function minutesAgo(mins: number) {
-    return () => new Date().getTime() - mins * 60 * 1000;
-}
-
 async function popupMain() {
-    const { clearRange } = await readLocalStorage();
-    const rangeSelect = document.querySelector(
-        "#clear-range",
-    ) as HTMLSelectElement;
-    rangeSelect.value = clearRange;
-    rangeSelect.addEventListener("change", rangeChangeHandler);
-
     const userContainers = (await browser.contextualIdentities.query(
         {},
     )) as Container[];
@@ -82,26 +48,6 @@ async function popupMain() {
     }
 }
 
-async function readLocalStorage(): Promise<LocalStorage> {
-    const storage = await browser.storage.local.get(null);
-    const clearRange = storage !== undefined ? storage.clearRange : undefined;
-    switch (clearRange) {
-        case "lastHour":
-        case "lastTwoHours":
-        case "lastFourHours":
-        case "sinceMidnight":
-        case "everything":
-            return { clearRange };
-        default:
-            return { clearRange: "lastHour" };
-    }
-}
-
-async function rangeChangeHandler(this: HTMLSelectElement, ev: Event) {
-    const clearRange = this.value;
-    await browser.storage.local.set({ clearRange });
-}
-
 async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
     const { dataset } = this;
     const { confirmTimer, doneTimer } = dataset;
@@ -111,11 +57,7 @@ async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
         dataset.inProgress = "";
 
         const { cookieStoreId } = dataset;
-        const { clearRange } = await readLocalStorage();
-        await clearBrowsingData(
-            cookieStoreId as string,
-            clearSince[clearRange](),
-        );
+        await clearBrowsingData(cookieStoreId as string);
 
         dataset.doneTimer =
             "" +
@@ -137,10 +79,9 @@ async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
     }
 }
 
-async function clearBrowsingData(cookieStoreId: string, since: number) {
+async function clearBrowsingData(cookieStoreId: string) {
     const options: browser.browsingData.RemovalOptions = {
         cookieStoreId,
-        since,
         originTypes: {
             unprotectedWeb: true,
             protectedWeb: false,

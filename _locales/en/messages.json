@@ -15,30 +15,6 @@
         "message": "Waiting for Firefox...",
         "description": "Status message when the extension is loading the container list."
     },
-    "rangeLabel": {
-        "message": "When:",
-        "description": "Label for the time range selector."
-    },
-    "rangeOneHour": {
-        "message": "Last hour",
-        "description": "Set the time range to the previous hour."
-    },
-    "rangeTwoHours": {
-        "message": "Last two hours",
-        "description": "Set the time range to the previous 2 hours."
-    },
-    "rangeFourHours": {
-        "message": "Last four hours",
-        "description": "Set the time range to the previous 2 hours."
-    },
-    "rangeSinceMidnight": {
-        "message": "Since 12:00 AM",
-        "description": "Set the time range to since midnight."
-    },
-    "rangeUnlimited": {
-        "message": "Everything",
-        "description": "Set the time range to unlimited."
-    },
     "clearConfirm": {
         "message": "Are you sure?",
         "description": "Status message when a further confirmation is requested to clear data."
