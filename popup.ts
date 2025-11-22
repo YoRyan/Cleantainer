@@ -51,6 +51,10 @@ async function popupMain() {
         nameElement.innerHTML = name;
 
         list.appendChild(cloned);
+
+        if (i === builtInContainers.length - 1) {
+            list.appendChild(document.createElement("hr"));
+        }
     }
 }
 
