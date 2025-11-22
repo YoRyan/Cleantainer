@@ -36,7 +36,7 @@ async function popupMain() {
     )) as Container[];
     const containers = builtInContainers.concat(userContainers);
 
-    const list = document.querySelector("#container-list") as Element;
+    const list = document.querySelector("#container-list") as HTMLUListElement;
     const template = document.querySelector(
         "#container",
     ) as HTMLTemplateElement;
@@ -44,15 +44,15 @@ async function popupMain() {
     for (const [i, { cookieStoreId, name, color }] of containers.entries()) {
         const cloned = template.content.cloneNode(true) as Element;
 
-        const item = cloned.querySelector(".container") as HTMLElement;
+        const item = cloned.querySelector(".container") as HTMLLIElement;
         item.dataset.cookieStoreId = cookieStoreId;
         item.addEventListener("click", containerClickHandler);
 
         const nameElement = cloned.querySelector(
             ".container-name",
-        ) as HTMLElement;
+        ) as HTMLSpanElement;
         nameElement.style.borderLeftColor = color;
-        nameElement.innerHTML = name;
+        nameElement.innerText = name;
 
         if (i === builtInContainers.length) {
             list.appendChild(document.createElement("hr"));
