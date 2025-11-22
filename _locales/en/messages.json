@@ -8,32 +8,32 @@
         "description": "Description of the extension."
     },
     "popupTitle": {
-        "message": "Clear container storage",
+        "message": "Clean container storage",
         "description": "Title for the extension's popup."
     },
     "loadContainers": {
         "message": "Waiting for Firefox...",
         "description": "Status message when the extension is loading the container list."
     },
-    "clearConfirm": {
+    "cleanConfirm": {
         "message": "Are you sure?",
-        "description": "Status message when a further confirmation is requested to clear data."
+        "description": "Status message when a further confirmation is requested to clean data."
     },
-    "clearProgress": {
+    "cleanProgress": {
         "message": "In progress...",
-        "description": "Status message when a clear operation is in progress."
+        "description": "Status message when a clean operation is in progress."
     },
-    "clearDone": {
-        "message": "Cleared.",
-        "description": "Status message when a clear is complete."
+    "cleanDone": {
+        "message": "Cleaned.",
+        "description": "Status message when a clean is complete."
     },
     "quickList1": {
-        "message": "Quick clear list",
-        "description": "A user-defined list of containers to clear when activating the extension's keyboard shortcut."
+        "message": "Quick clean list",
+        "description": "A user-defined list of containers to clean when activating the extension's keyboard shortcut."
     },
     "quickList1Help": {
-        "message": "The extension's keyboard shortcut will clear these containers.",
-        "description": "Long description text for the quick clear list."
+        "message": "The extension's keyboard shortcut will clean these containers.",
+        "description": "Long description text for the quick clean list."
     },
     "quickListRegex": {
         "message": "Regular expression (advanced users):",

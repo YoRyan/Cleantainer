@@ -66,16 +66,16 @@ body {
     display: block;
     animation: 0.5s slide-out forwards;
 }
-.container .container-popin .clear-confirm,
-.container .container-popin .clear-progress,
-.container .container-popin .clear-done {
+.container .container-popin .clean-confirm,
+.container .container-popin .clean-progress,
+.container .container-popin .clean-done {
     display: none;
 }
-.container[data-state="ready"] .container-popin .clear-confirm,
-.container[data-state="confirm"] .container-popin .clear-confirm,
-.container[data-state="inProgress"] .container-popin .clear-progress,
-.container[data-state="done"] .container-popin .clear-done,
-.container[data-state="readyDone"] .container-popin .clear-done {
+.container[data-state="ready"] .container-popin .clean-confirm,
+.container[data-state="confirm"] .container-popin .clean-confirm,
+.container[data-state="inProgress"] .container-popin .clean-progress,
+.container[data-state="done"] .container-popin .clean-done,
+.container[data-state="readyDone"] .container-popin .clean-done {
     display: inline;
 }
 
