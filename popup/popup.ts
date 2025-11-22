@@ -16,13 +16,13 @@ type ControlState =
 const builtInContainers: Container[] = [
     {
         cookieStoreId: "firefox-default",
-        name: "Default Container",
+        name: browser.i18n.getMessage("containerDefault"),
         icon: "default_no-container",
         color: "grey",
     },
     {
         cookieStoreId: "firefox-private",
-        name: "Private Browsing",
+        name: browser.i18n.getMessage("containerPrivate"),
         icon: "default_private",
         color: "purple",
     },

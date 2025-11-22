@@ -15,6 +15,14 @@
         "message": "Waiting for Firefox...",
         "description": "Status message when the extension is loading the container list."
     },
+    "containerDefault": {
+        "message": "Default Container",
+        "description": "Name for the default Firefox container."
+    },
+    "containerPrivate": {
+        "message": "Private Browsing",
+        "description": "Name for the private browsing Firefox container."
+    },
     "cleanConfirm": {
         "message": "Are you sure?",
         "description": "Status message when a further confirmation is requested to clean data."
