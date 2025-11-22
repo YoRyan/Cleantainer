@@ -54,11 +54,11 @@ async function popupMain() {
         nameElement.style.borderLeftColor = color;
         nameElement.innerHTML = name;
 
-        list.appendChild(cloned);
-
-        if (i === builtInContainers.length - 1) {
+        if (i === builtInContainers.length) {
             list.appendChild(document.createElement("hr"));
         }
+
+        list.appendChild(cloned);
     }
 }
 
