@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "default_locale": "en",
     "name": "__MSG_extensionName__",
-    "version": "0.1",
+    "version": "0.2",
     "description": "__MSG_extensionDescription__",
     "developer": {
         "name": "Ryan Young",
@@ -13,14 +13,14 @@
             "id": "emptainer@youngryan.com"
         }
     },
-    "permissions": ["menus", "storage", "browsingData", "contextualIdentities"],
+    "permissions": ["storage", "browsingData", "contextualIdentities"],
 
     "background": {
         "scripts": ["background/background.js"]
     },
     "action": {
         "default_area": "navbar",
-        "default_title": "__MSG_extensionName__ - __MSG_actionTitleDefault__",
+        "default_title": "__MSG_extensionName__",
         "default_popup": "popup/popup.html",
         "theme_icons": [
             {
@@ -44,14 +44,14 @@
         "64": "icons/placeholder-32.png"
     },
     "commands": {
-        "clear-data": {
+        "quick-list-1": {
             "suggested_key": {
                 "default": "Alt+Shift+Delete",
                 "mac": "Command+MacCtrl+Delete",
                 "ios": "Command+MacCtrl+Delete",
                 "chromeos": "Alt+Shift+0"
             },
-            "description": "__MSG_clearDataCommand__"
+            "description": "__MSG_quickList1Shortcut__"
         }
     },
     "incognito": "spanning"

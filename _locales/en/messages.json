@@ -39,6 +39,10 @@
         "message": "Quick clean list",
         "description": "A user-defined list of containers to clean when activating the extension's keyboard shortcut."
     },
+    "quickList1Shortcut": {
+        "message": "Activate quick clean list",
+        "description": "Keyboard shortcut description for the quick clean list."
+    },
     "quickList1Help": {
         "message": "The extension's keyboard shortcut will clean these containers.",
         "description": "Long description text for the quick clean list."
