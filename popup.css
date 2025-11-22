@@ -9,16 +9,82 @@ body {
 #container-list:empty + #container-loading {
     display: block;
 }
-.container .clear-confirm,
-.container .clear-progress,
-.container .clear-done {
-    display: none;
-}
-.container[data-confirm-timer] .clear-confirm,
-.container[data-in-progress] .clear-progress,
-.container[data-done-timer] .clear-done {
-    display: inline;
+#container-list {
+    padding: 0;
 }
 .container {
-    border-left: 1rem solid;
+    border: 0.1rem solid grey;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin: 0.3rem 0;
+    cursor: pointer;
+    position: relative;
+
+    .container-name {
+        border-left: 1rem solid;
+        display: block;
+        padding: 0.7rem 0.5rem;
+    }
+    .container-popin {
+        display: none;
+        position: absolute;
+        top: 0;
+        padding: 0.7rem 0.5rem;
+        width: calc(100% - 4rem);
+    }
+}
+.container[data-state="ready"] .container-popin,
+.container[data-state="confirm"] .container-popin {
+    color: white;
+    background-color: red;
+}
+.container[data-state="inProgress"] .container-popin,
+.container[data-state="done"] .container-popin,
+.container[data-state="readyDone"] .container-popin {
+    color: black;
+    background-color: white;
+}
+.container[data-state="inProgress"] .container-popin,
+.container[data-state="confirm"] .container-popin,
+.container[data-state="done"] .container-popin {
+    display: block;
+    animation: 0.5s slide-in forwards;
+}
+.container[data-state="ready"] .container-popin,
+.container[data-state="readyDone"] .container-popin {
+    display: block;
+    animation: 0.5s slide-out forwards;
+}
+.container .container-popin .clear-confirm,
+.container .container-popin .clear-progress,
+.container .container-popin .clear-done {
+    display: none;
+}
+.container[data-state="ready"] .container-popin .clear-confirm,
+.container[data-state="confirm"] .container-popin .clear-confirm,
+.container[data-state="inProgress"] .container-popin .clear-progress,
+.container[data-state="done"] .container-popin .clear-done,
+.container[data-state="readyDone"] .container-popin .clear-done {
+    display: inline;
+}
+
+@keyframes slide-in {
+    from {
+        display: none;
+        right: calc(-100% + 4rem - 1rem);
+    }
+    to {
+        display: block;
+        right: 0;
+    }
+}
+@keyframes slide-out {
+    from {
+        display: block;
+        right: 0;
+    }
+    to {
+        display: none;
+        right: calc(-100% + 4rem - 1rem);
+    }
 }
