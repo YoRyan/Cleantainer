@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="options.css" />
+        <script src="/common/i18n.js" defer></script>
+        <script src="options.js" defer></script>
+    </head>
+
+    <body>
+        <fieldset id="quick-list-1">
+            <legend><span is="i18n-message">quickList1</span></legend>
+            <p>
+                <span is="i18n-message">quickList1Help</span>
+            </p>
+            <ul>
+                <li>
+                    <input
+                        type="checkbox"
+                        data-cookie-store-id="firefox-default"
+                    />
+                    <span class="container">
+                        <span
+                            class="container-name"
+                            style="border-left-color: gray"
+                            >Default Container</span
+                        >
+                    </span>
+                </li>
+                <li>
+                    <input
+                        type="checkbox"
+                        data-cookie-store-id="firefox-private"
+                    />
+                    <span class="container">
+                        <span
+                            class="container-name"
+                            style="border-left-color: purple"
+                            >Private Browsing</span
+                        >
+                    </span>
+                </li>
+                <hr />
+                <li>
+                    <input type="checkbox" class="regex-enable" />
+                    <span is="i18n-message">quickListRegex</span>
+                    <textarea class="regex-input" wrap="soft"></textarea>
+                </li>
+            </ul>
+        </fieldset>
+
+        <template id="quick-list-container">
+            <input type="checkbox" />
+            <span class="container">
+                <span class="container-name">CONTAINER NAME</span>
+            </span>
+        </template>
+    </body>
+</html>

@@ -26,5 +26,17 @@
     "clearDone": {
         "message": "Cleared.",
         "description": "Status message when a clear is complete."
+    },
+    "quickList1": {
+        "message": "Quick clear list",
+        "description": "A user-defined list of containers to clear when activating the extension's keyboard shortcut."
+    },
+    "quickList1Help": {
+        "message": "The extension's keyboard shortcut will clear these containers.",
+        "description": "Long description text for the quick clear list."
+    },
+    "quickListRegex": {
+        "message": "Regular expression (advanced users):",
+        "description": "Description text for regular expression input. Includes a warning that this feature is for advanced users."
     }
 }

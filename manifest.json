@@ -21,7 +21,7 @@
     "action": {
         "default_area": "navbar",
         "default_title": "__MSG_extensionName__ - __MSG_actionTitleDefault__",
-        "default_popup": "popup.html",
+        "default_popup": "popup/popup.html",
         "theme_icons": [
             {
                 "light": "icons/placeholder-16.png",
@@ -34,6 +34,10 @@
                 "size": 32
             }
         ]
+    },
+    "options_ui": {
+        "page": "options/options.html",
+        "open_in_tab": false
     },
     "icons": {
         "32": "icons/placeholder-32.png",
