@@ -18,7 +18,7 @@ const builtInContainers: Container[] = [
         cookieStoreId: "firefox-default",
         name: browser.i18n.getMessage("containerDefault"),
         icon: "default_no-container",
-        color: "grey",
+        color: "gray",
     },
     {
         cookieStoreId: "firefox-private",
