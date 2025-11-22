@@ -63,8 +63,7 @@ async function popupMain() {
 }
 
 async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
-    const { dataset } = this;
-    const current = readControlState(dataset);
+    const current = readControlState(this);
 
     let next: ControlState;
     switch (current) {
@@ -73,7 +72,7 @@ async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
         case "readyDone":
             {
                 const confirmTimer = setTimeout(
-                    () => setControlState(dataset, "ready"),
+                    () => setControlState(this, "ready"),
                     confirmTimeoutMs,
                 );
                 next = { confirmTimer };
@@ -88,7 +87,7 @@ async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
                 clearTimeout(doneTimer);
 
                 const confirmTimer = setTimeout(
-                    () => setControlState(dataset, "ready"),
+                    () => setControlState(this, "ready"),
                     confirmTimeoutMs,
                 );
                 next = { confirmTimer };
@@ -97,23 +96,23 @@ async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
                 clearTimeout(confirmTimer);
 
                 (async () => {
-                    const { cookieStoreId } = dataset;
+                    const { cookieStoreId } = this.dataset;
                     await clearBrowsingData(cookieStoreId as string);
                     const doneTimer = setTimeout(
-                        () => setControlState(dataset, "readyDone"),
+                        () => setControlState(this, "readyDone"),
                         doneTimeoutMs,
                     );
-                    setControlState(dataset, { doneTimer });
+                    setControlState(this, { doneTimer });
                 })();
 
                 next = "inProgress";
             }
     }
-    setControlState(dataset, next);
+    setControlState(this, next);
 }
 
-function readControlState(dataset: DOMStringMap): ControlState {
-    const { state, timer } = dataset;
+function readControlState(el: HTMLElement): ControlState {
+    const { state, timer } = el.dataset;
     switch (state) {
         case "ready":
             return "ready";
@@ -130,7 +129,7 @@ function readControlState(dataset: DOMStringMap): ControlState {
     }
 }
 
-function setControlState(dataset: DOMStringMap, cs: ControlState) {
+function setControlState(el: HTMLElement, cs: ControlState) {
     let state: string | undefined;
     let timer: number | undefined;
     switch (cs) {
@@ -160,6 +159,8 @@ function setControlState(dataset: DOMStringMap, cs: ControlState) {
             }
             break;
     }
+
+    const { dataset } = el;
     if (state !== undefined) {
         dataset.state = state;
     } else {
