@@ -6,11 +6,11 @@
     "description": "__MSG_extensionDescription__",
     "developer": {
         "name": "Ryan Young",
-        "url": "https://github.com/YoRyan/emptainer"
+        "url": "https://github.com/YoRyan/cleantainer"
     },
     "browser_specific_settings": {
         "gecko": {
-            "id": "emptainer@youngryan.com"
+            "id": "cleantainer@youngryan.com"
         }
     },
     "permissions": ["storage", "browsingData", "contextualIdentities"],
