@@ -29,7 +29,7 @@ async function cleanQuickList(idx: number) {
         const matches = await matchContainersByName(
             list.userContainerNames.regex,
         );
-        matches.forEach(cookieStoreIds.add);
+        matches.forEach(id => cookieStoreIds.add(id));
     }
 
     const doCleans = cookieStoreIds.values().map(cleanContextualIdentity);
