@@ -37,6 +37,7 @@ async function optionsMain() {
         const template = document.querySelector(
             "#quick-list-container",
         ) as HTMLTemplateElement;
+        const parent = fieldset.querySelector("ul") as HTMLUListElement;
         const insertBefore = fieldset.querySelector(
             "ul li:last-child",
         ) as HTMLLIElement;
@@ -55,7 +56,7 @@ async function optionsMain() {
             nameElement.style.borderLeftColor = color;
             nameElement.innerText = name;
 
-            insertBefore.parentNode?.insertBefore(cloned, insertBefore);
+            parent.insertBefore(cloned, insertBefore);
         }
     }
 
