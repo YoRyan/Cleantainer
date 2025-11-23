@@ -97,7 +97,11 @@ async function containerCheckboxHandler(
             break;
         default: // user container
             const ucSet = new Set(list.userContainerIds);
-            (checked ? ucSet.add : ucSet.delete)(cookieStoreId);
+            if (checked) {
+                ucSet.add(cookieStoreId);
+            } else {
+                ucSet.delete(cookieStoreId);
+            }
             list.userContainerIds = Array.from(ucSet);
             break;
     }
