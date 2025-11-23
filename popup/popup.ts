@@ -1,3 +1,5 @@
+import { cleanContextualIdentity } from "../common/browsing-data.js";
+
 type Container = {
     cookieStoreId: string;
     name: string;
@@ -97,7 +99,7 @@ async function containerClickHandler(this: HTMLElement, ev: MouseEvent) {
 
                 (async () => {
                     const { cookieStoreId } = this.dataset;
-                    await clearBrowsingData(cookieStoreId as string);
+                    await cleanContextualIdentity(cookieStoreId as string);
                     const doneTimer = setTimeout(
                         () => setControlState(this, "readyDone"),
                         doneTimeoutMs,
@@ -171,21 +173,6 @@ function setControlState(el: HTMLElement, cs: ControlState) {
     } else {
         delete dataset.timer;
     }
-}
-
-async function clearBrowsingData(cookieStoreId: string) {
-    const options: browser.browsingData.RemovalOptions = {
-        cookieStoreId,
-        originTypes: {
-            unprotectedWeb: true,
-            protectedWeb: false,
-            extension: false,
-        },
-    };
-    return Promise.all([
-        browser.browsingData.removeCookies(options),
-        browser.browsingData.removeLocalStorage(options),
-    ]);
 }
 
 popupMain();

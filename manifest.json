@@ -16,7 +16,8 @@
     "permissions": ["storage", "browsingData", "contextualIdentities"],
 
     "background": {
-        "scripts": ["background/background.js"]
+        "scripts": ["background/background.js"],
+        "type": "module"
     },
     "action": {
         "default_area": "navbar",

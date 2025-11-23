@@ -7,8 +7,10 @@
         "types": ["firefox-webext-browser"]
     },
     "files": [
-        "common/i18n.ts",
         "background/background.ts",
+        "common/browsing-data.ts",
+        "common/i18n.ts",
+        "common/storage.ts",
         "options/options.ts",
         "popup/popup.ts"
     ]
