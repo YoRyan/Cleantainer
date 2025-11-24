@@ -79,30 +79,30 @@ function createCleanerElement(
     const { cookieStoreId, name, icon, color, pinOrder, queryOrder } = attr;
 
     const fragment = template.content.cloneNode(true) as Element;
-    const element = fragment.querySelector(".cleaner") as CleanerElement;
-    element.dataset.cookieStoreId = cookieStoreId;
+    const cleaner = fragment.querySelector(".cleaner") as CleanerElement;
+    cleaner.dataset.cookieStoreId = cookieStoreId;
     if (pinOrder !== undefined) {
-        element.dataset.pinOrder = "" + pinOrder;
+        cleaner.dataset.pinOrder = "" + pinOrder;
     }
     if (queryOrder !== undefined) {
-        element.dataset.queryOrder = "" + queryOrder;
+        cleaner.dataset.queryOrder = "" + queryOrder;
     }
 
-    const button = element.querySelector(".cleaner-button") as HTMLElement;
+    const button = cleaner.querySelector(".cleaner-button") as HTMLElement;
     button.addEventListener("click", async ev =>
-        cleanerClickHandler.call(element, ev),
+        cleanerClickHandler.call(cleaner, ev),
     );
 
-    const pin = element.querySelector(".cleaner-pin") as HTMLElement;
+    const pin = cleaner.querySelector(".cleaner-pin") as HTMLElement;
     pin.addEventListener("click", async ev =>
-        pinClickHandler.call(element, ev),
+        pinClickHandler.call(cleaner, ev),
     );
 
     const nameSpan = fragment.querySelector(".cleaner-name") as HTMLElement;
     nameSpan.style.borderLeftColor = color;
     nameSpan.innerText = name;
 
-    return element;
+    return cleaner;
 }
 
 async function cleanerClickHandler(this: CleanerElement, ev: MouseEvent) {
