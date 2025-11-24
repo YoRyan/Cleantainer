@@ -1,5 +1,6 @@
 export type Options = {
     quickLists: QuickList[];
+    pinnedIds: string[];
 };
 
 export type QuickList = {
@@ -24,7 +25,8 @@ export async function writeLocalOptions(options: Options) {
 }
 
 export function readOptions(obj: unknown): Options {
-    let quickLists: QuickList[] = [];
+    let quickLists: QuickList[] = [],
+        pinnedIds: string[] = [];
     fail: do {
         if (typeof obj !== "object" || obj === null) {
             break fail;
@@ -39,8 +41,14 @@ export function readOptions(obj: unknown): Options {
         for (let i = 0; i < nQuickLists - quickLists.length; i++) {
             quickLists.push(readQuickList(undefined));
         }
+
+        if ("pinnedIds" in obj) {
+            pinnedIds = Array.from(
+                Object.values(new Object(obj.pinnedIds)),
+            ).filter(s => typeof s === "string");
+        }
     } while (false);
-    return { quickLists };
+    return { quickLists, pinnedIds };
 }
 
 function readQuickList(obj: unknown): QuickList {

@@ -3,9 +3,12 @@ class MessageElement extends HTMLSpanElement {
         super();
     }
     connectedCallback() {
-        const { textContent } = this;
-        if (textContent !== null) {
-            this.textContent = browser.i18n.getMessage(textContent);
+        if (!("initialized" in this.dataset)) {
+            const { textContent } = this;
+            if (textContent !== null) {
+                this.textContent = browser.i18n.getMessage(textContent);
+            }
+            this.dataset.initialized = "";
         }
     }
 }

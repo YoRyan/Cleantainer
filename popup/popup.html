@@ -11,26 +11,31 @@
     <body>
         <div>
             <h3><span is="i18n-message">popupTitle</span></h3>
-            <ul id="container-list"></ul>
-            <p id="container-loading">
+            <ul id="cleaner-list"></ul>
+            <p id="popup-loading">
                 <span is="i18n-message">loadContainers</span>
             </p>
         </div>
 
-        <template id="container">
-            <li class="container">
-                <span class="container-name">CONTAINER NAME</span>
-                <span class="container-popin">
-                    <span class="clean-confirm"
-                        ><span is="i18n-message">cleanConfirm</span></span
+        <template id="cleaner">
+            <li class="cleaner container">
+                <span class="cleaner-button">
+                    <span class="cleaner-name container-name"
+                        >CONTAINER NAME</span
                     >
-                    <span class="clean-progress"
-                        ><span is="i18n-message">cleanProgress</span></span
+                    <span class="cleaner-popin">
+                        <span class="cleaner-confirm"
+                            ><span is="i18n-message">cleanConfirm</span></span
+                        >
+                        <span class="cleaner-progress"
+                            ><span is="i18n-message">cleanProgress</span></span
+                        >
+                        <span class="cleaner-done"
+                            ><span is="i18n-message">cleanDone</span></span
+                        ></span
                     >
-                    <span class="clean-done"
-                        ><span is="i18n-message">cleanDone</span></span
-                    ></span
-                >
+                </span>
+                <button class="cleaner-pin"></button>
             </li>
         </template>
     </body>
