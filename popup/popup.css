@@ -15,7 +15,7 @@ body {
 #cleaner-list {
     padding: 0;
 
-    hr {
+    #divider-user {
         visibility: hidden;
     }
 
@@ -26,28 +26,23 @@ body {
 
         .cleaner-button {
             flex: 1 0 auto;
-            border: 1px solid darkgray;
-            border-radius: 0.5rem;
             overflow: hidden;
             margin: 0.3rem 0;
             position: relative;
+            text-align: left;
             cursor: pointer;
-            user-select: none;
 
             .cleaner-name {
                 border-left: 1rem solid;
                 display: block;
-                padding: 0.6rem 0.5rem;
+                padding: 0.3rem;
             }
             .cleaner-popin {
                 position: absolute;
-                top: 0;
+                top: -0.3rem;
                 padding: 0.6rem 0.5rem;
                 width: calc(100% - 4rem);
             }
-        }
-        .cleaner-button:hover {
-            background-color: light-dark(gainsboro, darkslategray);
         }
         .cleaner-pin {
             flex: 0 0 auto;

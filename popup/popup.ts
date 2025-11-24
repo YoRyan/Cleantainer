@@ -88,7 +88,9 @@ function createCleanerElement(
         element.dataset.queryOrder = "" + queryOrder;
     }
 
-    const button = element.querySelector(".cleaner-button") as HTMLSpanElement;
+    const button = element.querySelector(
+        ".cleaner-button",
+    ) as HTMLButtonElement;
     button.addEventListener("click", async ev =>
         cleanerClickHandler.call(element, ev),
     );
@@ -284,7 +286,9 @@ function orderCleaners() {
         .forEach(el => list.appendChild(el));
 
     if (pinned.length > 0 && notPinned.length > 0) {
-        list.appendChild(document.createElement("hr"));
+        const hr = document.createElement("hr");
+        hr.setAttribute("id", "divider-pinned");
+        list.appendChild(hr);
     }
 
     // Next, built-in containers that aren't pinned.
@@ -297,7 +301,9 @@ function orderCleaners() {
         .forEach(el => list.appendChild(el));
 
     if (builtIn.length > 0 && user.length > 0) {
-        list.appendChild(document.createElement("hr"));
+        const hr = document.createElement("hr");
+        hr.setAttribute("id", "divider-user");
+        list.appendChild(hr);
     }
 
     // Finally, user containers that aren't pinned.
