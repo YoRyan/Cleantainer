@@ -48,7 +48,7 @@ async function matchContainersByName(regex: string): Promise<string[]> {
     const userContainers = await browser.contextualIdentities.query({});
     return userContainers
         .filter(ci => re.test(ci.name))
-        .map(ci => ci.cookieStoreId);
+        .map(({ cookieStoreId }) => cookieStoreId);
 }
 
 async function showBadgeStatus(text: string) {
