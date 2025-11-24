@@ -6,9 +6,7 @@ async function optionsMain() {
     const i = 0;
     const list = initial.quickLists[i];
 
-    const fieldset = document.querySelector(
-        "#quick-list-1",
-    ) as HTMLFieldSetElement;
+    const fieldset = document.querySelector("#quick-list-1") as HTMLElement;
     const checkboxHandler = async function (this: HTMLInputElement, ev: Event) {
         return containerCheckboxHandler.call(this, ev, i);
     };
@@ -37,10 +35,10 @@ async function optionsMain() {
         const template = document.querySelector(
             "#quick-list-container",
         ) as HTMLTemplateElement;
-        const parent = fieldset.querySelector("ul") as HTMLUListElement;
+        const parent = fieldset.querySelector("ul") as Element;
         const insertBefore = fieldset.querySelector(
             "ul li:last-child",
-        ) as HTMLLIElement;
+        ) as HTMLElement;
         const ucSet = new Set(list.userContainerIds);
         for (const { cookieStoreId, name, color } of userContainers) {
             const cloned = template.content.cloneNode(true) as Element;
@@ -52,7 +50,7 @@ async function optionsMain() {
 
             const nameElement = cloned.querySelector(
                 ".container-name",
-            ) as HTMLSpanElement;
+            ) as HTMLElement;
             nameElement.style.borderLeftColor = color;
             nameElement.innerText = name;
 

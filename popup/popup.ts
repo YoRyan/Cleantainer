@@ -19,7 +19,7 @@ async function popupMain() {
     const options = await readLocalOptions();
     const { pinnedIds } = options;
 
-    const list = document.querySelector("#cleaner-list") as HTMLUListElement;
+    const list = document.querySelector("#cleaner-list") as HTMLElement;
     const template = document.querySelector("#cleaner") as HTMLTemplateElement;
 
     // Create any built-in containers.
@@ -88,19 +88,17 @@ function createCleanerElement(
         element.dataset.queryOrder = "" + queryOrder;
     }
 
-    const button = element.querySelector(
-        ".cleaner-button",
-    ) as HTMLButtonElement;
+    const button = element.querySelector(".cleaner-button") as HTMLElement;
     button.addEventListener("click", async ev =>
         cleanerClickHandler.call(element, ev),
     );
 
-    const pin = element.querySelector(".cleaner-pin") as HTMLButtonElement;
+    const pin = element.querySelector(".cleaner-pin") as HTMLElement;
     pin.addEventListener("click", async ev =>
         pinClickHandler.call(element, ev),
     );
 
-    const nameSpan = fragment.querySelector(".cleaner-name") as HTMLSpanElement;
+    const nameSpan = fragment.querySelector(".cleaner-name") as HTMLElement;
     nameSpan.style.borderLeftColor = color;
     nameSpan.innerText = name;
 
@@ -242,7 +240,7 @@ async function pinClickHandler(this: CleanerElement, ev: MouseEvent) {
 }
 
 function fixPinOrder() {
-    const list = document.querySelector("#cleaner-list") as HTMLUListElement;
+    const list = document.querySelector("#cleaner-list") as HTMLElement;
     const all = Array.from(list.querySelectorAll("li")) as CleanerElement[];
 
     all.filter(el => "pinOrder" in el.dataset)
@@ -258,7 +256,7 @@ function fixPinOrder() {
 }
 
 function orderCleaners() {
-    const list = document.querySelector("#cleaner-list") as HTMLUListElement;
+    const list = document.querySelector("#cleaner-list") as HTMLElement;
     const all = Array.from(list.querySelectorAll("li")) as CleanerElement[];
 
     // Clear out all existing dividers.
