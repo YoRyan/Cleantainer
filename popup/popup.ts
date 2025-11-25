@@ -23,30 +23,31 @@ async function popupMain() {
     const template = document.querySelector("#cleaner") as HTMLTemplateElement;
 
     // Create any built-in containers.
-    list.appendChild(
-        createCleanerElement(template, {
+    list.append(
+        ...[
+            {
             cookieStoreId: "firefox-default",
             name: browser.i18n.getMessage("containerDefault"),
             icon: "default_no-container",
             color: "gray",
             pinOrder: findValue(pinnedIds, "firefox-default"),
             queryOrder: undefined,
-        }),
-    );
-    list.appendChild(
-        createCleanerElement(template, {
+            },
+            {
             cookieStoreId: "firefox-private",
             name: browser.i18n.getMessage("containerPrivate"),
             icon: "default_private",
             color: "purple",
             pinOrder: findValue(pinnedIds, "firefox-private"),
             queryOrder: undefined,
-        }),
+            },
+        ].map(attr => createCleanerElement(template, attr)),
     );
 
     // Create all user containers.
     const userContainers = await browser.contextualIdentities.query({});
-    userContainers
+    list.append(
+        ...userContainers
         .entries()
         .map(([i, ci]) => {
             const { cookieStoreId, name, icon, color } = ci;
@@ -59,8 +60,8 @@ async function popupMain() {
                 queryOrder: i,
             };
         })
-        .map(attr => createCleanerElement(template, attr))
-        .forEach(el => list.appendChild(el));
+            .map(attr => createCleanerElement(template, attr)),
+    );
 
     orderCleaners();
 }
@@ -275,13 +276,13 @@ function orderCleaners() {
 
     // Place pinned containers first.
     const [pinned, notPinned] = subdivide(all, el => "pinOrder" in el.dataset);
-    pinned
-        .sort((a, b) => {
+    list.append(
+        ...pinned.sort((a, b) => {
             const ao = parseInt(a.dataset.pinOrder as string);
             const bo = parseInt(b.dataset.pinOrder as string);
             return ao < bo ? -1 : 1;
-        })
-        .forEach(el => list.appendChild(el));
+        }),
+    );
 
     if (pinned.length > 0 && notPinned.length > 0) {
         const hr = document.createElement("hr");
@@ -294,9 +295,9 @@ function orderCleaners() {
         notPinned,
         el => "queryOrder" in el.dataset,
     );
-    builtIn
-        .sort((a, b) => (a.innerText < b.innerText ? -1 : 1))
-        .forEach(el => list.appendChild(el));
+    list.append(
+        ...builtIn.sort((a, b) => (a.innerText < b.innerText ? -1 : 1)),
+    );
 
     if (builtIn.length > 0 && user.length > 0) {
         const hr = document.createElement("hr");
@@ -305,11 +306,13 @@ function orderCleaners() {
     }
 
     // Finally, user containers that aren't pinned.
-    user.sort((a, b) => {
+    list.append(
+        ...user.sort((a, b) => {
         const ao = parseInt(a.dataset.queryOrder as string);
         const bo = parseInt(b.dataset.queryOrder as string);
         return ao < bo ? -1 : 1;
-    }).forEach(el => list.appendChild(el));
+        }),
+    );
 }
 
 popupMain();
