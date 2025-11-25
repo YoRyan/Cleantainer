@@ -285,7 +285,7 @@ function orderCleaners() {
 
     if (pinned.length > 0 && notPinned.length > 0) {
         const hr = document.createElement("hr");
-        hr.setAttribute("id", "divider-pinned");
+        hr.id = "divider-pinned";
         list.appendChild(hr);
     }
 
@@ -300,7 +300,7 @@ function orderCleaners() {
 
     if (builtIn.length > 0 && user.length > 0) {
         const hr = document.createElement("hr");
-        hr.setAttribute("id", "divider-user");
+        hr.id = "divider-user";
         list.appendChild(hr);
     }
 
