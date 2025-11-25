@@ -155,8 +155,8 @@ async function cleanerClickHandler(this: CleanerElement, ev: MouseEvent) {
     setCleanerState(this, next);
 }
 
-function readCleanerState(el: CleanerElement): CleanerState {
-    const { state, timer } = el.dataset;
+function readCleanerState(ce: CleanerElement): CleanerState {
+    const { state, timer } = ce.dataset;
     switch (state) {
         case "ready":
             return "ready";
@@ -173,7 +173,7 @@ function readCleanerState(el: CleanerElement): CleanerState {
     }
 }
 
-function setCleanerState(el: CleanerElement, cs: CleanerState) {
+function setCleanerState(ce: CleanerElement, cs: CleanerState) {
     let state: string | undefined;
     let timer: number | undefined;
     switch (cs) {
@@ -204,7 +204,7 @@ function setCleanerState(el: CleanerElement, cs: CleanerState) {
             break;
     }
 
-    const { dataset } = el;
+    const { dataset } = ce;
     if (state !== undefined) {
         dataset.state = state;
     } else {
@@ -243,11 +243,11 @@ async function pinClickHandler(this: CleanerElement, ev: MouseEvent) {
 function fixPinOrder() {
     const list = document.querySelector("#cleaner-list") as HTMLElement;
     const all = Array.from(list.querySelectorAll("li")) as CleanerElement[];
-    const pinned = all.filter(el => "pinOrder" in el.dataset);
-    sortMap(pinned, el => parseInt(el.dataset.pinOrder as string))
+    const pinned = all.filter(ce => "pinOrder" in ce.dataset);
+    sortMap(pinned, ce => parseInt(ce.dataset.pinOrder as string))
         .entries()
-        .forEach(([i, el]) => {
-            el.dataset.pinOrder = "" + i;
+        .forEach(([i, ce]) => {
+            ce.dataset.pinOrder = "" + i;
         });
 }
 
@@ -259,20 +259,20 @@ function orderCleaners() {
     list.querySelectorAll("hr").forEach(hr => hr.remove());
 
     // Hack to avoid replaying CSS animations.
-    all.filter(el => {
-        switch (readCleanerState(el)) {
+    all.filter(ce => {
+        switch (readCleanerState(ce)) {
             case "ready":
             case "readyDone":
                 return true;
             default:
                 return false;
         }
-    }).forEach(el => setCleanerState(el, "load"));
+    }).forEach(ce => setCleanerState(ce, "load"));
 
     // Place pinned containers first.
-    const [pinned, notPinned] = subdivide(all, el => "pinOrder" in el.dataset);
+    const [pinned, notPinned] = subdivide(all, ce => "pinOrder" in ce.dataset);
     list.append(
-        ...sortMap(pinned, el => parseInt(el.dataset.pinOrder as string)),
+        ...sortMap(pinned, ce => parseInt(ce.dataset.pinOrder as string)),
     );
 
     if (pinned.length > 0 && notPinned.length > 0) {
@@ -284,9 +284,9 @@ function orderCleaners() {
     // Next, built-in containers that aren't pinned.
     const [user, builtIn] = subdivide(
         notPinned,
-        el => "queryOrder" in el.dataset,
+        ce => "queryOrder" in ce.dataset,
     );
-    list.append(...sortMap(builtIn, el => el.innerText));
+    list.append(...sortMap(builtIn, ce => ce.innerText));
 
     if (builtIn.length > 0 && user.length > 0) {
         const hr = document.createElement("hr");
@@ -296,7 +296,7 @@ function orderCleaners() {
 
     // Finally, user containers that aren't pinned.
     list.append(
-        ...sortMap(user, el => parseInt(el.dataset.queryOrder as string)),
+        ...sortMap(user, ce => parseInt(ce.dataset.queryOrder as string)),
     );
 }
 
