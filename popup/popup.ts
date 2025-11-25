@@ -1,5 +1,5 @@
 import { findValue, sortMap, subdivide } from "../common/arrays.js";
-import { cleanContextualIdentity } from "../common/browsing-data.js";
+import { cleanContainer } from "../common/browsing-data.js";
 import { readLocalOptions, writeLocalOptions } from "../common/storage.js";
 
 type CleanerState =
@@ -26,20 +26,20 @@ async function popupMain() {
     list.append(
         ...[
             {
-            cookieStoreId: "firefox-default",
-            name: browser.i18n.getMessage("containerDefault"),
-            icon: "default_no-container",
-            color: "gray",
-            pinOrder: findValue(pinnedIds, "firefox-default"),
-            queryOrder: undefined,
+                cookieStoreId: "firefox-default",
+                name: browser.i18n.getMessage("containerDefault"),
+                icon: "default_no-container",
+                color: "gray",
+                pinOrder: findValue(pinnedIds, "firefox-default"),
+                queryOrder: undefined,
             },
             {
-            cookieStoreId: "firefox-private",
-            name: browser.i18n.getMessage("containerPrivate"),
-            icon: "default_private",
-            color: "purple",
-            pinOrder: findValue(pinnedIds, "firefox-private"),
-            queryOrder: undefined,
+                cookieStoreId: "firefox-private",
+                name: browser.i18n.getMessage("containerPrivate"),
+                icon: "default_private",
+                color: "purple",
+                pinOrder: findValue(pinnedIds, "firefox-private"),
+                queryOrder: undefined,
             },
         ].map(attr => createCleanerElement(template, attr)),
     );
@@ -48,18 +48,18 @@ async function popupMain() {
     const userContainers = await browser.contextualIdentities.query({});
     list.append(
         ...userContainers
-        .entries()
-        .map(([i, ci]) => {
-            const { cookieStoreId, name, icon, color } = ci;
-            return {
-                cookieStoreId,
-                name,
-                icon,
-                color,
-                pinOrder: findValue(pinnedIds, cookieStoreId),
-                queryOrder: i,
-            };
-        })
+            .entries()
+            .map(([i, ci]) => {
+                const { cookieStoreId, name, icon, color } = ci;
+                return {
+                    cookieStoreId,
+                    name,
+                    icon,
+                    color,
+                    pinOrder: findValue(pinnedIds, cookieStoreId),
+                    queryOrder: i,
+                };
+            })
             .map(attr => createCleanerElement(template, attr)),
     );
 
@@ -141,7 +141,7 @@ async function cleanerClickHandler(this: CleanerElement, ev: MouseEvent) {
 
                 (async () => {
                     const { cookieStoreId } = this.dataset;
-                    await cleanContextualIdentity(cookieStoreId as string);
+                    await cleanContainer(cookieStoreId as string);
                     const doneTimer = setTimeout(
                         () => setCleanerState(this, "readyDone"),
                         doneTimeoutMs,

@@ -1,14 +1,17 @@
-export async function cleanContextualIdentity(cookieStoreId: string) {
-    const options: browser.browsingData.RemovalOptions = {
-        cookieStoreId,
-        originTypes: {
-            unprotectedWeb: true,
-            protectedWeb: false,
-            extension: false,
+export async function cleanContainer(cookieStoreId: string) {
+    await browser.browsingData.remove(
+        {
+            cookieStoreId,
+            originTypes: {
+                unprotectedWeb: true,
+                protectedWeb: false,
+                extension: false,
+            },
         },
-    };
-    return Promise.all([
-        browser.browsingData.removeCookies(options),
-        browser.browsingData.removeLocalStorage(options),
-    ]);
+        {
+            cookies: true,
+            indexedDB: true,
+            localStorage: true,
+        },
+    );
 }

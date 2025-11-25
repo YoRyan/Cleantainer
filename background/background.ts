@@ -1,4 +1,4 @@
-import { cleanContextualIdentity } from "../common/browsing-data.js";
+import { cleanContainer } from "../common/browsing-data.js";
 import { readLocalOptions } from "../common/storage.js";
 
 const badgeTimeoutMs = 3000;
@@ -32,7 +32,7 @@ async function cleanQuickList(idx: number) {
         matches.forEach(id => cookieStoreIds.add(id));
     }
 
-    const doCleans = cookieStoreIds.values().map(cleanContextualIdentity);
+    const doCleans = cookieStoreIds.values().map(cleanContainer);
     const showBadge = showBadgeStatus("" + cookieStoreIds.size);
     return Promise.all([...doCleans, showBadge]);
 }
