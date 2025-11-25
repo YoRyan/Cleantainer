@@ -1,4 +1,4 @@
-import { findValue, subdivide } from "../common/arrays.js";
+import { findValue, sortMap, subdivide } from "../common/arrays.js";
 import { cleanContextualIdentity } from "../common/browsing-data.js";
 import { readLocalOptions, writeLocalOptions } from "../common/storage.js";
 
@@ -243,13 +243,8 @@ async function pinClickHandler(this: CleanerElement, ev: MouseEvent) {
 function fixPinOrder() {
     const list = document.querySelector("#cleaner-list") as HTMLElement;
     const all = Array.from(list.querySelectorAll("li")) as CleanerElement[];
-
-    all.filter(el => "pinOrder" in el.dataset)
-        .sort((a, b) => {
-            const ao = parseInt(a.dataset.pinOrder as string);
-            const bo = parseInt(b.dataset.pinOrder as string);
-            return ao < bo ? -1 : 1;
-        })
+    const pinned = all.filter(el => "pinOrder" in el.dataset);
+    sortMap(pinned, el => parseInt(el.dataset.pinOrder as string))
         .entries()
         .forEach(([i, el]) => {
             el.dataset.pinOrder = "" + i;
@@ -277,11 +272,7 @@ function orderCleaners() {
     // Place pinned containers first.
     const [pinned, notPinned] = subdivide(all, el => "pinOrder" in el.dataset);
     list.append(
-        ...pinned.sort((a, b) => {
-            const ao = parseInt(a.dataset.pinOrder as string);
-            const bo = parseInt(b.dataset.pinOrder as string);
-            return ao < bo ? -1 : 1;
-        }),
+        ...sortMap(pinned, el => parseInt(el.dataset.pinOrder as string)),
     );
 
     if (pinned.length > 0 && notPinned.length > 0) {
@@ -295,9 +286,7 @@ function orderCleaners() {
         notPinned,
         el => "queryOrder" in el.dataset,
     );
-    list.append(
-        ...builtIn.sort((a, b) => (a.innerText < b.innerText ? -1 : 1)),
-    );
+    list.append(...sortMap(builtIn, el => el.innerText));
 
     if (builtIn.length > 0 && user.length > 0) {
         const hr = document.createElement("hr");
@@ -307,11 +296,7 @@ function orderCleaners() {
 
     // Finally, user containers that aren't pinned.
     list.append(
-        ...user.sort((a, b) => {
-        const ao = parseInt(a.dataset.queryOrder as string);
-        const bo = parseInt(b.dataset.queryOrder as string);
-        return ao < bo ? -1 : 1;
-        }),
+        ...sortMap(user, el => parseInt(el.dataset.queryOrder as string)),
     );
 }
 

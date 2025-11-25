@@ -18,3 +18,20 @@ export function subdivide<T>(
     }
     return [isTrue, isFalse];
 }
+
+export function sortMap<T>(
+    arr: T[],
+    mapFn: (value: T) => string | number,
+): T[] {
+    return arr.sort((a, b) => {
+        const av = mapFn(a);
+        const bv = mapFn(b);
+        if (av < bv) {
+            return -1;
+        } else if (av > bv) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+}
