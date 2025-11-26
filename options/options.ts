@@ -21,28 +21,21 @@ function setupQuickList(
     const fieldset = document.querySelector(
         "#quick-list-" + (n + 1),
     ) as HTMLElement;
+    const checkboxHandler = async function (this: HTMLInputElement, ev: Event) {
+        return containerCheckboxHandler.call(this, ev, n);
+    };
 
     const defaultChecked = fieldset.querySelector(
         "[data-cookie-store-id='firefox-default']",
     ) as HTMLInputElement;
     defaultChecked.checked = ql.defaultContainer;
+    defaultChecked.addEventListener("change", checkboxHandler);
 
     const privateChecked = fieldset.querySelector(
         "[data-cookie-store-id='firefox-private']",
     ) as HTMLInputElement;
     privateChecked.checked = ql.privateContainer;
-
-    const regexChecked = fieldset.querySelector(
-        ".regex-enable",
-    ) as HTMLInputElement;
-    regexChecked.checked = ql.userContainerNames.enabled;
-
-    const checkboxHandler = async function (this: HTMLInputElement, ev: Event) {
-        return containerCheckboxHandler.call(this, ev, n);
-    };
-    [defaultChecked, privateChecked, regexChecked].forEach(input =>
-        input.addEventListener("change", checkboxHandler),
-    );
+    privateChecked.addEventListener("change", checkboxHandler);
 
     const template = document.querySelector(
         "#quick-list-container",
@@ -76,7 +69,21 @@ function setupQuickList(
         return regexTextareaHandler.call(this, ev, n);
     };
     regexInput.value = ql.userContainerNames.regex;
+    regexInput.disabled = !ql.userContainerNames.enabled;
     regexInput.addEventListener("change", regexHandler);
+
+    const regexChecked = fieldset.querySelector(
+        ".regex-enable",
+    ) as HTMLInputElement;
+    regexChecked.checked = ql.userContainerNames.enabled;
+    const regexCheckedHandler = async function (
+        this: HTMLInputElement,
+        ev: Event,
+    ) {
+        regexInput.disabled = !this.checked;
+        await containerCheckboxHandler.call(this, ev, n);
+    };
+    regexChecked.addEventListener("change", regexCheckedHandler);
 }
 
 async function containerCheckboxHandler(
