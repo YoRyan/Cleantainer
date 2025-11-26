@@ -1,10 +1,36 @@
 :root {
     color-scheme: light dark;
+
+    body {
+        color: light-dark(#0c0c0d, #ffffff);
+        background-color: light-dark(#ffffff, #38383d);
+        font-family: "Segoe UI", "San Francisco", "Ubuntu", sans-serif;
+        font-size: 12px;
+        user-select: none;
+    }
 }
-body {
-    color: light-dark(black, white);
-    background-color: light-dark(ghostwhite, black);
-    font-family: sans-serif;
+h1 {
+    font-weight: 600;
+    font-size: inherit;
+    text-align: center;
+    padding: 0.4rem;
+}
+hr {
+    color: light-dark(#f9f9fa, #b1b1b3);
+    border-width: 0.5px 0 0 0;
+    margin: 0.4rem 0;
+}
+button {
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    font-size: inherit;
+}
+button:hover {
+    background-color: light-dark(#ededf0, #4a4a4f);
+}
+button:active {
+    background-color: light-dark(#d7d7db, #737373);
 }
 #popup-loading {
     display: none;
@@ -13,7 +39,9 @@ body {
     display: block;
 }
 #cleaner-list {
+    margin: 0;
     padding: 0;
+    min-width: 15rem;
 
     #divider-user {
         visibility: hidden;
@@ -23,11 +51,12 @@ body {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
+        margin: 0.4rem 0;
 
         .cleaner-button {
             flex: 1 0 auto;
+            padding: 0.4rem;
             overflow: hidden;
-            margin: 0.3rem 0;
             position: relative;
             text-align: left;
             cursor: pointer;
@@ -38,30 +67,31 @@ body {
                 padding: 0.3rem;
             }
             .cleaner-popin {
+                display: none;
                 position: absolute;
-                top: -0.3rem;
-                padding: 0.6rem 0.5rem;
-                width: calc(100% - 4rem);
+                top: 0;
+                padding: 0.7rem 0.5rem;
+                width: calc(100% - 5rem);
+                box-shadow: inset 0 2px 8px rgba(12, 12, 13, 0.1);
             }
         }
         .cleaner-pin {
             flex: 0 0 auto;
             margin-left: 0.3rem;
             cursor: pointer;
-            user-select: none;
         }
     }
 
     .cleaner[data-state="ready"] .cleaner-popin,
     .cleaner[data-state="confirm"] .cleaner-popin {
-        color: white;
-        background-color: red;
+        color: #3e2800;
+        background-color: #ffe900;
     }
     .cleaner[data-state="inProgress"] .cleaner-popin,
     .cleaner[data-state="done"] .cleaner-popin,
     .cleaner[data-state="readyDone"] .cleaner-popin {
-        color: white;
-        background-color: maroon;
+        color: #003706;
+        background-color: #30e60b;
     }
     .cleaner[data-state="inProgress"] .cleaner-popin,
     .cleaner[data-state="confirm"] .cleaner-popin,
