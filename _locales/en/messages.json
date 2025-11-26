@@ -50,5 +50,21 @@
     "quickListRegex": {
         "message": "Regular expression (advanced users):",
         "description": "Description text for regular expression input. Includes a warning that this feature is for advanced users."
+    },
+    "importFromFile": {
+        "message": "Import options from file...",
+        "description": "Import extension settings from a JSON file."
+    },
+    "exportToFile": {
+        "message": "Export options to file...",
+        "description": "Export extension settings to a downloadable JSON file."
+    },
+    "importErrorNotJson": {
+        "message": "That file doesn't look like JSON.",
+        "description": "The imported options file does not look like valid JSON."
+    },
+    "exportFilename": {
+        "message": "Cleantainer options",
+        "description": "Default filename for the JSON settings export."
     }
 }

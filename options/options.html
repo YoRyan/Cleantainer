@@ -54,6 +54,20 @@
             </ul>
         </fieldset>
 
+        <div id="import-export">
+            <button id="import-json">
+                <span is="i18n-message">importFromFile</span>
+            </button>
+            <input
+                type="file"
+                id="import-json-picker"
+                accept="application/json"
+            />
+            <button id="export-json">
+                <span is="i18n-message">exportToFile</span>
+            </button>
+        </div>
+
         <template id="quick-list-container">
             <input type="checkbox" />
             <span class="container">

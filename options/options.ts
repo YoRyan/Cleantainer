@@ -1,4 +1,8 @@
-import { readLocalOptions, writeLocalOptions } from "../common/storage.js";
+import {
+    readLocalOptions,
+    readOptions,
+    writeLocalOptions,
+} from "../common/storage.js";
 
 async function optionsMain() {
     const userContainers = await browser.contextualIdentities.query({});
@@ -71,6 +75,8 @@ async function optionsMain() {
         input.value = list.userContainerNames.regex;
         input.addEventListener("change", changeHandler);
     }
+
+    setupImportExport();
 }
 
 async function containerCheckboxHandler(
@@ -117,6 +123,67 @@ async function regexTextareaHandler(
     list.userContainerNames.regex = this.value;
 
     await writeLocalOptions(options);
+}
+
+function setupImportExport() {
+    const importButton = document.querySelector("#import-json") as HTMLElement;
+    importButton.addEventListener("click", importJsonClickHandler);
+
+    const importPicker = document.querySelector(
+        "#import-json-picker",
+    ) as HTMLInputElement;
+    importPicker.addEventListener("change", importJsonChangeHandler);
+
+    const exportButton = document.querySelector("#export-json") as HTMLElement;
+    exportButton.addEventListener("click", exportJsonClickHandler);
+}
+
+async function importJsonClickHandler(this: HTMLElement, ev: Event) {
+    const picker = document.querySelector(
+        "#import-json-picker",
+    ) as HTMLInputElement;
+    picker.showPicker();
+}
+
+async function importJsonChangeHandler(this: HTMLInputElement, ev: Event) {
+    const fileList = this.files as FileList;
+    if (fileList.length < 1) {
+        return;
+    }
+
+    notJson: do {
+        const [file] = fileList;
+        if (file.type !== "application/json") {
+            break notJson;
+        }
+
+        let json: object;
+        try {
+            json = JSON.parse(await file.text());
+        } catch {
+            break notJson;
+        }
+
+        const options = readOptions(json);
+        await writeLocalOptions(options);
+        return;
+    } while (false);
+    alert(browser.i18n.getMessage("importErrorNotJson"));
+}
+
+async function exportJsonClickHandler(this: HTMLElement, ev: Event) {
+    const json = JSON.stringify(await readLocalOptions(), null, 2);
+    const url = URL.createObjectURL(
+        new Blob([json], { type: "application/json" }),
+    );
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = browser.i18n.getMessage("exportFilename") + ".json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+    a.remove();
 }
 
 optionsMain();
