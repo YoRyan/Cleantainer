@@ -64,6 +64,12 @@ async function popupMain() {
     );
 
     orderCleaners();
+
+    const openOptions = document.querySelector("#popup-options") as HTMLElement;
+    openOptions.addEventListener("click", async ev => {
+        await browser.runtime.openOptionsPage();
+        close();
+    });
 }
 
 function createCleanerElement(

@@ -11,9 +11,13 @@
         "message": "Clean Container Storage",
         "description": "Title for the extension's popup."
     },
-    "loadContainers": {
+    "popupLoading": {
         "message": "Waiting for Firefox...",
         "description": "Status message when the extension is loading the container list."
+    },
+    "popupOptions": {
+        "message": "Cleantainer options",
+        "description": "Open the extension's options screen."
     },
     "containerDefault": {
         "message": "Default Container",

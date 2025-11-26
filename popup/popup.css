@@ -35,6 +35,12 @@ button:active {
 #popup-loading {
     display: none;
 }
+#popup-menu button {
+    text-align: left;
+    padding: 0.4rem;
+    width: 100%;
+}
+
 #cleaner-list:empty + #popup-loading {
     display: block;
 }
