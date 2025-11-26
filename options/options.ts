@@ -1,82 +1,82 @@
 import {
+    Options,
     readLocalOptions,
     readOptions,
     writeLocalOptions,
 } from "../common/storage.js";
 
 async function optionsMain() {
-    const userContainers = await browser.contextualIdentities.query({});
-    const initial = await readLocalOptions();
-    const i = 0;
-    const list = initial.quickLists[i];
-
-    const fieldset = document.querySelector("#quick-list-1") as HTMLElement;
-    const checkboxHandler = async function (this: HTMLInputElement, ev: Event) {
-        return containerCheckboxHandler.call(this, ev, i);
-    };
-    {
-        const dfault = fieldset.querySelector(
-            "[data-cookie-store-id='firefox-default']",
-        ) as HTMLInputElement;
-        dfault.checked = list.defaultContainer;
-
-        const pvate = fieldset.querySelector(
-            "[data-cookie-store-id='firefox-private']",
-        ) as HTMLInputElement;
-        pvate.checked = list.privateContainer;
-
-        const regex = fieldset.querySelector(
-            ".regex-enable",
-        ) as HTMLInputElement;
-        regex.checked = list.userContainerNames.enabled;
-
-        [dfault, pvate, regex].forEach(input =>
-            input.addEventListener("change", checkboxHandler),
-        );
-    }
-
-    {
-        const template = document.querySelector(
-            "#quick-list-container",
-        ) as HTMLTemplateElement;
-        const parent = fieldset.querySelector("ul") as Element;
-        const insertBefore = fieldset.querySelector(
-            "ul li:last-child",
-        ) as HTMLElement;
-        const ucSet = new Set(list.userContainerIds);
-        for (const { cookieStoreId, name, color } of userContainers) {
-            const cloned = template.content.cloneNode(true) as Element;
-
-            const checkbox = cloned.querySelector("input") as HTMLInputElement;
-            checkbox.dataset.cookieStoreId = cookieStoreId;
-            checkbox.checked = ucSet.has(cookieStoreId);
-            checkbox.addEventListener("change", checkboxHandler);
-
-            const nameElement = cloned.querySelector(
-                ".container-name",
-            ) as HTMLElement;
-            nameElement.style.borderLeftColor = color;
-            nameElement.innerText = name;
-
-            parent.insertBefore(cloned, insertBefore);
-        }
-    }
-
-    {
-        const input = fieldset.querySelector(
-            ".regex-input",
-        ) as HTMLTextAreaElement;
-        const changeHandler = async function (
-            this: HTMLTextAreaElement,
-            ev: Event,
-        ) {
-            return regexTextareaHandler.call(this, ev, i);
-        };
-        input.value = list.userContainerNames.regex;
-        input.addEventListener("change", changeHandler);
-    }
-
+    const options = await readLocalOptions();
+    const ci = await browser.contextualIdentities.query({});
+    setupQuickList(options, ci, 0);
     setupImportExport();
+}
+
+function setupQuickList(
+    options: Options,
+    ci: browser.contextualIdentities.ContextualIdentity[],
+    n: number,
+) {
+    const ql = options.quickLists[n];
+    const fieldset = document.querySelector(
+        "#quick-list-" + (n + 1),
+    ) as HTMLElement;
+
+    const defaultChecked = fieldset.querySelector(
+        "[data-cookie-store-id='firefox-default']",
+    ) as HTMLInputElement;
+    defaultChecked.checked = ql.defaultContainer;
+
+    const privateChecked = fieldset.querySelector(
+        "[data-cookie-store-id='firefox-private']",
+    ) as HTMLInputElement;
+    privateChecked.checked = ql.privateContainer;
+
+    const regexChecked = fieldset.querySelector(
+        ".regex-enable",
+    ) as HTMLInputElement;
+    regexChecked.checked = ql.userContainerNames.enabled;
+
+    const checkboxHandler = async function (this: HTMLInputElement, ev: Event) {
+        return containerCheckboxHandler.call(this, ev, n);
+    };
+    [defaultChecked, privateChecked, regexChecked].forEach(input =>
+        input.addEventListener("change", checkboxHandler),
+    );
+
+    const template = document.querySelector(
+        "#quick-list-container",
+    ) as HTMLTemplateElement;
+    const parent = fieldset.querySelector("ul") as Element;
+    const insertBefore = fieldset.querySelector(
+        "ul li:last-child",
+    ) as HTMLElement;
+    const ucSet = new Set(ql.userContainerIds);
+    for (const { cookieStoreId, name, color } of ci) {
+        const cloned = template.content.cloneNode(true) as Element;
+
+        const checkbox = cloned.querySelector("input") as HTMLInputElement;
+        checkbox.dataset.cookieStoreId = cookieStoreId;
+        checkbox.checked = ucSet.has(cookieStoreId);
+        checkbox.addEventListener("change", checkboxHandler);
+
+        const nameElement = cloned.querySelector(
+            ".container-name",
+        ) as HTMLElement;
+        nameElement.style.borderLeftColor = color;
+        nameElement.innerText = name;
+
+        parent.insertBefore(cloned, insertBefore);
+    }
+
+    const regexInput = fieldset.querySelector(
+        ".regex-input",
+    ) as HTMLTextAreaElement;
+    const regexHandler = async function (this: HTMLTextAreaElement, ev: Event) {
+        return regexTextareaHandler.call(this, ev, n);
+    };
+    regexInput.value = ql.userContainerNames.regex;
+    regexInput.addEventListener("change", regexHandler);
 }
 
 async function containerCheckboxHandler(
