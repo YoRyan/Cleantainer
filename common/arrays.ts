@@ -3,7 +3,7 @@ export function findValue<T>(arr: T[], value: T): number | undefined {
     return i !== -1 ? i : undefined;
 }
 
-export function subdivide<T>(
+export function partition<T>(
     arr: T[],
     predicate: (value: T) => boolean,
 ): [isTrue: T[], isFalse: T[]] {
@@ -19,7 +19,7 @@ export function subdivide<T>(
     return [isTrue, isFalse];
 }
 
-export function sortMap<T>(
+export function sortByMap<T>(
     arr: T[],
     mapFn: (value: T) => string | number,
 ): T[] {

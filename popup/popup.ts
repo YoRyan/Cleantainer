@@ -1,4 +1,4 @@
-import { findValue, sortMap, subdivide } from "../common/arrays.js";
+import { findValue, sortByMap, partition } from "../common/arrays.js";
 import { cleanContainer } from "../common/browsing-data.js";
 import { readLocalOptions, writeLocalOptions } from "../common/storage.js";
 
@@ -244,7 +244,7 @@ function fixPinOrder() {
     const list = document.querySelector("#cleaner-list") as HTMLElement;
     const all = Array.from(list.querySelectorAll("li")) as CleanerElement[];
     const pinned = all.filter(ce => "pinOrder" in ce.dataset);
-    sortMap(pinned, ce => parseInt(ce.dataset.pinOrder as string))
+    sortByMap(pinned, ce => parseInt(ce.dataset.pinOrder as string))
         .entries()
         .forEach(([i, ce]) => {
             ce.dataset.pinOrder = "" + i;
@@ -270,9 +270,9 @@ function orderCleaners() {
     }).forEach(ce => setCleanerState(ce, "load"));
 
     // Place pinned containers first.
-    const [pinned, notPinned] = subdivide(all, ce => "pinOrder" in ce.dataset);
+    const [pinned, notPinned] = partition(all, ce => "pinOrder" in ce.dataset);
     list.append(
-        ...sortMap(pinned, ce => parseInt(ce.dataset.pinOrder as string)),
+        ...sortByMap(pinned, ce => parseInt(ce.dataset.pinOrder as string)),
     );
 
     if (pinned.length > 0 && notPinned.length > 0) {
@@ -282,11 +282,11 @@ function orderCleaners() {
     }
 
     // Next, built-in containers that aren't pinned.
-    const [user, builtIn] = subdivide(
+    const [user, builtIn] = partition(
         notPinned,
         ce => "queryOrder" in ce.dataset,
     );
-    list.append(...sortMap(builtIn, ce => ce.innerText));
+    list.append(...sortByMap(builtIn, ce => ce.innerText));
 
     if (builtIn.length > 0 && user.length > 0) {
         const hr = document.createElement("hr");
@@ -296,7 +296,7 @@ function orderCleaners() {
 
     // Finally, user containers that aren't pinned.
     list.append(
-        ...sortMap(user, ce => parseInt(ce.dataset.queryOrder as string)),
+        ...sortByMap(user, ce => parseInt(ce.dataset.queryOrder as string)),
     );
 }
 
