@@ -1,13 +1,12 @@
 :root {
     color-scheme: light dark;
-
-    body {
-        color: light-dark(#0c0c0d, #ffffff);
-        background-color: light-dark(#ffffff, #38383d);
-        font-family: "Segoe UI", "San Francisco", "Ubuntu", sans-serif;
-        font-size: 12px;
-        user-select: none;
-    }
+}
+body {
+    color: light-dark(#0c0c0d, #ffffff);
+    background-color: light-dark(#ffffff, #38383d);
+    font-family: "Segoe UI", "San Francisco", "Ubuntu", sans-serif;
+    font-size: 12px;
+    user-select: none;
 }
 h1 {
     font-weight: 600;
@@ -32,6 +31,7 @@ button:hover {
 button:active {
     background-color: light-dark(#d7d7db, #737373);
 }
+
 #popup-loading {
     display: none;
 }
@@ -42,88 +42,86 @@ button:active {
     margin: 0;
     padding: 0;
     min-width: 15rem;
+}
 
-    #divider-user {
-        visibility: hidden;
-    }
+#divider-user {
+    visibility: hidden;
+}
 
-    .cleaner {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        margin: 0.4rem 0;
+.cleaner {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin: 0.4rem 0;
+}
+.cleaner-button {
+    flex: 1 0 auto;
+    padding: 0.4rem;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+    cursor: pointer;
+}
+.cleaner-name {
+    border-left: 1rem solid;
+    display: block;
+    padding: 0.3rem;
+}
+.cleaner-popin {
+    display: none;
+    position: absolute;
+    top: 0;
+    padding: 0.7rem 0.5rem;
+    width: calc(100% - 5rem);
+    box-shadow: inset 0 2px 8px rgba(12, 12, 13, 0.1);
+}
+.cleaner-pin {
+    flex: 0 0 auto;
+    margin-left: 0.3rem;
+    cursor: pointer;
+}
 
-        .cleaner-button {
-            flex: 1 0 auto;
-            padding: 0.4rem;
-            overflow: hidden;
-            position: relative;
-            text-align: left;
-            cursor: pointer;
+.cleaner[data-state="ready"] .cleaner-popin,
+.cleaner[data-state="confirm"] .cleaner-popin {
+    color: #3e2800;
+    background-color: #ffe900;
+}
+.cleaner[data-state="inProgress"] .cleaner-popin,
+.cleaner[data-state="done"] .cleaner-popin,
+.cleaner[data-state="readyDone"] .cleaner-popin {
+    color: #003706;
+    background-color: #30e60b;
+}
+.cleaner[data-state="inProgress"] .cleaner-popin,
+.cleaner[data-state="confirm"] .cleaner-popin,
+.cleaner[data-state="done"] .cleaner-popin {
+    display: block;
+    animation: 0.5s slide-in forwards;
+}
+.cleaner[data-state="ready"] .cleaner-popin,
+.cleaner[data-state="readyDone"] .cleaner-popin {
+    display: block;
+    animation: 0.5s slide-out forwards;
+}
 
-            .cleaner-name {
-                border-left: 1rem solid;
-                display: block;
-                padding: 0.3rem;
-            }
-            .cleaner-popin {
-                display: none;
-                position: absolute;
-                top: 0;
-                padding: 0.7rem 0.5rem;
-                width: calc(100% - 5rem);
-                box-shadow: inset 0 2px 8px rgba(12, 12, 13, 0.1);
-            }
-        }
-        .cleaner-pin {
-            flex: 0 0 auto;
-            margin-left: 0.3rem;
-            cursor: pointer;
-        }
-    }
+.cleaner .cleaner-popin .cleaner-confirm,
+.cleaner .cleaner-popin .cleaner-progress,
+.cleaner .cleaner-popin .cleaner-done {
+    display: none;
+}
+.cleaner[data-state="ready"] .cleaner-popin .cleaner-confirm,
+.cleaner[data-state="confirm"] .cleaner-popin .cleaner-confirm,
+.cleaner[data-state="inProgress"] .cleaner-popin .cleaner-progress,
+.cleaner[data-state="done"] .cleaner-popin .cleaner-done,
+.cleaner[data-state="readyDone"] .cleaner-popin .cleaner-done {
+    display: inline;
+}
 
-    .cleaner[data-state="ready"] .cleaner-popin,
-    .cleaner[data-state="confirm"] .cleaner-popin {
-        color: #3e2800;
-        background-color: #ffe900;
-    }
-    .cleaner[data-state="inProgress"] .cleaner-popin,
-    .cleaner[data-state="done"] .cleaner-popin,
-    .cleaner[data-state="readyDone"] .cleaner-popin {
-        color: #003706;
-        background-color: #30e60b;
-    }
-    .cleaner[data-state="inProgress"] .cleaner-popin,
-    .cleaner[data-state="confirm"] .cleaner-popin,
-    .cleaner[data-state="done"] .cleaner-popin {
-        display: block;
-        animation: 0.5s slide-in forwards;
-    }
-    .cleaner[data-state="ready"] .cleaner-popin,
-    .cleaner[data-state="readyDone"] .cleaner-popin {
-        display: block;
-        animation: 0.5s slide-out forwards;
-    }
-
-    .cleaner .cleaner-popin .cleaner-confirm,
-    .cleaner .cleaner-popin .cleaner-progress,
-    .cleaner .cleaner-popin .cleaner-done {
-        display: none;
-    }
-    .cleaner[data-state="ready"] .cleaner-popin .cleaner-confirm,
-    .cleaner[data-state="confirm"] .cleaner-popin .cleaner-confirm,
-    .cleaner[data-state="inProgress"] .cleaner-popin .cleaner-progress,
-    .cleaner[data-state="done"] .cleaner-popin .cleaner-done,
-    .cleaner[data-state="readyDone"] .cleaner-popin .cleaner-done {
-        display: inline;
-    }
-
-    .cleaner .cleaner-pin::before {
-        content: "📌";
-    }
-    .cleaner[data-pin-order] .cleaner-pin::before {
-        content: "📍";
-    }
+.cleaner .cleaner-pin::before {
+    content: "📌";
+}
+.cleaner[data-pin-order] .cleaner-pin::before {
+    content: "📍";
 }
 
 @keyframes slide-in {
