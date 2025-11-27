@@ -42,7 +42,7 @@ function setupQuickList(
     ) as HTMLTemplateElement;
     const parent = fieldset.querySelector("ul") as Element;
     const insertBefore = fieldset.querySelector(
-        "ul li:last-child",
+        ".divider-regex",
     ) as HTMLElement;
     const ucSet = new Set(ql.userContainerIds);
     for (const { cookieStoreId, name, color } of ci) {

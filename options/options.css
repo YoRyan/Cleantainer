@@ -1,0 +1,70 @@
+@import url(../common/container.css);
+
+:root {
+    color-scheme: light dark;
+}
+body {
+    color: light-dark(#0c0c0d, #ffffff);
+    background-color: light-dark(#ffffff, #38383d);
+    font-family: "Segoe UI", "San Francisco", "Ubuntu", sans-serif;
+    cursor: default;
+}
+fieldset {
+    border: none;
+    border-bottom: 1px solid #d7d7db;
+    margin: 0 0 2rem 0;
+    padding: 0 0 2rem 0;
+}
+fieldset > legend {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0;
+}
+fieldset > p {
+    margin: 0.2rem;
+}
+button {
+    border: none;
+    color: #0c0c0d;
+    background-color: rgba(12, 12, 13, 0.1);
+    border-radius: 2px;
+    font-size: 13px;
+    height: 32px;
+    padding: 0 8px;
+}
+button:hover {
+    background-color: rgba(12, 12, 13, 0.2);
+}
+button:active {
+    background-color: rgba(12, 12, 13, 0.3);
+}
+button:focus {
+    box-shadow:
+        0 0 0 1px #0a84ff inset,
+        0 0 0 1px #0a84ff,
+        0 0 0 4px rgba(10, 132, 255, 0.3);
+}
+
+.quick-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.quick-list ul li input {
+    width: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+.quick-list ul hr {
+    visibility: hidden;
+}
+.quick-list .regex-input {
+    display: block;
+    margin-left: 1.5rem;
+    width: calc(100% - 1.5rem);
+    box-sizing: border-box;
+}
+
+#import-json-picker {
+    display: none;
+}

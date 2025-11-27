@@ -40,7 +40,7 @@
         "description": "Status message when a clean is complete."
     },
     "quickList1": {
-        "message": "Quick clean list",
+        "message": "Quick Clean List",
         "description": "A user-defined list of containers to clean when activating the extension's keyboard shortcut."
     },
     "quickList1Shortcut": {
@@ -56,11 +56,11 @@
         "description": "Description text for regular expression input. Includes a warning that this feature is for advanced users."
     },
     "importFromFile": {
-        "message": "Import options from file...",
+        "message": "Import from File...",
         "description": "Import extension settings from a JSON file."
     },
     "exportToFile": {
-        "message": "Export options to file...",
+        "message": "Export to File...",
         "description": "Export extension settings to a downloadable JSON file."
     },
     "importErrorNotJson": {

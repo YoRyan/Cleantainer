@@ -9,7 +9,7 @@
     </head>
 
     <body>
-        <fieldset id="quick-list-1">
+        <fieldset id="quick-list-1" class="quick-list">
             <legend><span is="i18n-message">quickList1</span></legend>
             <p>
                 <span is="i18n-message">quickList1Help</span>
@@ -45,10 +45,13 @@
                         >
                     </span>
                 </li>
-                <hr />
+                <hr class="divider-user" />
+                <hr class="divider-regex" />
                 <li>
-                    <input type="checkbox" class="regex-enable" />
-                    <span is="i18n-message">quickListRegex</span>
+                    <input type="checkbox" class="regex-enable" /><span
+                        is="i18n-message"
+                        >quickListRegex</span
+                    >
                     <textarea class="regex-input" wrap="soft"></textarea>
                 </li>
             </ul>
@@ -69,10 +72,12 @@
         </div>
 
         <template id="quick-list-container">
-            <input type="checkbox" />
-            <span class="container">
-                <span class="container-name">CONTAINER NAME</span>
-            </span>
+            <li>
+                <input type="checkbox" />
+                <span class="container">
+                    <span class="container-name">CONTAINER NAME</span>
+                </span>
+            </li>
         </template>
     </body>
 </html>

@@ -1,3 +1,5 @@
+@import url(../common/container.css);
+
 :root {
     color-scheme: light dark;
 }
@@ -67,11 +69,6 @@ button:active {
     position: relative;
     text-align: left;
     cursor: pointer;
-}
-.cleaner-name {
-    border-left: 1rem solid;
-    display: block;
-    padding: 0.3rem;
 }
 .cleaner-popin {
     display: none;
