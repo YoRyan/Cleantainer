@@ -138,6 +138,10 @@ button:active {
     background-image: url("../img/unpin.svg");
 }
 
+.cleaner[data-current] .cleaner-name {
+    font-weight: 600;
+}
+
 #popup-menu button {
     text-align: left;
     padding: 0.4rem;

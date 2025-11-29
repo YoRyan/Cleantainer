@@ -22,11 +22,18 @@ async function popupMain() {
     const list = document.querySelector("#cleaner-list") as HTMLElement;
     const template = document.querySelector("#cleaner") as HTMLTemplateElement;
 
+    const [userContainers, [currentTab]] = await Promise.all([
+        browser.contextualIdentities.query({}),
+        browser.tabs.query({ active: true, currentWindow: true }),
+    ]);
+    const currentStore = currentTab?.cookieStoreId;
+
     // Create any built-in containers.
     list.append(
         ...[
             {
                 cookieStoreId: "firefox-default",
+                current: currentStore === "firefox-default",
                 name: browser.i18n.getMessage("containerDefault"),
                 icon: "default_no-container",
                 color: "toolbar",
@@ -35,6 +42,7 @@ async function popupMain() {
             },
             {
                 cookieStoreId: "firefox-private",
+                current: currentStore === "firefox-private",
                 name: browser.i18n.getMessage("containerPrivate"),
                 icon: "default_private",
                 color: "purple",
@@ -45,7 +53,6 @@ async function popupMain() {
     );
 
     // Create all user containers.
-    const userContainers = await browser.contextualIdentities.query({});
     list.append(
         ...userContainers
             .entries()
@@ -53,6 +60,7 @@ async function popupMain() {
                 const { cookieStoreId, name, icon, color } = ci;
                 return {
                     cookieStoreId,
+                    current: currentStore === cookieStoreId,
                     name,
                     icon,
                     color,
@@ -76,6 +84,7 @@ function createCleanerElement(
     template: HTMLTemplateElement,
     attr: {
         cookieStoreId: string;
+        current: boolean;
         name: string;
         icon: string;
         color: string;
@@ -83,11 +92,15 @@ function createCleanerElement(
         queryOrder: number | undefined;
     },
 ) {
-    const { cookieStoreId, name, icon, color, pinOrder, queryOrder } = attr;
+    const { cookieStoreId, current, name, icon, color, pinOrder, queryOrder } =
+        attr;
 
     const fragment = template.content.cloneNode(true) as Element;
     const cleaner = fragment.querySelector(".cleaner") as CleanerElement;
     cleaner.dataset.cookieStoreId = cookieStoreId;
+    if (current) {
+        cleaner.dataset.current = "";
+    }
     if (pinOrder !== undefined) {
         cleaner.dataset.pinOrder = "" + pinOrder;
     }
