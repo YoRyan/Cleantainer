@@ -127,11 +127,19 @@ button:active {
     display: inline;
 }
 
-.cleaner .cleaner-pin::before {
-    content: "📌";
+.cleaner .cleaner-pin-icon {
+    background-image: url("/common/pin.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    fill: light-dark(#0c0c0d, #ffffff);
+    filter: url("/common/mozilla-mac/filters.svg#fill");
+    display: inline-block;
+    width: 16px;
+    height: 16px;
 }
-.cleaner[data-pin-order] .cleaner-pin::before {
-    content: "📍";
+.cleaner[data-pin-order] .cleaner-pin-icon {
+    background-image: url("/common/unpin.svg");
 }
 
 @keyframes slide-in {

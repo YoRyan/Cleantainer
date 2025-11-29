@@ -12,7 +12,6 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 16px;
-    block-size: 100%;
     fill: var(--identity-icon-color);
     filter: url("mozilla-mac/filters.svg#fill");
     display: inline-block;
