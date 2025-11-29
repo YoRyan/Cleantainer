@@ -64,7 +64,6 @@ button:active {
     overflow: hidden;
     position: relative;
     text-align: left;
-    cursor: pointer;
 }
 .cleaner-icon {
     vertical-align: text-top;
@@ -84,7 +83,6 @@ button:active {
 .cleaner-pin {
     flex: 0 0 auto;
     margin-left: 0.3rem;
-    cursor: pointer;
 }
 
 .cleaner[data-state="ready"] .cleaner-popin,
