@@ -45,7 +45,7 @@ function setupQuickList(
         ".divider-regex",
     ) as HTMLElement;
     const ucSet = new Set(ql.userContainerIds);
-    for (const { cookieStoreId, name, color } of ci) {
+    for (const { cookieStoreId, name, icon, color } of ci) {
         const cloned = template.content.cloneNode(true) as Element;
 
         const checkbox = cloned.querySelector("input") as HTMLInputElement;
@@ -53,10 +53,15 @@ function setupQuickList(
         checkbox.checked = ucSet.has(cookieStoreId);
         checkbox.addEventListener("change", checkboxHandler);
 
+        const iconElement = cloned.querySelector(
+            ".container-icon",
+        ) as HTMLElement;
+        iconElement.dataset.identityIcon = icon;
+        iconElement.dataset.identityColor = color;
+
         const nameElement = cloned.querySelector(
             ".container-name",
         ) as HTMLElement;
-        nameElement.style.borderLeftColor = color;
         nameElement.innerText = name;
 
         parent.insertBefore(cloned, insertBefore);

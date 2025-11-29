@@ -29,7 +29,7 @@ async function popupMain() {
                 cookieStoreId: "firefox-default",
                 name: browser.i18n.getMessage("containerDefault"),
                 icon: "default_no-container",
-                color: "gray",
+                color: "toolbar",
                 pinOrder: findValue(pinnedIds, "firefox-default"),
                 queryOrder: undefined,
             },
@@ -105,9 +105,14 @@ function createCleanerElement(
         pinClickHandler.call(cleaner, ev),
     );
 
-    const nameSpan = fragment.querySelector(".cleaner-name") as HTMLElement;
-    nameSpan.style.borderLeftColor = color;
-    nameSpan.innerText = name;
+    const iconElement = fragment.querySelector(
+        ".container-icon",
+    ) as HTMLElement;
+    iconElement.dataset.identityIcon = icon;
+    iconElement.dataset.identityColor = color;
+
+    const nameElement = fragment.querySelector(".cleaner-name") as HTMLElement;
+    nameElement.innerText = name;
 
     return cleaner;
 }

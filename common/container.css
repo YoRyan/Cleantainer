@@ -1,5 +1,21 @@
-.container-name {
-    border-left: 1rem solid;
+@import url(mozilla-mac/icon.css);
+
+[data-identity-icon="default_no-container"] {
+    --identity-icon: url("/common/default.svg");
+}
+[data-identity-icon="default_private"] {
+    --identity-icon: url("/common/private.svg");
+}
+
+.container-icon {
+    background-image: var(--identity-icon);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    block-size: 100%;
+    fill: var(--identity-icon-color);
+    filter: url("mozilla-mac/filters.svg#fill");
     display: inline-block;
-    padding: 0.3rem;
+    width: 16px;
+    height: 16px;
 }

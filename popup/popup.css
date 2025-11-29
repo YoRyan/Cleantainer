@@ -70,6 +70,13 @@ button:active {
     text-align: left;
     cursor: pointer;
 }
+.cleaner-icon {
+    vertical-align: text-top;
+}
+.cleaner-name {
+    display: inline-block;
+    padding: 0.3rem;
+}
 .cleaner-popin {
     display: none;
     position: absolute;

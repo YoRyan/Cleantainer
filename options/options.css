@@ -49,19 +49,26 @@ button:focus {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    line-height: 2.2;
 }
 .quick-list ul li input {
     width: 1.5rem;
-    margin: 0;
+    margin: 0 0.5rem 0 0;
     padding: 0;
+}
+.quick-list ul li .container-icon {
+    vertical-align: sub;
+}
+.quick-list ul li .container-name {
+    margin-left: 0.3rem;
 }
 .quick-list ul hr {
     visibility: hidden;
 }
 .quick-list .regex-input {
     display: block;
-    margin-left: 1.5rem;
-    width: calc(100% - 1.5rem);
+    margin-left: 2rem;
+    width: calc(100% - 2rem);
     box-sizing: border-box;
 }
 

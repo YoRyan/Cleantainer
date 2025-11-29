@@ -19,11 +19,13 @@
                     <input
                         type="checkbox"
                         data-cookie-store-id="firefox-default"
-                    />
-                    <span class="container">
-                        <span
-                            class="container-name"
-                            style="border-left-color: gray"
+                    /><span class="container"
+                        ><span
+                            class="container-icon"
+                            data-identity-icon="default_no-container"
+                            data-identity-color="toolbar"
+                        ></span>
+                        <span class="container-name"
                             ><span is="i18n-message"
                                 >containerDefault</span
                             ></span
@@ -34,11 +36,13 @@
                     <input
                         type="checkbox"
                         data-cookie-store-id="firefox-private"
-                    />
-                    <span class="container">
-                        <span
-                            class="container-name"
-                            style="border-left-color: purple"
+                    /><span class="container"
+                        ><span
+                            class="container-icon"
+                            data-identity-icon="default_private"
+                            data-identity-color="purple"
+                        ></span>
+                        <span class="container-name"
                             ><span is="i18n-message"
                                 >containerPrivate</span
                             ></span
@@ -73,8 +77,8 @@
 
         <template id="quick-list-container">
             <li>
-                <input type="checkbox" />
-                <span class="container">
+                <input type="checkbox" /><span class="container"
+                    ><span class="container-icon"></span>
                     <span class="container-name">CONTAINER NAME</span>
                 </span>
             </li>

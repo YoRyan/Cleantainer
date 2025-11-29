@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#000000"
+   width="800px"
+   height="800px"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="plus.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.134375"
+     inkscape:cx="299.28375"
+     inkscape:cy="424.46281"
+     inkscape:window-width="1992"
+     inkscape:window-height="1742"
+     inkscape:window-x="3352"
+     inkscape:window-y="399"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <title
+     id="title1">plus</title>
+  <path
+     d="M 16,31.89232 C 7.2225494,31.89232 0.10767994,24.777451 0.10767994,16 0.10767994,7.2225492 7.2225494,0.1076798 16,0.1076798 c 8.777451,0 15.89232,7.1148694 15.89232,15.8923202 0,8.777451 -7.114869,15.89232 -15.89232,15.89232 z m 7.870366,-16.579357 c 0,-0.674813 -0.547674,-1.222486 -1.222486,-1.222486 H 17.757935 V 9.2005318 c 0,-0.6748124 -0.546451,-1.2224862 -1.222486,-1.2224862 h -1.222486 c -0.676035,0 -1.222486,0.5476738 -1.222486,1.2224862 V 14.090477 H 9.200532 c -0.6760349,0 -1.2224862,0.547673 -1.2224862,1.222486 v 1.222486 c 0,0.676035 0.5464513,1.222486 1.2224862,1.222486 h 4.889945 v 4.889945 c 0,0.676035 0.546451,1.222486 1.222486,1.222486 h 1.222486 c 0.676035,0 1.222486,-0.546451 1.222486,-1.222486 v -4.889945 h 4.889945 c 0.674812,0 1.222486,-0.546451 1.222486,-1.222486 z"
+     id="path1"
+     style="stroke-width:1.22249" />
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>plus</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
