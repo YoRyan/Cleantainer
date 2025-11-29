@@ -35,17 +35,13 @@ button:active {
 }
 
 #popup-loading {
+    text-align: center;
     display: none;
 }
-#popup-menu button {
-    text-align: left;
-    padding: 0.4rem;
-    width: 100%;
-}
-
 #cleaner-list:empty + #popup-loading {
     display: block;
 }
+
 #cleaner-list {
     margin: 0;
     padding: 0;
@@ -140,6 +136,12 @@ button:active {
 }
 .cleaner[data-pin-order] .cleaner-pin-icon {
     background-image: url("../img/unpin.svg");
+}
+
+#popup-menu button {
+    text-align: left;
+    padding: 0.4rem;
+    width: 100%;
 }
 
 @keyframes slide-in {
