@@ -1,10 +1,10 @@
-@import url(mozilla-mac/icon.css);
+@import url(mozilla-icon.css);
 
 [data-identity-icon="default_no-container"] {
-    --identity-icon: url("/common/default.svg");
+    --identity-icon: url("../img/default.svg");
 }
 [data-identity-icon="default_private"] {
-    --identity-icon: url("/common/private.svg");
+    --identity-icon: url("../img/private.svg");
 }
 
 .container-icon {
@@ -13,7 +13,7 @@
     background-repeat: no-repeat;
     background-size: 16px;
     fill: var(--identity-icon-color);
-    filter: url("mozilla-mac/filters.svg#fill");
+    filter: url("../img/mozilla-filters.svg#fill");
     display: inline-block;
     width: 16px;
     height: 16px;

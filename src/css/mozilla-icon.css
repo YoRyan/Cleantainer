@@ -48,53 +48,53 @@
 }
 
 [data-identity-icon="fingerprint"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#fingerprint");
+    --identity-icon: url("../img/mozilla-usercontext.svg#fingerprint");
 }
 
 [data-identity-icon="briefcase"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#briefcase");
+    --identity-icon: url("../img/mozilla-usercontext.svg#briefcase");
 }
 
 [data-identity-icon="dollar"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#dollar");
+    --identity-icon: url("../img/mozilla-usercontext.svg#dollar");
 }
 
 [data-identity-icon="cart"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#cart");
+    --identity-icon: url("../img/mozilla-usercontext.svg#cart");
 }
 
 [data-identity-icon="circle"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#circle");
+    --identity-icon: url("../img/mozilla-usercontext.svg#circle");
 }
 
 [data-identity-icon="gift"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#gift");
+    --identity-icon: url("../img/mozilla-usercontext.svg#gift");
 }
 
 [data-identity-icon="vacation"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#vacation");
+    --identity-icon: url("../img/mozilla-usercontext.svg#vacation");
 }
 
 [data-identity-icon="food"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#food");
+    --identity-icon: url("../img/mozilla-usercontext.svg#food");
 }
 
 [data-identity-icon="fruit"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#fruit");
+    --identity-icon: url("../img/mozilla-usercontext.svg#fruit");
 }
 
 [data-identity-icon="pet"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#pet");
+    --identity-icon: url("../img/mozilla-usercontext.svg#pet");
 }
 
 [data-identity-icon="tree"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#tree");
+    --identity-icon: url("../img/mozilla-usercontext.svg#tree");
 }
 
 [data-identity-icon="chill"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#chill");
+    --identity-icon: url("../img/mozilla-usercontext.svg#chill");
 }
 
 [data-identity-icon="fence"] {
-    --identity-icon: url("/common/mozilla-mac/usercontext.svg#fence");
+    --identity-icon: url("../img/mozilla-usercontext.svg#fence");
 }

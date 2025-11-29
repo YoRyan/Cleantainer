@@ -1,5 +1,5 @@
-import { cleanContainer } from "../common/browsing-data.js";
-import { readLocalOptions } from "../common/storage.js";
+import { cleanContainer } from "./browsing-data.js";
+import { readLocalOptions } from "./storage.js";
 
 const badgeTimeoutMs = 3000;
 const badgeBgColor = "red";

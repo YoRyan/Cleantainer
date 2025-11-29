@@ -16,44 +16,40 @@
     "permissions": ["storage", "browsingData", "contextualIdentities"],
 
     "background": {
-        "scripts": ["background/background.js"],
+        "scripts": ["js/background.js"],
         "type": "module"
     },
     "action": {
-        "default_area": "navbar",
         "default_title": "__MSG_extensionName__",
-        "default_popup": "popup/popup.html",
+        "default_popup": "popup.html",
         "theme_icons": [
             {
-                "light": "icons/placeholder-16.png",
-                "dark": "icons/placeholder-16.png",
+                "light": "img/placeholder-16.png",
+                "dark": "img/placeholder-16.png",
                 "size": 16
             },
             {
-                "light": "icons/placeholder-32.png",
-                "dark": "icons/placeholder-32.png",
+                "light": "img/placeholder-32.png",
+                "dark": "img/placeholder-32.png",
                 "size": 32
             }
         ]
     },
     "options_ui": {
-        "page": "options/options.html",
-        "open_in_tab": false
+        "page": "options.html"
     },
     "icons": {
-        "32": "icons/placeholder-32.png",
-        "64": "icons/placeholder-32.png"
+        "32": "img/placeholder-32.png",
+        "64": "img/placeholder-32.png"
     },
     "commands": {
         "quick-list-1": {
             "suggested_key": {
                 "default": "Alt+Shift+Delete",
                 "mac": "Command+MacCtrl+Delete",
-                "ios": "Command+MacCtrl+Delete",
                 "chromeos": "Alt+Shift+0"
             },
             "description": "__MSG_quickList1Shortcut__"
         }
-    },
-    "incognito": "spanning"
+    }
 }

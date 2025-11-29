@@ -3,7 +3,7 @@ import {
     readLocalOptions,
     readOptions,
     writeLocalOptions,
-} from "../common/storage.js";
+} from "./storage.js";
 
 async function optionsMain() {
     const options = await readLocalOptions();

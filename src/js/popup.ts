@@ -1,6 +1,6 @@
-import { findValue, sortByMap, partition } from "../common/arrays.js";
-import { cleanContainer } from "../common/browsing-data.js";
-import { readLocalOptions, writeLocalOptions } from "../common/storage.js";
+import { findValue, sortByMap, partition } from "./arrays.js";
+import { cleanContainer } from "./browsing-data.js";
+import { readLocalOptions, writeLocalOptions } from "./storage.js";
 
 type CleanerState =
     | "load"

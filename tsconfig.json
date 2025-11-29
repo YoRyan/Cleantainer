@@ -6,13 +6,5 @@
         "moduleResolution": "bundler",
         "types": ["firefox-webext-browser"]
     },
-    "files": [
-        "background/background.ts",
-        "common/browsing-data.ts",
-        "common/arrays.ts",
-        "common/i18n.ts",
-        "common/storage.ts",
-        "options/options.ts",
-        "popup/popup.ts"
-    ]
+    "include": ["src/**/*"]
 }
