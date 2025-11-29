@@ -15,6 +15,8 @@ type CleanerElement = HTMLLIElement;
 const confirmTimeoutMs = 3000;
 const doneTimeoutMs = 1000;
 
+let draggedCleaner: CleanerElement | undefined = undefined;
+
 async function popupMain() {
     const options = await readLocalOptions();
     const { pinnedIds } = options;
@@ -103,10 +105,18 @@ function createCleanerElement(
     }
     if (pinOrder !== undefined) {
         cleaner.dataset.pinOrder = "" + pinOrder;
+        cleaner.draggable = true;
     }
     if (queryOrder !== undefined) {
         cleaner.dataset.queryOrder = "" + queryOrder;
     }
+    cleaner.addEventListener("dragstart", ev => {
+        draggedCleaner = ev.target as CleanerElement;
+    });
+    cleaner.addEventListener("dragover", ev => {
+        ev.preventDefault();
+    });
+    cleaner.addEventListener("drop", dropCleanerHandler);
 
     const button = cleaner.querySelector(".cleaner-button") as HTMLElement;
     button.addEventListener("click", async ev =>
@@ -241,6 +251,38 @@ function setCleanerState(ce: CleanerElement, cs: CleanerState) {
     }
 }
 
+async function dropCleanerHandler(this: CleanerElement, ev: Event) {
+    ev.preventDefault();
+
+    const isPin = "pinOrder" in this.dataset;
+    if (!isPin || draggedCleaner === undefined) {
+        return;
+    }
+
+    {
+        const { pinOrder } = draggedCleaner.dataset;
+        draggedCleaner.dataset.pinOrder = this.dataset.pinOrder;
+        this.dataset.pinOrder = pinOrder;
+    }
+
+    const draggedId = draggedCleaner.dataset.cookieStoreId;
+    // Stop this handler from running again while reading storage.
+    draggedCleaner = undefined;
+    orderCleaners();
+
+    const options = await readLocalOptions();
+    let { pinnedIds } = options;
+    // These casts can fail, but nbd if they do--we'll just not save.
+    const draggedIdx = findValue(pinnedIds, draggedId) as number;
+    const thisIdx = findValue(pinnedIds, this.dataset.cookieStoreId) as number;
+    {
+        const x = pinnedIds[draggedIdx];
+        pinnedIds[draggedIdx] = pinnedIds[thisIdx];
+        pinnedIds[thisIdx] = x;
+    }
+    await writeLocalOptions(options);
+}
+
 async function pinClickHandler(this: CleanerElement, ev: MouseEvent) {
     const options = await readLocalOptions();
     let pinnedIds: string[];
@@ -251,17 +293,19 @@ async function pinClickHandler(this: CleanerElement, ev: MouseEvent) {
         // unpin
         pinnedIds = options.pinnedIds.filter(v => v !== cookieStoreId);
         delete dataset.pinOrder;
+        this.draggable = false;
     } else {
         // pin
         pinnedIds = [...options.pinnedIds, cookieStoreId];
         dataset.pinOrder = "" + Number.MAX_SAFE_INTEGER; // For now, insert at the end.
+        this.draggable = true;
     }
-
-    options.pinnedIds = pinnedIds;
-    await writeLocalOptions(options);
 
     fixPinOrder();
     orderCleaners();
+
+    options.pinnedIds = pinnedIds;
+    await writeLocalOptions(options);
 }
 
 function fixPinOrder() {
