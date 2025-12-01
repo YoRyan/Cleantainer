@@ -3,13 +3,14 @@ class MessageElement extends HTMLSpanElement {
         super();
     }
     connectedCallback() {
-        if (!("initialized" in this.dataset)) {
-            const { textContent } = this;
-            if (textContent !== null) {
-                this.textContent = browser.i18n.getMessage(textContent);
-            }
-            this.dataset.initialized = "";
+        const { textContent } = this;
+        if (textContent !== null) {
+            this.insertAdjacentText(
+                "afterend",
+                browser.i18n.getMessage(textContent),
+            );
         }
+        this.remove();
     }
 }
 customElements.define("i18n-message", MessageElement, { extends: "span" });
