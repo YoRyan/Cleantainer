@@ -39,6 +39,10 @@
         "message": "Cleaned.",
         "description": "Status message when a clean is complete."
     },
+    "cleanError": {
+        "message": "Error. See console.",
+        "description": "Status message when a clean operation fails. Instructs the user to check the extension's console for details."
+    },
     "quickList1": {
         "message": "Quick Clean List",
         "description": "A user-defined list of containers to clean when activating the extension's keyboard shortcut."

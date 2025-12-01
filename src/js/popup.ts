@@ -8,7 +8,9 @@ type CleanerState =
     | { confirmTimer: number }
     | "inProgress"
     | { doneTimer: number }
-    | "readyDone";
+    | "readyDone"
+    | { errorTimer: number }
+    | "readyError";
 
 type CleanerElement = HTMLLIElement;
 
@@ -144,64 +146,57 @@ async function cleanerClickHandler(this: CleanerElement, ev: MouseEvent) {
     const current = readCleanerState(this);
 
     let next: CleanerState;
-    switch (current) {
-        case "load":
-        case "ready":
-        case "readyDone":
-            {
-                const confirmTimer = setTimeout(
-                    () => setCleanerState(this, "ready"),
-                    confirmTimeoutMs,
-                );
-                next = { confirmTimer };
-            }
-            break;
-        case "inProgress":
-            next = "inProgress"; // Do nothing.
-            break;
-        default:
-            if ("doneTimer" in current) {
-                const { doneTimer } = current;
-                clearTimeout(doneTimer);
-
-                const confirmTimer = setTimeout(
-                    () => setCleanerState(this, "ready"),
-                    confirmTimeoutMs,
-                );
-                next = { confirmTimer };
+    if (current === "inProgress") {
+        // Do nothing.
+        next = "inProgress";
+    } else {
+        const isTimer = typeof current === "object";
+        if (isTimer) {
+            // Cancel the scheduled timer.
+            let scheduled: number;
+            if ("confirmTimer" in current) {
+                scheduled = current.confirmTimer;
+            } else if ("doneTimer" in current) {
+                scheduled = current.doneTimer;
             } else {
-                const { confirmTimer } = current;
-                clearTimeout(confirmTimer);
-
-                (async () => {
-                    const { cookieStoreId } = this.dataset;
-                    await cleanContainer(cookieStoreId as string);
-                    const doneTimer = setTimeout(
-                        () => setCleanerState(this, "readyDone"),
-                        doneTimeoutMs,
-                    );
-                    setCleanerState(this, { doneTimer });
-                })();
-
-                next = "inProgress";
+                scheduled = current.errorTimer;
             }
+            clearTimeout(scheduled);
+        }
+        if (isTimer && "confirmTimer" in current) {
+            // The confirm state is the only one in which we want to perform a clean operation.
+            executeClean.call(this);
+            next = "inProgress";
+        } else {
+            // Otherwise, transition to the user confirmation state.
+            const confirmTimer = setTimeout(
+                () => setCleanerState(this, "ready"),
+                confirmTimeoutMs,
+            );
+            next = { confirmTimer };
+        }
     }
     setCleanerState(this, next);
 }
 
 function readCleanerState(ce: CleanerElement): CleanerState {
     const { state, timer } = ce.dataset;
+    const timerP = parseInt(timer as string);
     switch (state) {
         case "ready":
             return "ready";
         case "confirm":
-            return { confirmTimer: parseInt(timer as string) };
+            return { confirmTimer: timerP };
         case "inProgress":
             return "inProgress";
         case "done":
-            return { doneTimer: parseInt(timer as string) };
+            return { doneTimer: timerP };
         case "readyDone":
             return "readyDone";
+        case "error":
+            return { errorTimer: timerP };
+        case "readyError":
+            return "readyError";
         default:
             return "load";
     }
@@ -227,13 +222,20 @@ function setCleanerState(ce: CleanerElement, cs: CleanerState) {
             state = "readyDone";
             timer = undefined;
             break;
+        case "readyError":
+            state = "readyError";
+            timer = undefined;
+            break;
         default:
             if ("confirmTimer" in cs) {
                 state = "confirm";
                 timer = cs.confirmTimer;
-            } else {
+            } else if ("doneTimer" in cs) {
                 state = "done";
                 timer = cs.doneTimer;
+            } else {
+                state = "error";
+                timer = cs.errorTimer;
             }
             break;
     }
@@ -248,6 +250,35 @@ function setCleanerState(ce: CleanerElement, cs: CleanerState) {
         dataset.timer = "" + timer;
     } else {
         delete dataset.timer;
+    }
+}
+
+async function executeClean(this: CleanerElement) {
+    const { cookieStoreId } = this.dataset;
+    let error: unknown;
+    try {
+        await cleanContainer(cookieStoreId as string);
+    } catch (e) {
+        error = e;
+    }
+
+    if (error === undefined) {
+        const doneTimer = setTimeout(
+            () => setCleanerState(this, "readyDone"),
+            doneTimeoutMs,
+        );
+        setCleanerState(this, { doneTimer });
+    } else {
+        console.error(
+            `Error clearing cookieStoreId "${cookieStoreId}":`,
+            error,
+        );
+
+        const errorTimer = setTimeout(
+            () => setCleanerState(this, "readyError"),
+            doneTimeoutMs,
+        );
+        setCleanerState(this, { errorTimer });
     }
 }
 

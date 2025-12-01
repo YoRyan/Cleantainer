@@ -86,30 +86,38 @@ button:active {
 }
 
 .cleaner[data-state="ready"] .cleaner-popin,
-.cleaner[data-state="confirm"] .cleaner-popin {
+.cleaner[data-state="confirm"] .cleaner-popin,
+.cleaner[data-state="inProgress"] .cleaner-popin {
     color: #3e2800;
     background-color: #ffe900;
 }
-.cleaner[data-state="inProgress"] .cleaner-popin,
 .cleaner[data-state="done"] .cleaner-popin,
 .cleaner[data-state="readyDone"] .cleaner-popin {
     color: #003706;
     background-color: #30e60b;
 }
+.cleaner[data-state="error"] .cleaner-popin,
+.cleaner[data-state="readyError"] .cleaner-popin {
+    color: #3e0200;
+    background-color: #ff0039;
+}
 .cleaner[data-state="inProgress"] .cleaner-popin,
 .cleaner[data-state="confirm"] .cleaner-popin,
-.cleaner[data-state="done"] .cleaner-popin {
+.cleaner[data-state="done"] .cleaner-popin,
+.cleaner[data-state="error"] .cleaner-popin {
     display: block;
     animation: 0.5s slide-in forwards;
 }
 .cleaner[data-state="ready"] .cleaner-popin,
-.cleaner[data-state="readyDone"] .cleaner-popin {
+.cleaner[data-state="readyDone"] .cleaner-popin,
+.cleaner[data-state="readyError"] .cleaner-popin {
     display: block;
     animation: 0.5s slide-out forwards;
 }
 
 .cleaner .cleaner-popin .cleaner-confirm,
 .cleaner .cleaner-popin .cleaner-progress,
+.cleaner .cleaner-popin .cleaner-error,
 .cleaner .cleaner-popin .cleaner-done {
     display: none;
 }
@@ -117,7 +125,9 @@ button:active {
 .cleaner[data-state="confirm"] .cleaner-popin .cleaner-confirm,
 .cleaner[data-state="inProgress"] .cleaner-popin .cleaner-progress,
 .cleaner[data-state="done"] .cleaner-popin .cleaner-done,
-.cleaner[data-state="readyDone"] .cleaner-popin .cleaner-done {
+.cleaner[data-state="error"] .cleaner-popin .cleaner-error,
+.cleaner[data-state="readyDone"] .cleaner-popin .cleaner-done,
+.cleaner[data-state="readyError"] .cleaner-popin .cleaner-error {
     display: inline;
 }
 
