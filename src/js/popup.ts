@@ -12,8 +12,6 @@ type CleanerState =
     | { errorTimer: number }
     | "readyError";
 
-type CleanerElement = HTMLLIElement;
-
 const confirmTimeoutMs = 3000;
 const doneTimeoutMs = 1000;
 
@@ -118,17 +116,17 @@ function createCleanerElement(
     cleaner.addEventListener("dragover", ev => {
         ev.preventDefault();
     });
-    cleaner.addEventListener("drop", dropCleanerHandler);
+    cleaner.addEventListener("drop", async ev =>
+        cleaner.dropCleanerHandler(ev),
+    );
 
     const button = cleaner.querySelector(".cleaner-button") as HTMLElement;
     button.addEventListener("click", async ev =>
-        cleanerClickHandler.call(cleaner, ev),
+        cleaner.cleanerClickHandler(ev),
     );
 
     const pin = cleaner.querySelector(".cleaner-pin") as HTMLElement;
-    pin.addEventListener("click", async ev =>
-        pinClickHandler.call(cleaner, ev),
-    );
+    pin.addEventListener("click", async ev => cleaner.pinClickHandler(ev));
 
     const iconElement = fragment.querySelector(
         ".container-icon",
@@ -142,202 +140,212 @@ function createCleanerElement(
     return cleaner;
 }
 
-async function cleanerClickHandler(this: CleanerElement, ev: MouseEvent) {
-    const current = readCleanerState(this);
+class CleanerElement extends HTMLLIElement {
+    constructor() {
+        super();
+    }
 
-    let next: CleanerState;
-    if (current === "inProgress") {
-        // Do nothing.
-        next = "inProgress";
-    } else {
-        const isTimer = typeof current === "object";
-        if (isTimer) {
-            // Cancel the scheduled timer.
-            let scheduled: number;
-            if ("confirmTimer" in current) {
-                scheduled = current.confirmTimer;
-            } else if ("doneTimer" in current) {
-                scheduled = current.doneTimer;
-            } else {
-                scheduled = current.errorTimer;
-            }
-            clearTimeout(scheduled);
-        }
-        if (isTimer && "confirmTimer" in current) {
-            // The confirm state is the only one in which we want to perform a clean operation.
-            executeClean.call(this);
+    async cleanerClickHandler(ev: MouseEvent) {
+        const current = this.readState();
+
+        let next: CleanerState;
+        if (current === "inProgress") {
+            // Do nothing.
             next = "inProgress";
         } else {
-            // Otherwise, transition to the user confirmation state.
-            const confirmTimer = setTimeout(
-                () => setCleanerState(this, "ready"),
-                confirmTimeoutMs,
+            const isTimer = typeof current === "object";
+            if (isTimer) {
+                // Cancel the scheduled timer.
+                let scheduled: number;
+                if ("confirmTimer" in current) {
+                    scheduled = current.confirmTimer;
+                } else if ("doneTimer" in current) {
+                    scheduled = current.doneTimer;
+                } else {
+                    scheduled = current.errorTimer;
+                }
+                clearTimeout(scheduled);
+            }
+            if (isTimer && "confirmTimer" in current) {
+                // The confirm state is the only one in which we want to perform a clean operation.
+                this.executeClean();
+                next = "inProgress";
+            } else {
+                // Otherwise, transition to the user confirmation state.
+                const confirmTimer = setTimeout(
+                    () => this.setState("ready"),
+                    confirmTimeoutMs,
+                );
+                next = { confirmTimer };
+            }
+        }
+        this.setState(next);
+    }
+
+    private async executeClean() {
+        const { cookieStoreId } = this.dataset;
+        let error: unknown;
+        try {
+            await cleanContainer(cookieStoreId as string);
+        } catch (e) {
+            error = e;
+        }
+
+        if (error === undefined) {
+            const doneTimer = setTimeout(
+                () => this.setState("readyDone"),
+                doneTimeoutMs,
             );
-            next = { confirmTimer };
+            this.setState({ doneTimer });
+        } else {
+            console.error(
+                `Error clearing cookieStoreId "${cookieStoreId}":`,
+                error,
+            );
+
+            const errorTimer = setTimeout(
+                () => this.setState("readyError"),
+                doneTimeoutMs,
+            );
+            this.setState({ errorTimer });
         }
     }
-    setCleanerState(this, next);
-}
 
-function readCleanerState(ce: CleanerElement): CleanerState {
-    const { state, timer } = ce.dataset;
-    const timerP = parseInt(timer as string);
-    switch (state) {
-        case "ready":
-            return "ready";
-        case "confirm":
-            return { confirmTimer: timerP };
-        case "inProgress":
-            return "inProgress";
-        case "done":
-            return { doneTimer: timerP };
-        case "readyDone":
-            return "readyDone";
-        case "error":
-            return { errorTimer: timerP };
-        case "readyError":
-            return "readyError";
-        default:
-            return "load";
+    readState(): CleanerState {
+        const { state, timer } = this.dataset;
+        const timerP = parseInt(timer as string);
+        switch (state) {
+            case "ready":
+                return "ready";
+            case "confirm":
+                return { confirmTimer: timerP };
+            case "inProgress":
+                return "inProgress";
+            case "done":
+                return { doneTimer: timerP };
+            case "readyDone":
+                return "readyDone";
+            case "error":
+                return { errorTimer: timerP };
+            case "readyError":
+                return "readyError";
+            default:
+                return "load";
+        }
+    }
+
+    setState(cs: CleanerState) {
+        let state: string | undefined;
+        let timer: number | undefined;
+        switch (cs) {
+            case "load":
+                state = undefined;
+                timer = undefined;
+                break;
+            case "ready":
+                state = "ready";
+                timer = undefined;
+                break;
+            case "inProgress":
+                state = "inProgress";
+                timer = undefined;
+                break;
+            case "readyDone":
+                state = "readyDone";
+                timer = undefined;
+                break;
+            case "readyError":
+                state = "readyError";
+                timer = undefined;
+                break;
+            default:
+                if ("confirmTimer" in cs) {
+                    state = "confirm";
+                    timer = cs.confirmTimer;
+                } else if ("doneTimer" in cs) {
+                    state = "done";
+                    timer = cs.doneTimer;
+                } else {
+                    state = "error";
+                    timer = cs.errorTimer;
+                }
+                break;
+        }
+
+        const { dataset } = this;
+        if (state !== undefined) {
+            dataset.state = state;
+        } else {
+            delete dataset.state;
+        }
+        if (timer !== undefined) {
+            dataset.timer = "" + timer;
+        } else {
+            delete dataset.timer;
+        }
+    }
+
+    async dropCleanerHandler(ev: Event) {
+        ev.preventDefault();
+
+        const isPin = "pinOrder" in this.dataset;
+        if (!isPin || draggedCleaner === undefined) {
+            return;
+        }
+
+        {
+            const { pinOrder } = draggedCleaner.dataset;
+            draggedCleaner.dataset.pinOrder = this.dataset.pinOrder;
+            this.dataset.pinOrder = pinOrder;
+        }
+
+        const draggedId = draggedCleaner.dataset.cookieStoreId;
+        // Stop this handler from running again while reading storage.
+        draggedCleaner = undefined;
+        orderCleaners();
+
+        const options = await readLocalOptions();
+        let { pinnedIds } = options;
+        // These casts can fail, but nbd if they do--we'll just not save.
+        const draggedIdx = findValue(pinnedIds, draggedId) as number;
+        const thisIdx = findValue(
+            pinnedIds,
+            this.dataset.cookieStoreId,
+        ) as number;
+        {
+            const x = pinnedIds[draggedIdx];
+            pinnedIds[draggedIdx] = pinnedIds[thisIdx];
+            pinnedIds[thisIdx] = x;
+        }
+        await writeLocalOptions(options);
+    }
+
+    async pinClickHandler(ev: MouseEvent) {
+        const options = await readLocalOptions();
+        let pinnedIds: string[];
+
+        const { dataset } = this;
+        const cookieStoreId = dataset.cookieStoreId as string;
+        if ("pinOrder" in dataset) {
+            // unpin
+            pinnedIds = options.pinnedIds.filter(v => v !== cookieStoreId);
+            delete dataset.pinOrder;
+            this.draggable = false;
+        } else {
+            // pin
+            pinnedIds = [...options.pinnedIds, cookieStoreId];
+            dataset.pinOrder = "" + Number.MAX_SAFE_INTEGER; // For now, insert at the end.
+            this.draggable = true;
+        }
+
+        fixPinOrder();
+        orderCleaners();
+
+        options.pinnedIds = pinnedIds;
+        await writeLocalOptions(options);
     }
 }
-
-function setCleanerState(ce: CleanerElement, cs: CleanerState) {
-    let state: string | undefined;
-    let timer: number | undefined;
-    switch (cs) {
-        case "load":
-            state = undefined;
-            timer = undefined;
-            break;
-        case "ready":
-            state = "ready";
-            timer = undefined;
-            break;
-        case "inProgress":
-            state = "inProgress";
-            timer = undefined;
-            break;
-        case "readyDone":
-            state = "readyDone";
-            timer = undefined;
-            break;
-        case "readyError":
-            state = "readyError";
-            timer = undefined;
-            break;
-        default:
-            if ("confirmTimer" in cs) {
-                state = "confirm";
-                timer = cs.confirmTimer;
-            } else if ("doneTimer" in cs) {
-                state = "done";
-                timer = cs.doneTimer;
-            } else {
-                state = "error";
-                timer = cs.errorTimer;
-            }
-            break;
-    }
-
-    const { dataset } = ce;
-    if (state !== undefined) {
-        dataset.state = state;
-    } else {
-        delete dataset.state;
-    }
-    if (timer !== undefined) {
-        dataset.timer = "" + timer;
-    } else {
-        delete dataset.timer;
-    }
-}
-
-async function executeClean(this: CleanerElement) {
-    const { cookieStoreId } = this.dataset;
-    let error: unknown;
-    try {
-        await cleanContainer(cookieStoreId as string);
-    } catch (e) {
-        error = e;
-    }
-
-    if (error === undefined) {
-        const doneTimer = setTimeout(
-            () => setCleanerState(this, "readyDone"),
-            doneTimeoutMs,
-        );
-        setCleanerState(this, { doneTimer });
-    } else {
-        console.error(
-            `Error clearing cookieStoreId "${cookieStoreId}":`,
-            error,
-        );
-
-        const errorTimer = setTimeout(
-            () => setCleanerState(this, "readyError"),
-            doneTimeoutMs,
-        );
-        setCleanerState(this, { errorTimer });
-    }
-}
-
-async function dropCleanerHandler(this: CleanerElement, ev: Event) {
-    ev.preventDefault();
-
-    const isPin = "pinOrder" in this.dataset;
-    if (!isPin || draggedCleaner === undefined) {
-        return;
-    }
-
-    {
-        const { pinOrder } = draggedCleaner.dataset;
-        draggedCleaner.dataset.pinOrder = this.dataset.pinOrder;
-        this.dataset.pinOrder = pinOrder;
-    }
-
-    const draggedId = draggedCleaner.dataset.cookieStoreId;
-    // Stop this handler from running again while reading storage.
-    draggedCleaner = undefined;
-    orderCleaners();
-
-    const options = await readLocalOptions();
-    let { pinnedIds } = options;
-    // These casts can fail, but nbd if they do--we'll just not save.
-    const draggedIdx = findValue(pinnedIds, draggedId) as number;
-    const thisIdx = findValue(pinnedIds, this.dataset.cookieStoreId) as number;
-    {
-        const x = pinnedIds[draggedIdx];
-        pinnedIds[draggedIdx] = pinnedIds[thisIdx];
-        pinnedIds[thisIdx] = x;
-    }
-    await writeLocalOptions(options);
-}
-
-async function pinClickHandler(this: CleanerElement, ev: MouseEvent) {
-    const options = await readLocalOptions();
-    let pinnedIds: string[];
-
-    const { dataset } = this;
-    const cookieStoreId = dataset.cookieStoreId as string;
-    if ("pinOrder" in dataset) {
-        // unpin
-        pinnedIds = options.pinnedIds.filter(v => v !== cookieStoreId);
-        delete dataset.pinOrder;
-        this.draggable = false;
-    } else {
-        // pin
-        pinnedIds = [...options.pinnedIds, cookieStoreId];
-        dataset.pinOrder = "" + Number.MAX_SAFE_INTEGER; // For now, insert at the end.
-        this.draggable = true;
-    }
-
-    fixPinOrder();
-    orderCleaners();
-
-    options.pinnedIds = pinnedIds;
-    await writeLocalOptions(options);
-}
+customElements.define("popup-cleaner", CleanerElement, { extends: "li" });
 
 function fixPinOrder() {
     const list = document.querySelector("#cleaner-list") as HTMLElement;
@@ -359,14 +367,14 @@ function orderCleaners() {
 
     // Hack to avoid replaying CSS animations.
     all.filter(ce => {
-        switch (readCleanerState(ce)) {
+        switch (ce.readState()) {
             case "ready":
             case "readyDone":
                 return true;
             default:
                 return false;
         }
-    }).forEach(ce => setCleanerState(ce, "load"));
+    }).forEach(ce => ce.setState("load"));
 
     // Place pinned containers first.
     const [pinned, notPinned] = partition(all, ce => "pinOrder" in ce.dataset);
