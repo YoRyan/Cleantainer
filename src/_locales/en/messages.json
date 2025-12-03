@@ -4,7 +4,7 @@
         "description": "Name of the extension."
     },
     "extensionDescription": {
-        "message": "Cleans cookies and local storage from Firefox containers.",
+        "message": "Cleans cookies and site data from Firefox containers.",
         "description": "Description of the extension."
     },
     "popupTitle": {
@@ -17,7 +17,7 @@
     },
     "popupOptions": {
         "message": "Cleantainer options",
-        "description": "Open the extension's options screen."
+        "description": "Menu item to open the extension's options screen."
     },
     "containerDefault": {
         "message": "Default Container",
@@ -43,17 +43,37 @@
         "message": "Error. See console.",
         "description": "Status message when a clean operation fails. Instructs the user to check the extension's console for details."
     },
-    "quickList1": {
+    "quickList": {
         "message": "Quick Clean List",
-        "description": "A user-defined list of containers to clean when activating the extension's keyboard shortcut."
+        "description": "Header text for a user-defined list of containers to clean."
     },
-    "quickList1Shortcut": {
-        "message": "Activate quick clean list",
-        "description": "Keyboard shortcut description for the quick clean list."
+    "quickListN": {
+        "message": "Quick Clean List #$N$",
+        "description": "Header text for a user-defined list of containers to clean, with number.",
+        "placeholders": {
+            "n": {
+                "content": "$1",
+                "example": "1"
+            }
+        }
     },
-    "quickList1Help": {
+    "quickListShortcut": {
+        "message": "Clean containers in the quick clean list",
+        "description": "Keyboard shortcut description for a quick clean list."
+    },
+    "quickListShortcutN": {
+        "message": "Activate quick clean list #$N$",
+        "description": "Keyboard shortcut description for a quick clean list, with number.",
+        "placeholders": {
+            "n": {
+                "content": "$1",
+                "example": "1"
+            }
+        }
+    },
+    "quickListDescription": {
         "message": "The extension's keyboard shortcut will clean these containers.",
-        "description": "Long description text for the quick clean list."
+        "description": "Long description text for a quick clean list."
     },
     "quickListRegex": {
         "message": "Regular expression (advanced users):",
@@ -61,18 +81,24 @@
     },
     "importFromFile": {
         "message": "Import from File...",
-        "description": "Import extension settings from a JSON file."
+        "description": "Button text to import extension settings from a JSON file."
     },
     "exportToFile": {
         "message": "Export to File...",
-        "description": "Export extension settings to a downloadable JSON file."
+        "description": "Button text to export extension settings to a downloadable JSON file."
     },
     "importErrorNotJson": {
         "message": "That file doesn't look like JSON.",
-        "description": "The imported options file does not look like valid JSON."
+        "description": "Error message when the imported options file does not appear to be valid JSON."
     },
     "exportFilename": {
-        "message": "Cleantainer options",
-        "description": "Default filename for the JSON settings export."
+        "message": "Cleantainer options$EXT$",
+        "description": "Default filename for the JSON settings export.",
+        "placeholders": {
+            "ext": {
+                "content": "$1",
+                "example": ".json"
+            }
+        }
     }
 }

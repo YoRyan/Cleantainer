@@ -191,7 +191,7 @@ async function exportJsonClickHandler(this: HTMLElement, ev: Event) {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = browser.i18n.getMessage("exportFilename") + ".json";
+    a.download = browser.i18n.getMessage("exportFilename", ".json");
     a.click();
 
     URL.revokeObjectURL(url);

@@ -49,7 +49,7 @@
                 "mac": "Command+MacCtrl+Delete",
                 "chromeos": "Alt+Shift+0"
             },
-            "description": "__MSG_quickList1Shortcut__"
+            "description": "__MSG_quickListShortcut__"
         }
     }
 }
