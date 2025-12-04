@@ -79,6 +79,20 @@
         "message": "Regular expression (advanced users):",
         "description": "Description text for regular expression input. Includes a warning that this feature is for advanced users."
     },
+    "quickListNotifyTitle": {
+        "message": "Cleantainer - Quick Clean",
+        "description": "Title for the OS notification when activating a quick clean list."
+    },
+    "quickListNotifyMessage": {
+        "message": "Cleaned $CONTAINERS$.",
+        "description": "Text for the OS notification when activating a quick clean list.",
+        "placeholders": {
+            "containers": {
+                "content": "$1",
+                "example": "Default Container, Personal, and Banking"
+            }
+        }
+    },
     "importFromFile": {
         "message": "Import from File...",
         "description": "Button text to import extension settings from a JSON file."
