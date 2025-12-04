@@ -23,7 +23,7 @@ export function sortByMap<T>(
     arr: T[],
     mapFn: (value: T) => string | number,
 ): T[] {
-    return arr.sort((a, b) => {
+    return arr.toSorted((a, b) => {
         const av = mapFn(a);
         const bv = mapFn(b);
         if (av < bv) {

@@ -70,11 +70,7 @@ async function showNotification(names: string[]) {
             "quickListNotifyMessage",
             containers,
         );
-        browser.notifications.create({
-            type: "basic",
-            title,
-            message,
-        });
+        browser.notifications.create({ type: "basic", title, message });
     } else {
         const { setBadgeBackgroundColor, setBadgeTextColor, setBadgeText } =
             browser.action;
