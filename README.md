@@ -16,4 +16,5 @@ https://github.com/user-attachments/assets/0c4ea0f5-795b-4069-9bf8-910b62958f74
 ```bash
 npm ci
 npx tsc
+cd src/ && npx web-ext build
 ```
