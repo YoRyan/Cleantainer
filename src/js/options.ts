@@ -1,57 +1,39 @@
-import {
-    Options,
-    readLocalOptions,
-    readOptions,
-    writeLocalOptions,
-} from "./storage.js";
+import { readLocalOptions, readOptions, writeLocalOptions } from "./storage.js";
 
 async function optionsMain() {
-    const options = await readLocalOptions();
-    const ci = await browser.contextualIdentities.query({});
-    setupQuickList(options, ci, 0);
+    setupShortcutsSection();
     setupImportExport();
+    setupSettingsAnchor();
 }
 
-function setupQuickList(
-    options: Options,
-    ci: browser.contextualIdentities.ContextualIdentity[],
-    n: number,
-) {
-    const ql = options.quickLists[n];
-    const fieldset = document.querySelector(
-        "#quick-list-" + (n + 1),
-    ) as HTMLElement;
-    const checkboxHandler = async function (this: HTMLInputElement, ev: Event) {
-        return containerCheckboxHandler.call(this, ev, n);
-    };
+async function setupShortcutsSection() {
+    // Initialize container metadata and attach event listeners.
+    const ci = await browser.contextualIdentities.query({});
+    const fieldset = document.querySelector("#clean-shortcut") as HTMLElement;
 
     const defaultChecked = fieldset.querySelector(
         "[data-cookie-store-id='firefox-default']",
     ) as HTMLInputElement;
-    defaultChecked.checked = ql.defaultContainer;
-    defaultChecked.addEventListener("change", checkboxHandler);
+    defaultChecked.addEventListener("change", containerCheckboxHandler);
 
     const privateChecked = fieldset.querySelector(
         "[data-cookie-store-id='firefox-private']",
     ) as HTMLInputElement;
-    privateChecked.checked = ql.privateContainer;
-    privateChecked.addEventListener("change", checkboxHandler);
+    privateChecked.addEventListener("change", containerCheckboxHandler);
 
     const template = document.querySelector(
-        "#quick-list-container",
+        "#clean-shortcut-container",
     ) as HTMLTemplateElement;
     const parent = fieldset.querySelector("ul") as Element;
     const insertBefore = fieldset.querySelector(
         ".divider-regex",
     ) as HTMLElement;
-    const ucSet = new Set(ql.userContainerIds);
     for (const { cookieStoreId, name, icon, color } of ci) {
         const cloned = template.content.cloneNode(true) as Element;
 
         const checkbox = cloned.querySelector("input") as HTMLInputElement;
         checkbox.dataset.cookieStoreId = cookieStoreId;
-        checkbox.checked = ucSet.has(cookieStoreId);
-        checkbox.addEventListener("change", checkboxHandler);
+        checkbox.addEventListener("change", containerCheckboxHandler);
 
         const iconElement = cloned.querySelector(
             ".container-icon",
@@ -67,74 +49,130 @@ function setupQuickList(
         parent.insertBefore(cloned, insertBefore);
     }
 
-    const regexInput = fieldset.querySelector(
-        ".regex-input",
-    ) as HTMLTextAreaElement;
-    const regexHandler = async function (this: HTMLTextAreaElement, ev: Event) {
-        return regexTextareaHandler.call(this, ev, n);
-    };
-    regexInput.value = ql.userContainerNames.regex;
-    regexInput.disabled = !ql.userContainerNames.enabled;
-    regexInput.addEventListener("change", regexHandler);
-
     const regexChecked = fieldset.querySelector(
         ".regex-enable",
     ) as HTMLInputElement;
-    regexChecked.checked = ql.userContainerNames.enabled;
-    const regexCheckedHandler = async function (
-        this: HTMLInputElement,
-        ev: Event,
-    ) {
-        regexInput.disabled = !this.checked;
-        await containerCheckboxHandler.call(this, ev, n);
-    };
-    regexChecked.addEventListener("change", regexCheckedHandler);
+    regexChecked.addEventListener("change", regexCheckboxHandler);
+
+    const regexInput = fieldset.querySelector(
+        ".regex-input",
+    ) as HTMLTextAreaElement;
+    regexInput.addEventListener("change", regexTextareaHandler);
+
+    // Attach event listener to shortcut select menu.
+    const select = document.querySelector(
+        "#clean-shortcut-select",
+    ) as HTMLSelectElement;
+    select.addEventListener("change", shortcutSelectHandler);
+
+    // Initialize the input element states to be consistent with storage.
+    await setShortcutsSectionForIndex(getSelectedShortcutIndex());
 }
 
-async function containerCheckboxHandler(
-    this: HTMLInputElement,
-    ev: Event,
-    idx: number,
-) {
+async function containerCheckboxHandler(this: HTMLInputElement, ev: Event) {
     const options = await readLocalOptions();
-    const list = options.quickLists[idx];
+    const idx = getSelectedShortcutIndex();
+    const shortcut = options.shortcuts[idx];
 
     const { cookieStoreId } = this.dataset;
     const { checked } = this;
     switch (cookieStoreId) {
         case "firefox-default":
-            list.defaultContainer = checked;
+            shortcut.defaultContainer = checked;
             break;
         case "firefox-private":
-            list.privateContainer = checked;
+            shortcut.privateContainer = checked;
             break;
-        case undefined: // regex enable/disable
-            list.userContainerNames.enabled = checked;
+        case undefined:
             break;
-        default: // user container
-            const ucSet = new Set(list.userContainerIds);
+        default:
+            const ucSet = new Set(shortcut.userContainerIds);
             if (checked) {
                 ucSet.add(cookieStoreId);
             } else {
                 ucSet.delete(cookieStoreId);
             }
-            list.userContainerIds = Array.from(ucSet);
+            shortcut.userContainerIds = Array.from(ucSet);
             break;
     }
     await writeLocalOptions(options);
 }
 
-async function regexTextareaHandler(
-    this: HTMLTextAreaElement,
-    ev: Event,
-    idx: number,
-) {
+async function regexCheckboxHandler(this: HTMLInputElement, ev: Event) {
     const options = await readLocalOptions();
+    const idx = getSelectedShortcutIndex();
+    const shortcut = options.shortcuts[idx];
 
-    const list = options.quickLists[idx];
-    list.userContainerNames.regex = this.value;
+    const { checked } = this;
+    shortcut.userContainerNames.enabled = checked;
+
+    const regexInput = document.querySelector(
+        "#clean-shortcut .regex-input",
+    ) as HTMLTextAreaElement;
+    regexInput.disabled = !checked;
 
     await writeLocalOptions(options);
+}
+
+async function regexTextareaHandler(this: HTMLTextAreaElement, ev: Event) {
+    const options = await readLocalOptions();
+    const idx = getSelectedShortcutIndex();
+    const shortcut = options.shortcuts[idx];
+
+    shortcut.userContainerNames.regex = this.value;
+
+    await writeLocalOptions(options);
+}
+
+async function shortcutSelectHandler(this: HTMLSelectElement, ev: Event) {
+    const idx = parseInt(this.value) - 1;
+    await setShortcutsSectionForIndex(idx);
+}
+
+function getSelectedShortcutIndex() {
+    const select = document.querySelector(
+        "#clean-shortcut-select",
+    ) as HTMLSelectElement;
+    return parseInt(select.value) - 1;
+}
+
+async function setShortcutsSectionForIndex(idx: number) {
+    const options = await readLocalOptions();
+    const shortcut = options.shortcuts[idx];
+    const ucSet = new Set(shortcut.userContainerIds);
+
+    const fieldset = document.querySelector("#clean-shortcut") as HTMLElement;
+    const containerCheckboxes = fieldset.querySelectorAll(
+        ".container-enable",
+    ) as NodeListOf<HTMLInputElement>;
+    for (const checkbox of containerCheckboxes) {
+        const { cookieStoreId } = checkbox.dataset;
+        let checked: boolean;
+        switch (cookieStoreId) {
+            case "firefox-default":
+                checked = shortcut.defaultContainer;
+                break;
+            case "firefox-private":
+                checked = shortcut.privateContainer;
+                break;
+            default:
+                checked = ucSet.has(cookieStoreId as string);
+                break;
+        }
+        checkbox.checked = checked;
+    }
+
+    const regexEnable = shortcut.userContainerNames.enabled;
+    const regexCheckbox = fieldset.querySelector(
+        ".regex-enable",
+    ) as HTMLInputElement;
+    regexCheckbox.checked = regexEnable;
+
+    const regexInput = fieldset.querySelector(
+        ".regex-input",
+    ) as HTMLTextAreaElement;
+    regexInput.disabled = !regexEnable;
+    regexInput.value = shortcut.userContainerNames.regex;
 }
 
 function setupImportExport() {
@@ -197,5 +235,40 @@ async function exportJsonClickHandler(this: HTMLElement, ev: Event) {
     URL.revokeObjectURL(url);
     a.remove();
 }
+
+function setupSettingsAnchor() {
+    const anchors = document.querySelectorAll(".open-shortcut-settings");
+    anchors.forEach(a =>
+        a.addEventListener(
+            "click",
+            // @ts-ignore
+            async ev => await browser.commands.openShortcutSettings(),
+        ),
+    );
+}
+
+class ShortcutSelect extends HTMLSelectElement {
+    constructor() {
+        super();
+    }
+
+    async connectedCallback() {
+        const commands = await browser.commands.getAll();
+        const unassigned = browser.i18n.getMessage(
+            "cleanShortcutSelectUnassigned",
+        );
+        const shortcuts = new Map<string, string>(
+            commands.map(c => [c.name as string, c.shortcut || unassigned]),
+        );
+        const options = this.querySelectorAll("option");
+        options.forEach(o => {
+            const i = o.value;
+            const message = "cleanShortcutSelect" + i;
+            const shortcut = shortcuts.get("clean-shortcut-" + i) as string;
+            o.textContent = browser.i18n.getMessage(message, [shortcut]);
+        });
+    }
+}
+customElements.define("shortcut-select", ShortcutSelect, { extends: "select" });
 
 optionsMain();

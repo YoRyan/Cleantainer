@@ -44,13 +44,22 @@
         "64": "img/placeholder-32.png"
     },
     "commands": {
-        "quick-list-1": {
+        "clean-shortcut-1": {
             "suggested_key": {
                 "default": "Alt+Shift+Delete",
                 "mac": "Command+MacCtrl+Delete",
                 "chromeos": "Alt+Shift+0"
             },
-            "description": "__MSG_quickListShortcut__"
+            "description": "__MSG_cleanShortcutShortcut1__"
+        },
+        "clean-shortcut-2": {
+            "description": "__MSG_cleanShortcutShortcut2__"
+        },
+        "clean-shortcut-3": {
+            "description": "__MSG_cleanShortcutShortcut3__"
+        },
+        "clean-shortcut-4": {
+            "description": "__MSG_cleanShortcutShortcut4__"
         }
     }
 }

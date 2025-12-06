@@ -7,29 +7,35 @@ const badgeColor = "white";
 
 browser.commands.onCommand.addListener(async command => {
     switch (command) {
-        case "quick-list-1":
-            return cleanQuickList(0);
+        case "clean-shortcut-1":
+            return cleanShortcut(0);
+        case "clean-shortcut-2":
+            return cleanShortcut(1);
+        case "clean-shortcut-3":
+            return cleanShortcut(2);
+        case "clean-shortcut-4":
+            return cleanShortcut(3);
         default:
             return;
     }
 });
 
-async function cleanQuickList(idx: number) {
+async function cleanShortcut(idx: number) {
     const options = await readLocalOptions();
-    const list = options.quickLists[idx];
+    const shortcut = options.shortcuts[idx];
     const userContainers = await browser.contextualIdentities.query({});
 
-    const cookieStoreIds = new Set<string>(list.userContainerIds);
-    if (list.defaultContainer) {
+    const cookieStoreIds = new Set<string>(shortcut.userContainerIds);
+    if (shortcut.defaultContainer) {
         cookieStoreIds.add("firefox-default");
     }
-    if (list.privateContainer) {
+    if (shortcut.privateContainer) {
         cookieStoreIds.add("firefox-private");
     }
-    if (list.userContainerNames.enabled) {
+    if (shortcut.userContainerNames.enabled) {
         let re: RegExp;
         try {
-            re = new RegExp(list.userContainerNames.regex);
+            re = new RegExp(shortcut.userContainerNames.regex);
         } catch {
             re = /$impossible/;
         }
@@ -65,9 +71,9 @@ async function showNotification(names: string[]) {
             style: "long",
             type: "conjunction",
         }).format(names);
-        const title = browser.i18n.getMessage("quickListNotifyTitle");
+        const title = browser.i18n.getMessage("cleanShortcutNotifyTitle");
         const message = browser.i18n.getMessage(
-            "quickListNotifyMessage",
+            "cleanShortcutNotifyMessage",
             containers,
         );
         browser.notifications.create({ type: "basic", title, message });

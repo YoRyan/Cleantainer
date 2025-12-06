@@ -43,49 +43,95 @@
         "message": "Error. See console.",
         "description": "Status message when a clean operation fails. Instructs the user to check the extension's console for details."
     },
-    "quickList": {
-        "message": "Quick Clean List",
-        "description": "Header text for a user-defined list of containers to clean."
+    "cleanShortcut": {
+        "message": "Clean Shortcuts",
+        "description": "Header text for the keyboard shortcut clean feature."
     },
-    "quickListN": {
-        "message": "Quick Clean List #$N$",
-        "description": "Header text for a user-defined list of containers to clean, with number.",
+    "cleanShortcutShortcut1": {
+        "message": "Clean configured containers, shortcut #1",
+        "description": "Keyboard shortcut description for clean shortcut 1."
+    },
+    "cleanShortcutShortcut2": {
+        "message": "Clean configured containers, shortcut #2",
+        "description": "Keyboard shortcut description for clean shortcut 2."
+    },
+    "cleanShortcutShortcut3": {
+        "message": "Clean configured containers, shortcut #3",
+        "description": "Keyboard shortcut description for clean shortcut 3."
+    },
+    "cleanShortcutShortcut4": {
+        "message": "Clean configured containers, shortcut #4",
+        "description": "Keyboard shortcut description for clean shortcut 4."
+    },
+    "cleanShortcutDescription": {
+        "message": "Clean containers using the keyboard shortcuts $A_SHORTCUTS$configured</a> for the extension. Each shortcut cleans a unique list of containers.",
+        "description": "Explanation text for the keyboard shortcut clean feature.",
         "placeholders": {
-            "n": {
+            "a_shortcuts": {
                 "content": "$1",
-                "example": "1"
+                "example": "<a href='browser.commands.openShortcutSettings()'>"
             }
         }
     },
-    "quickListShortcut": {
-        "message": "Clean containers in the quick clean list",
-        "description": "Keyboard shortcut description for a quick clean list."
+    "cleanShortcutSelectLabel": {
+        "message": "Choose a shortcut to configure",
+        "description": "Label text for the select menu to choose a clean shortcut to configure."
     },
-    "quickListShortcutN": {
-        "message": "Activate quick clean list #$N$",
-        "description": "Keyboard shortcut description for a quick clean list, with number.",
+    "cleanShortcutSelect1": {
+        "message": "#1 - $KEYS$",
+        "description": "Select item text to modify clean shortcut 1.",
         "placeholders": {
-            "n": {
+            "keys": {
                 "content": "$1",
-                "example": "1"
+                "example": "Shift+Alt+Delete"
             }
         }
     },
-    "quickListDescription": {
-        "message": "The extension's keyboard shortcut will clean these containers.",
-        "description": "Long description text for a quick clean list."
+    "cleanShortcutSelect2": {
+        "message": "#2 - $KEYS$",
+        "description": "Select item text to modify clean shortcut 2.",
+        "placeholders": {
+            "keys": {
+                "content": "$1",
+                "example": "Shift+Alt+Delete"
+            }
+        }
     },
-    "quickListRegex": {
+    "cleanShortcutSelect3": {
+        "message": "#3 - $KEYS$",
+        "description": "Select item text to modify clean shortcut 3.",
+        "placeholders": {
+            "keys": {
+                "content": "$1",
+                "example": "Shift+Alt+Delete"
+            }
+        }
+    },
+    "cleanShortcutSelect4": {
+        "message": "#4 - $KEYS$",
+        "description": "Select item text to modify clean shortcut 4.",
+        "placeholders": {
+            "keys": {
+                "content": "$1",
+                "example": "Shift+Alt+Delete"
+            }
+        }
+    },
+    "cleanShortcutSelectUnassigned": {
+        "message": "(Not Assigned)",
+        "description": "Select item substitution text when a shortcut clean does not have an assigned keyboard shortcut."
+    },
+    "cleanShortcutRegex": {
         "message": "Regular expression (advanced users):",
         "description": "Description text for regular expression input. Includes a warning that this feature is for advanced users."
     },
-    "quickListNotifyTitle": {
-        "message": "Cleantainer - Quick Clean",
-        "description": "Title for the OS notification when activating a quick clean list."
+    "cleanShortcutNotifyTitle": {
+        "message": "Cleantainer - Shortcut Clean",
+        "description": "Title for the OS notification when activating a clean shortcut."
     },
-    "quickListNotifyMessage": {
+    "cleanShortcutNotifyMessage": {
         "message": "Cleaned $CONTAINERS$.",
-        "description": "Text for the OS notification when activating a quick clean list.",
+        "description": "Text for the OS notification when activating a clean shortcut.",
         "placeholders": {
             "containers": {
                 "content": "$1",

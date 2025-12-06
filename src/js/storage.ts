@@ -1,9 +1,9 @@
 export type Options = {
-    quickLists: QuickList[];
+    shortcuts: Shortcut[];
     pinnedIds: string[];
 };
 
-export type QuickList = {
+export type Shortcut = {
     defaultContainer: boolean;
     privateContainer: boolean;
     userContainerIds: string[];
@@ -13,7 +13,7 @@ export type QuickList = {
     };
 };
 
-const nQuickLists = 1;
+const nShortcuts = 4;
 
 export async function readLocalOptions(): Promise<Options> {
     const storage = await browser.storage.local.get(null);
@@ -25,21 +25,17 @@ export async function writeLocalOptions(options: Options) {
 }
 
 export function readOptions(obj: unknown): Options {
-    let quickLists: QuickList[] = [],
+    let shortcuts: Shortcut[] = [],
         pinnedIds: string[] = [];
     fail: do {
         if (typeof obj !== "object" || obj === null) {
             break fail;
         }
 
-        if ("quickLists" in obj) {
-            quickLists = Array.from(
-                Object.values(new Object(obj.quickLists)),
-            ).map(readQuickList);
-        }
-        // Ensure quickLists has the correct number of items.
-        for (let i = 0; i < nQuickLists - quickLists.length; i++) {
-            quickLists.push(readQuickList(undefined));
+        if ("shortcuts" in obj) {
+            shortcuts = Array.from(
+                Object.values(new Object(obj.shortcuts)),
+            ).map(readShortcut);
         }
 
         if ("pinnedIds" in obj) {
@@ -48,10 +44,16 @@ export function readOptions(obj: unknown): Options {
             ).filter(s => typeof s === "string");
         }
     } while (false);
-    return { quickLists, pinnedIds };
+
+    // Ensure shortcuts has the correct number of items.
+    while (shortcuts.length < nShortcuts) {
+        shortcuts.push(readShortcut(undefined));
+    }
+
+    return { shortcuts, pinnedIds };
 }
 
-function readQuickList(obj: unknown): QuickList {
+function readShortcut(obj: unknown): Shortcut {
     let defaultContainer = false,
         privateContainer = false,
         userContainerIds: string[] = [],

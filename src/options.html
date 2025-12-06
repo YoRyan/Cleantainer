@@ -9,15 +9,33 @@
     </head>
 
     <body>
-        <fieldset id="quick-list-1" class="quick-list">
-            <legend><span is="i18n-message">quickList</span></legend>
+        <fieldset id="clean-shortcut">
+            <legend><span is="i18n-message">cleanShortcut</span></legend>
             <p>
-                <span is="i18n-message">quickListDescription</span>
+                <span
+                    is="i18n-message"
+                    data-substitution-1="&lt;a class='open-shortcut-settings' href='#'&gt;"
+                    >cleanShortcutDescription</span
+                >
+            </p>
+            <p>
+                <label for="clean-shortcut-select"
+                    ><span is="i18n-message"
+                        >cleanShortcutSelectLabel</span
+                    ></label
+                >
+                <select is="shortcut-select" id="clean-shortcut-select">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                </select>
             </p>
             <ul>
                 <li>
                     <input
                         type="checkbox"
+                        class="container-enable"
                         data-cookie-store-id="firefox-default"
                     /><span class="container"
                         ><span
@@ -35,6 +53,7 @@
                 <li>
                     <input
                         type="checkbox"
+                        class="container-enable"
                         data-cookie-store-id="firefox-private"
                     /><span class="container"
                         ><span
@@ -54,7 +73,7 @@
                 <li>
                     <input type="checkbox" class="regex-enable" /><span
                         is="i18n-message"
-                        >quickListRegex</span
+                        >cleanShortcutRegex</span
                     >
                     <textarea class="regex-input" wrap="soft"></textarea>
                 </li>
@@ -75,9 +94,10 @@
             </button>
         </div>
 
-        <template id="quick-list-container">
+        <template id="clean-shortcut-container">
             <li>
-                <input type="checkbox" /><span class="container"
+                <input type="checkbox" class="container-enable" /><span
+                    class="container"
                     ><span class="container-icon"></span>
                     <span class="container-name">CONTAINER NAME</span>
                 </span>
