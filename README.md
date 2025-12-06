@@ -9,6 +9,8 @@ Features:
 - Pin your most frequently cleaned containers to the top of the popup, and drag-and-drop your pins in any order.
 - Clean configurable sets of containers using keyboard shortcuts.
 
+https://github.com/user-attachments/assets/0c4ea0f5-795b-4069-9bf8-910b62958f74
+
 ## Build
 
 ```bash
