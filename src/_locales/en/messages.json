@@ -147,6 +147,16 @@
         "message": "Export to File...",
         "description": "Button text to export extension settings to a downloadable JSON file."
     },
+    "importFromFileSuccessful": {
+        "message": "Successfully imported options from \"$FILE$\".",
+        "description": "Status message after a successful JSON extension settings import.",
+        "placeholders": {
+            "file": {
+                "content": "$1",
+                "example": "Cleantainer options.json"
+            }
+        }
+    },
     "importErrorNotJson": {
         "message": "That file doesn't look like JSON.",
         "description": "Error message when the imported options file does not appear to be valid JSON."
