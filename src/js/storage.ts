@@ -107,3 +107,19 @@ function readShortcut(obj: unknown): Shortcut {
         userContainerNames,
     };
 }
+
+export async function readExtensionShortcuts() {
+    const commands = await browser.commands.getAll();
+    return Object.fromEntries(
+        commands.map(c => [c.name as string, c.shortcut as string]),
+    );
+}
+
+export async function writeExtensionShortcuts(toShortcut: {
+    [name: string]: string;
+}) {
+    const doUpdates = Object.entries(toShortcut).map(async ([name, shortcut]) =>
+        browser.commands.update({ name, shortcut }),
+    );
+    await Promise.allSettled(doUpdates);
+}

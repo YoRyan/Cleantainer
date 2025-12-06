@@ -1,4 +1,10 @@
-import { readLocalOptions, readOptions, writeLocalOptions } from "./storage.js";
+import {
+    readExtensionShortcuts,
+    readLocalOptions,
+    readOptions,
+    writeExtensionShortcuts,
+    writeLocalOptions,
+} from "./storage.js";
 
 async function optionsMain() {
     setupShortcutsSection();
@@ -214,17 +220,34 @@ async function importJsonChangeHandler(this: HTMLInputElement, ev: Event) {
             break notJson;
         }
 
-        const options = readOptions(json);
+        if (typeof json !== "object" || !("options" in json)) {
+            break notJson;
+        }
+
+        const options = readOptions(json.options);
         await writeLocalOptions(options);
+
+        if ("shortcuts" in json) {
+            const { shortcuts } = json;
+            if (typeof shortcuts === "object" && shortcuts !== null) {
+                await writeExtensionShortcuts(
+                    shortcuts as { [k: string]: string }, // Not a big deal if this cast fails.
+                );
+            }
+        }
+
         return;
     } while (false);
     alert(browser.i18n.getMessage("importErrorNotJson"));
 }
 
 async function exportJsonClickHandler(this: HTMLElement, ev: Event) {
-    const json = JSON.stringify(await readLocalOptions(), null, 2);
+    const json = {
+        options: await readLocalOptions(),
+        shortcuts: await readExtensionShortcuts(),
+    };
     const url = URL.createObjectURL(
-        new Blob([json], { type: "application/json" }),
+        new Blob([JSON.stringify(json, null, 2)], { type: "application/json" }),
     );
 
     const a = document.createElement("a");
