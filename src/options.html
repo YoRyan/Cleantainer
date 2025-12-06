@@ -36,8 +36,11 @@
                     <input
                         type="checkbox"
                         class="container-enable"
+                        id="container-enable_firefox-default"
                         data-cookie-store-id="firefox-default"
-                    /><span class="container"
+                    /><label
+                        class="container"
+                        for="container-enable_firefox-default"
                         ><span
                             class="container-icon"
                             data-identity-icon="default_no-container"
@@ -48,14 +51,17 @@
                                 >containerDefault</span
                             ></span
                         >
-                    </span>
+                    </label>
                 </li>
                 <li>
                     <input
                         type="checkbox"
                         class="container-enable"
+                        id="container-enable_firefox-private"
                         data-cookie-store-id="firefox-private"
-                    /><span class="container"
+                    /><label
+                        class="container"
+                        for="container-enable_firefox-private"
                         ><span
                             class="container-icon"
                             data-identity-icon="default_private"
@@ -66,16 +72,18 @@
                                 >containerPrivate</span
                             ></span
                         >
-                    </span>
+                    </label>
                 </li>
                 <hr class="divider-user" />
                 <hr class="divider-regex" />
                 <li>
-                    <input type="checkbox" class="regex-enable" /><span
-                        is="i18n-message"
-                        >cleanShortcutRegex</span
+                    <input type="checkbox" id="regex-enable" /><label
+                        for="regex-enable"
+                        ><span is="i18n-message"
+                            >cleanShortcutRegex</span
+                        ></label
                     >
-                    <textarea class="regex-input" wrap="soft"></textarea>
+                    <textarea id="regex-input" wrap="soft"></textarea>
                 </li>
             </ul>
         </fieldset>
@@ -96,11 +104,11 @@
 
         <template id="clean-shortcut-container">
             <li>
-                <input type="checkbox" class="container-enable" /><span
+                <input type="checkbox" class="container-enable" /><label
                     class="container"
                     ><span class="container-icon"></span>
                     <span class="container-name">CONTAINER NAME</span>
-                </span>
+                </label>
             </li>
         </template>
     </body>

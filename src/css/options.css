@@ -72,7 +72,8 @@ select > option {
 #clean-shortcut ul hr {
     visibility: hidden;
 }
-#clean-shortcut .regex-input {
+
+#regex-input {
     display: block;
     margin-left: 2rem;
     width: calc(100% - 2rem);

@@ -37,7 +37,12 @@ async function setupShortcutsSection() {
     for (const { cookieStoreId, name, icon, color } of ci) {
         const cloned = template.content.cloneNode(true) as Element;
 
+        const label = cloned.querySelector("label") as HTMLElement;
+        const checkboxId = "container-enable_" + cookieStoreId;
+        label.setAttribute("for", checkboxId);
+
         const checkbox = cloned.querySelector("input") as HTMLInputElement;
+        checkbox.id = checkboxId;
         checkbox.dataset.cookieStoreId = cookieStoreId;
         checkbox.addEventListener("change", containerCheckboxHandler);
 
@@ -56,12 +61,12 @@ async function setupShortcutsSection() {
     }
 
     const regexChecked = fieldset.querySelector(
-        ".regex-enable",
+        "#regex-enable",
     ) as HTMLInputElement;
     regexChecked.addEventListener("change", regexCheckboxHandler);
 
     const regexInput = fieldset.querySelector(
-        ".regex-input",
+        "#regex-input",
     ) as HTMLTextAreaElement;
     regexInput.addEventListener("change", regexTextareaHandler);
 
@@ -113,7 +118,7 @@ async function regexCheckboxHandler(this: HTMLInputElement, ev: Event) {
     shortcut.userContainerNames.enabled = checked;
 
     const regexInput = document.querySelector(
-        "#clean-shortcut .regex-input",
+        "#regex-input",
     ) as HTMLTextAreaElement;
     regexInput.disabled = !checked;
 
@@ -170,12 +175,12 @@ async function setShortcutsSectionForIndex(idx: number) {
 
     const regexEnable = shortcut.userContainerNames.enabled;
     const regexCheckbox = fieldset.querySelector(
-        ".regex-enable",
+        "#regex-enable",
     ) as HTMLInputElement;
     regexCheckbox.checked = regexEnable;
 
     const regexInput = fieldset.querySelector(
-        ".regex-input",
+        "#regex-input",
     ) as HTMLTextAreaElement;
     regexInput.disabled = !regexEnable;
     regexInput.value = shortcut.userContainerNames.regex;
