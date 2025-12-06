@@ -10,7 +10,10 @@
     },
     "browser_specific_settings": {
         "gecko": {
-            "id": "cleantainer@youngryan.com"
+            "id": "cleantainer@youngryan.com",
+            "data_collection_permissions": {
+                "required": ["none"]
+            }
         }
     },
     "permissions": ["storage", "browsingData", "contextualIdentities"],
