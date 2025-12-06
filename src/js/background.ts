@@ -77,17 +77,17 @@ async function showNotification(names: string[]) {
             containers,
         );
         browser.notifications.create({ type: "basic", title, message });
-    } else {
-        const { setBadgeBackgroundColor, setBadgeTextColor, setBadgeText } =
-            browser.action;
-        const text = "" + names.length;
-        setBadgeBackgroundColor({ color: badgeBgColor });
-        setBadgeTextColor({ color: badgeColor });
-        setBadgeText({ text });
-
-        await sleep(badgeTimeoutMs);
-        setBadgeText({ text: null });
     }
+
+    const { setBadgeBackgroundColor, setBadgeTextColor, setBadgeText } =
+        browser.action;
+    const text = "" + names.length;
+    setBadgeBackgroundColor({ color: badgeBgColor });
+    setBadgeTextColor({ color: badgeColor });
+    setBadgeText({ text });
+
+    await sleep(badgeTimeoutMs);
+    setBadgeText({ text: null });
 }
 
 async function sleep(ms: number) {
