@@ -26,22 +26,12 @@
     "action": {
         "default_title": "__MSG_extensionName__",
         "default_popup": "popup.html",
-        "default_icon": "img/cleantainer-dark.svg",
+        "default_area": "navbar",
         "theme_icons": [
             {
-                "light": "img/cleantainer-light.svg",
-                "dark": "img/cleantainer-dark.svg",
-                "size": 16
-            },
-            {
-                "light": "img/cleantainer-light.svg",
-                "dark": "img/cleantainer-dark.svg",
+                "light": "img/cleantainer-lightdark.svg",
+                "dark": "img/cleantainer-lightdark.svg",
                 "size": 32
-            },
-            {
-                "light": "img/cleantainer-light.svg",
-                "dark": "img/cleantainer-dark.svg",
-                "size": 64
             }
         ]
     },
@@ -49,8 +39,8 @@
         "page": "options.html"
     },
     "icons": {
-        "32": "img/cleantainer-neutral.svg",
-        "64": "img/cleantainer-neutral.svg"
+        "48": "img/cleantainer.svg",
+        "96": "img/cleantainer.svg"
     },
     "commands": {
         "clean-shortcut-1": {
