@@ -64,14 +64,18 @@
         "description": "Keyboard shortcut description for clean shortcut 4."
     },
     "cleanShortcutDescription": {
-        "message": "Clean containers using the keyboard shortcuts $A_SHORTCUTS$configured</a> for the extension. Each shortcut cleans a unique list of containers.",
+        "message": "Clean containers using the keyboard shortcuts $SHORTCUTS$ for the extension. Each shortcut cleans a unique list of containers.",
         "description": "Explanation text for the keyboard shortcut clean feature.",
         "placeholders": {
-            "a_shortcuts": {
+            "shortcuts": {
                 "content": "$1",
-                "example": "<a href='browser.commands.openShortcutSettings()'>"
+                "example": "(link to the extension's shortcut settings)"
             }
         }
+    },
+    "cleanShortcutDescriptionShortcutAnchor": {
+        "message": "configured",
+        "description": "Text for the link to the extension's shortcut settings."
     },
     "cleanShortcutSelectLabel": {
         "message": "Choose a shortcut to configure",

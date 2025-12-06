@@ -8,8 +8,8 @@ import {
 
 async function optionsMain() {
     setupShortcutsSection();
+    setupShortcutsDescription();
     setupImportExport();
-    setupSettingsAnchor();
 }
 
 async function setupShortcutsSection() {
@@ -186,6 +186,34 @@ async function setShortcutsSectionForIndex(idx: number) {
     regexInput.value = shortcut.userContainerNames.regex;
 }
 
+function setupShortcutsDescription() {
+    const separator = "SHORTCUTS_ANCHOR_HERE";
+    const [before, after] = browser.i18n
+        .getMessage("cleanShortcutDescription", separator)
+        .split(separator, 2);
+
+    const openSettings = document.createElement("a");
+    openSettings.href = "#";
+    openSettings.addEventListener("click", async ev =>
+        // @ts-ignore
+        browser.commands.openShortcutSettings(),
+    );
+    openSettings.appendChild(
+        document.createTextNode(
+            browser.i18n.getMessage("cleanShortcutDescriptionShortcutAnchor"),
+        ),
+    );
+
+    const p = document.querySelector(
+        "#clean-shortcut-description",
+    ) as HTMLElement;
+    p.append(
+        document.createTextNode(before),
+        openSettings,
+        document.createTextNode(after),
+    );
+}
+
 function setupImportExport() {
     const importButton = document.querySelector("#import-json") as HTMLElement;
     importButton.addEventListener("click", importJsonClickHandler);
@@ -267,17 +295,6 @@ async function exportJsonClickHandler(this: HTMLElement, ev: Event) {
 
     URL.revokeObjectURL(url);
     a.remove();
-}
-
-function setupSettingsAnchor() {
-    const anchors = document.querySelectorAll(".open-shortcut-settings");
-    anchors.forEach(a =>
-        a.addEventListener(
-            "click",
-            // @ts-ignore
-            async ev => await browser.commands.openShortcutSettings(),
-        ),
-    );
 }
 
 class ShortcutSelect extends HTMLSelectElement {

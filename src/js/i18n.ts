@@ -5,7 +5,7 @@ class MessageElement extends HTMLSpanElement {
     connectedCallback() {
         const { textContent } = this;
         if (textContent !== null) {
-            this.insertAdjacentHTML(
+            this.insertAdjacentText(
                 "afterend",
                 browser.i18n.getMessage(
                     textContent.trim(),
