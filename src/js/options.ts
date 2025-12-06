@@ -70,9 +70,9 @@ async function setupShortcutsSection() {
 }
 
 async function containerCheckboxHandler(this: HTMLInputElement, ev: Event) {
-    const options = await readLocalOptions();
     const idx = getSelectedShortcutIndex();
-    const shortcut = options.shortcuts[idx];
+    let options = await readLocalOptions(),
+        shortcut = options.shortcuts[idx];
 
     const { cookieStoreId } = this.dataset;
     const { checked } = this;
@@ -99,9 +99,9 @@ async function containerCheckboxHandler(this: HTMLInputElement, ev: Event) {
 }
 
 async function regexCheckboxHandler(this: HTMLInputElement, ev: Event) {
-    const options = await readLocalOptions();
     const idx = getSelectedShortcutIndex();
-    const shortcut = options.shortcuts[idx];
+    let options = await readLocalOptions(),
+        shortcut = options.shortcuts[idx];
 
     const { checked } = this;
     shortcut.userContainerNames.enabled = checked;
@@ -115,9 +115,9 @@ async function regexCheckboxHandler(this: HTMLInputElement, ev: Event) {
 }
 
 async function regexTextareaHandler(this: HTMLTextAreaElement, ev: Event) {
-    const options = await readLocalOptions();
     const idx = getSelectedShortcutIndex();
-    const shortcut = options.shortcuts[idx];
+    let options = await readLocalOptions(),
+        shortcut = options.shortcuts[idx];
 
     shortcut.userContainerNames.regex = this.value;
 
