@@ -57,6 +57,7 @@ async function cleanShortcut(idx: number) {
         ),
     ]);
     const doNotify = showNotification(
+        idx,
         Array.from(cookieStoreIds)
             .map(id => idToName.get(id) ?? id)
             .sort(),
@@ -65,7 +66,7 @@ async function cleanShortcut(idx: number) {
     await Promise.all([...doCleans, doNotify]);
 }
 
-async function showNotification(names: string[]) {
+async function showNotification(idx: number, names: string[]) {
     if (browser.notifications) {
         const containers = new Intl.ListFormat(browser.i18n.getUILanguage(), {
             style: "long",
@@ -81,7 +82,7 @@ async function showNotification(names: string[]) {
 
     const { setBadgeBackgroundColor, setBadgeTextColor, setBadgeText } =
         browser.action;
-    const text = "" + names.length;
+    const text = "" + (idx + 1);
     setBadgeBackgroundColor({ color: badgeBgColor });
     setBadgeTextColor({ color: badgeColor });
     setBadgeText({ text });
