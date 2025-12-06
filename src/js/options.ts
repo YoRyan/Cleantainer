@@ -236,6 +236,9 @@ async function importJsonChangeHandler(this: HTMLInputElement, ev: Event) {
             }
         }
 
+        // Make controls reflect the restored settings.
+        await setShortcutsSectionForIndex(getSelectedShortcutIndex());
+
         return;
     } while (false);
     alert(browser.i18n.getMessage("importErrorNotJson"));
