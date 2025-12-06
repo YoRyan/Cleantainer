@@ -44,6 +44,13 @@ button:focus {
         0 0 0 1px #0a84ff,
         0 0 0 4px rgba(10, 132, 255, 0.3);
 }
+select {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+}
+select > option {
+    font-weight: normal;
+}
 
 #clean-shortcut ul {
     list-style-type: none;
