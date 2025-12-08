@@ -19,6 +19,18 @@
         "message": "Cleantainer options",
         "description": "Menu item to open the extension's options screen."
     },
+    "popupCleanTooltip": {
+        "message": "Clean this container's cookies, localStorage, and IndexedDB",
+        "description": "Tooltip for the container clean control."
+    },
+    "popupPinTooltip": {
+        "message": "Pin this container to the top of the list",
+        "description": "Tooltip for the container pin control."
+    },
+    "popupUnpinTooltip": {
+        "message": "Remove this container from the pinned section",
+        "description": "Tooltip for the container unpin control."
+    },
     "containerDefault": {
         "message": "No Container",
         "description": "Name for the default Firefox container."

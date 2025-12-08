@@ -121,6 +121,7 @@ function createCleanerElement(
     );
 
     const button = cleaner.querySelector(".cleaner-button") as HTMLElement;
+    button.title = browser.i18n.getMessage("popupCleanTooltip");
     button.addEventListener("click", async ev =>
         cleaner.cleanerClickHandler(ev),
     );
@@ -405,6 +406,16 @@ function orderCleaners() {
     list.append(
         ...sortByMap(user, ce => parseInt(ce.dataset.queryOrder as string)),
     );
+
+    // Set tooltips based on the pinned state.
+    pinned.forEach(ce => {
+        const pin = ce.querySelector(".cleaner-pin") as HTMLElement;
+        pin.title = browser.i18n.getMessage("popupUnpinTooltip");
+    });
+    notPinned.forEach(ce => {
+        const pin = ce.querySelector(".cleaner-pin") as HTMLElement;
+        pin.title = browser.i18n.getMessage("popupPinTooltip");
+    });
 }
 
 popupMain();
