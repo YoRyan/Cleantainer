@@ -55,6 +55,22 @@
         "message": "Error. See console.",
         "description": "Status message when a clean operation fails. Instructs the user to check the extension's console for details."
     },
+    "appearance": {
+        "message": "Appearance",
+        "description": "Header text for the cosmetic options section."
+    },
+    "appearanceDensityDefault": {
+        "message": "Default",
+        "description": "Label for the radio button to select default popup density."
+    },
+    "appearanceDensityTouch": {
+        "message": "Touch-Friendly",
+        "description": "Label for the radio button to select large, touch-friendly popup density."
+    },
+    "appearanceDensityContainer": {
+        "message": "Clean Container",
+        "description": "Label for the container clean buttons used to demonstrate the different UI densities."
+    },
     "cleanShortcut": {
         "message": "Clean Shortcuts",
         "description": "Header text for the keyboard shortcut clean feature."

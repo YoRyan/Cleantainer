@@ -7,9 +7,33 @@ import {
 } from "./storage.js";
 
 async function optionsMain() {
+    setupAppearanceSection();
     setupShortcutsSection();
     setupShortcutsDescription();
     setupImportExport();
+}
+
+async function setupAppearanceSection() {
+    const options = await readLocalOptions();
+    const { uiDensity } = options;
+
+    const defaultDensity = document.querySelector(
+        "#appearance-density-default",
+    ) as HTMLInputElement;
+    defaultDensity.checked = uiDensity === "default";
+    defaultDensity.addEventListener("change", uiDensityRadioHandler);
+
+    const touchDensity = document.querySelector(
+        "#appearance-density-touch",
+    ) as HTMLInputElement;
+    touchDensity.checked = uiDensity === "touch";
+    touchDensity.addEventListener("change", uiDensityRadioHandler);
+}
+
+async function uiDensityRadioHandler(this: HTMLInputElement, ev: Event) {
+    let options = await readLocalOptions();
+    options.uiDensity = this.value === "touch" ? "touch" : "default";
+    await writeLocalOptions(options);
 }
 
 async function setupShortcutsSection() {

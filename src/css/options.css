@@ -52,6 +52,43 @@ select > option {
     font-weight: normal;
 }
 
+#appearance-density-default,
+#appearance-density-touch {
+    width: 1.5rem;
+    margin: 0 0.5rem 0 0;
+}
+.container-density {
+    background-color: light-dark(#ededf0, #4a4a4f);
+    border-radius: 4px;
+    font-size: 12px;
+    text-align: left;
+    user-select: none;
+    display: block;
+    margin: 0.4rem 0 0.4rem calc(1.5rem + 0.5rem);
+    padding: 0.4rem;
+    width: 15rem;
+}
+label[for="appearance-density-touch"] .container-density {
+    font-size: 120%;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+
+    .container-icon {
+        background-size: 24px;
+        width: 24px;
+        height: 24px;
+    }
+}
+.container-density .container-icon {
+    vertical-align: middle;
+}
+.container-density .container-name {
+    padding: 0.3rem;
+}
+.container-density:hover {
+    background-color: light-dark(#d7d7db, #737373);
+}
+
 #clean-shortcut ul {
     list-style-type: none;
     margin: 0;

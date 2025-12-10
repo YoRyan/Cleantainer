@@ -1,6 +1,7 @@
 export type Options = {
     shortcuts: Shortcut[];
     pinnedIds: string[];
+    uiDensity: "default" | "touch";
 };
 
 export type Shortcut = {
@@ -26,7 +27,8 @@ export async function writeLocalOptions(options: Options) {
 
 export function readOptions(obj: unknown): Options {
     let shortcuts: Shortcut[] = [],
-        pinnedIds: string[] = [];
+        pinnedIds: string[] = [],
+        uiDensity: "default" | "touch" = "default";
     fail: do {
         if (typeof obj !== "object" || obj === null) {
             break fail;
@@ -43,6 +45,10 @@ export function readOptions(obj: unknown): Options {
                 Object.values(new Object(obj.pinnedIds)),
             ).filter(s => typeof s === "string");
         }
+
+        if ("uiDensity" in obj && obj.uiDensity === "touch") {
+            uiDensity = "touch";
+        }
     } while (false);
 
     // Ensure shortcuts has the correct number of items.
@@ -50,7 +56,7 @@ export function readOptions(obj: unknown): Options {
         shortcuts.push(readShortcut(undefined));
     }
 
-    return { shortcuts, pinnedIds };
+    return { shortcuts, pinnedIds, uiDensity };
 }
 
 function readShortcut(obj: unknown): Shortcut {

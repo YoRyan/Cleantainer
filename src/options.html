@@ -9,6 +9,53 @@
     </head>
 
     <body>
+        <fieldset id="appearance">
+            <legend><span is="i18n-message">appearance</span></legend>
+            <p>
+                <input
+                    type="radio"
+                    id="appearance-density-default"
+                    name="density"
+                    value="default"
+                /><label for="appearance-density-default"
+                    ><span is="i18n-message">appearanceDensityDefault</span>
+                    <span class="container container-density">
+                        <span
+                            class="container-icon"
+                            data-identity-icon="circle"
+                            data-identity-color="toolbar"
+                        ></span>
+                        <span class="container-name"
+                            ><span is="i18n-message"
+                                >appearanceDensityContainer</span
+                            ></span
+                        >
+                    </span>
+                </label>
+            </p>
+            <p>
+                <input
+                    type="radio"
+                    id="appearance-density-touch"
+                    name="density"
+                    value="touch"
+                /><label for="appearance-density-touch"
+                    ><span is="i18n-message">appearanceDensityTouch</span>
+                    <span class="container container-density">
+                        <span
+                            class="container-icon"
+                            data-identity-icon="circle"
+                            data-identity-color="toolbar"
+                        ></span>
+                        <span class="container-name"
+                            ><span is="i18n-message"
+                                >appearanceDensityContainer</span
+                            ></span
+                        >
+                    </span>
+                </label>
+            </p>
+        </fieldset>
         <fieldset id="clean-shortcut">
             <legend><span is="i18n-message">cleanShortcut</span></legend>
             <p id="clean-shortcut-description"></p>

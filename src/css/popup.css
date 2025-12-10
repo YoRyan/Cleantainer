@@ -66,7 +66,7 @@ button:active {
     text-align: left;
 }
 .cleaner-icon {
-    vertical-align: text-top;
+    vertical-align: middle;
 }
 .cleaner-name {
     display: inline-block;
@@ -148,6 +148,26 @@ button:active {
 
 .cleaner[data-current] .cleaner-name {
     font-weight: 600;
+}
+
+#cleaner-list.ui-density-touch {
+    font-size: 120%;
+
+    .cleaner-button,
+    .cleaner-pin {
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+    }
+    .cleaner-icon,
+    .cleaner-pin-icon {
+        background-size: 24px;
+        width: 24px;
+        height: 24px;
+    }
+    .cleaner-popin {
+        padding-top: calc(0.8rem + 0.3rem);
+        padding-bottom: calc(0.8rem + 0.3rem);
+    }
 }
 
 #popup-menu button {

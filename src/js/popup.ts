@@ -19,9 +19,10 @@ let draggedCleaner: CleanerElement | undefined = undefined;
 
 async function popupMain() {
     const options = await readLocalOptions();
-    const { pinnedIds } = options;
+    const { uiDensity, pinnedIds } = options;
 
     const list = document.querySelector("#cleaner-list") as HTMLElement;
+    list.classList.add("ui-density-" + uiDensity);
     const template = document.querySelector("#cleaner") as HTMLTemplateElement;
 
     const [userContainers, [currentTab]] = await Promise.all([
