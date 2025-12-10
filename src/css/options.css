@@ -67,6 +67,7 @@ select > option {
     margin: 0.4rem 0 0.4rem calc(1.5rem + 0.5rem);
     padding: 0.4rem;
     width: 15rem;
+    min-width: max-content;
 }
 label[for="appearance-density-touch"] .container-density {
     font-size: 120%;
