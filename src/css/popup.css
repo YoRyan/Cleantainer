@@ -76,7 +76,7 @@ button:active {
     display: none;
     position: absolute;
     top: 0;
-    padding: 0.7rem 0.5rem;
+    padding: calc(0.4rem + 0.3rem) 0.5rem;
     width: calc(100% - 5rem);
     box-shadow: inset 0 2px 8px rgba(12, 12, 13, 0.1);
 }

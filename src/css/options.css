@@ -76,7 +76,7 @@ select > option {
 #regex-input {
     display: block;
     margin-left: 2rem;
-    width: calc(100% - 2rem);
+    width: calc(100% - 1.5rem - 0.5rem);
     box-sizing: border-box;
 }
 
