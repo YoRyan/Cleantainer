@@ -1,10 +1,10 @@
 {
     "devDependencies": {
-        "prettier": "^3.5.3",
-        "web-ext": "^8.5.0"
+        "prettier": "latest",
+        "web-ext": "latest"
     },
     "dependencies": {
-        "@types/firefox-webext-browser": "^120.0.4",
-        "typescript": "^5.8.3"
+        "@types/firefox-webext-browser": "ts5.9",
+        "typescript": "^5.9"
     }
 }
