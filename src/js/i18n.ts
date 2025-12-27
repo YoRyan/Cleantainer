@@ -1,4 +1,4 @@
-class MessageElement extends HTMLSpanElement {
+class MessageElement extends HTMLElement {
     constructor() {
         super();
     }
@@ -16,7 +16,7 @@ class MessageElement extends HTMLSpanElement {
         this.remove();
     }
 }
-customElements.define("i18n-message", MessageElement, { extends: "span" });
+customElements.define("i18n-message", MessageElement);
 
 function readSubstitutions(el: HTMLElement): string[] {
     const { dataset } = el;
