@@ -63,7 +63,7 @@ select > option {
     font-size: 12px;
     text-align: left;
     user-select: none;
-    display: block;
+    display: block; /* We can only use inline elements insisde a <label>. */
     margin: 0.4rem 0 0.4rem calc(1.5rem + 0.5rem);
     padding: 0.4rem;
     width: 15rem;

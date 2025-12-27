@@ -39,7 +39,7 @@ button:active {
     display: none;
 }
 #cleaner-list:empty + #popup-loading {
-    display: block;
+    display: initial;
 }
 
 #cleaner-list {
@@ -105,13 +105,13 @@ button:active {
 .cleaner[data-state="confirm"] .cleaner-popin,
 .cleaner[data-state="done"] .cleaner-popin,
 .cleaner[data-state="error"] .cleaner-popin {
-    display: block;
+    display: initial;
     animation: 0.5s slide-in forwards;
 }
 .cleaner[data-state="ready"] .cleaner-popin,
 .cleaner[data-state="readyDone"] .cleaner-popin,
 .cleaner[data-state="readyError"] .cleaner-popin {
-    display: block;
+    display: initial;
     animation: 0.5s slide-out forwards;
 }
 
@@ -128,7 +128,7 @@ button:active {
 .cleaner[data-state="error"] .cleaner-popin .cleaner-error,
 .cleaner[data-state="readyDone"] .cleaner-popin .cleaner-done,
 .cleaner[data-state="readyError"] .cleaner-popin .cleaner-error {
-    display: inline;
+    display: initial;
 }
 
 .cleaner .cleaner-pin-icon {
@@ -182,13 +182,13 @@ button:active {
         right: calc(-100% + 4rem - 1rem);
     }
     to {
-        display: block;
+        display: initial;
         right: 0;
     }
 }
 @keyframes slide-out {
     from {
-        display: block;
+        display: initial;
         right: 0;
     }
     to {
