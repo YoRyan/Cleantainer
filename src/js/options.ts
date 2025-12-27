@@ -219,7 +219,6 @@ function setupShortcutsDescription() {
     const openSettings = document.createElement("a");
     openSettings.href = "#";
     openSettings.addEventListener("click", async ev =>
-        // @ts-ignore
         browser.commands.openShortcutSettings(),
     );
     openSettings.appendChild(
