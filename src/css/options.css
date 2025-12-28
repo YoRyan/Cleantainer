@@ -75,9 +75,10 @@ label[for="appearance-density-touch"] .container-density {
     padding-bottom: 0.8rem;
 
     .container-icon {
-        background-size: 24px;
-        width: 24px;
-        height: 24px;
+        --icon-size: 24px;
+        background-size: var(--icon-size);
+        width: var(--icon-size);
+        height: var(--icon-size);
     }
 }
 .container-density .container-icon {

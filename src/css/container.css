@@ -8,13 +8,14 @@
 }
 
 .container-icon {
+    --icon-size: 16px;
     background-image: var(--identity-icon);
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 16px;
+    background-size: var(--icon-size);
     fill: var(--identity-icon-color);
     filter: url("../img/mozilla-filters.svg#fill");
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size);
+    height: var(--icon-size);
 }

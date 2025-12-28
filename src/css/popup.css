@@ -73,13 +73,14 @@ button:active {
     padding: 0.3rem;
 
     .cookie-icon {
+        --icon-size: 10px;
         background-image: url("../img/cookie.svg");
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: 10px;
+        background-size: var(--icon-size);
         display: inline-block;
-        width: 10px;
-        height: 10px;
+        width: var(--icon-size);
+        height: var(--icon-size);
         vertical-align: middle;
     }
 }
@@ -143,15 +144,16 @@ button:active {
 }
 
 .cleaner .cleaner-pin-icon {
+    --icon-size: 16px;
     background-image: url("../img/pin.svg");
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 16px;
+    background-size: var(--icon-size);
     fill: light-dark(#0c0c0d, #ffffff);
     filter: url("../img/mozilla-filters.svg#fill");
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: var(--icon-size);
+    height: var(--icon-size);
 }
 .cleaner[data-pin-order] .cleaner-pin-icon {
     background-image: url("../img/unpin.svg");
@@ -171,14 +173,10 @@ button:active {
     }
     .cleaner-icon,
     .cleaner-pin-icon {
-        background-size: 24px;
-        width: 24px;
-        height: 24px;
+        --icon-size: 24px;
     }
     .cleaner-name .cookie-icon {
-        background-size: 14px;
-        width: 14px;
-        height: 14px;
+        --icon-size: 14px;
     }
     .cleaner-popin {
         padding-top: calc(0.8rem + 0.3rem);
