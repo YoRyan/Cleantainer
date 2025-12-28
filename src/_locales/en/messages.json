@@ -8,7 +8,7 @@
         "description": "Description of the extension."
     },
     "popupTitle": {
-        "message": "Clean Container Storage",
+        "message": "Clean Container Data",
         "description": "Title for the extension's popup."
     },
     "popupLoading": {
