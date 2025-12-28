@@ -20,8 +20,12 @@
         "description": "Menu item to open the extension's options screen."
     },
     "popupCleanTooltip": {
-        "message": "Clean this container's cookies, localStorage, and IndexedDB",
+        "message": "Clean this container's cookies, localStorage, sessionStorage, and IndexedDB",
         "description": "Tooltip for the container clean control."
+    },
+    "popupCleanPrivateTooltip": {
+        "message": "Clean the Private Browsing container, which can only be cleaned of cookies and sessionStorage",
+        "description": "Tooltip for the private container clean control. This container can only be cleared of its cookies and sessionStorage."
     },
     "popupPinTooltip": {
         "message": "Pin this container to the top of the list",
@@ -38,6 +42,10 @@
     "containerPrivate": {
         "message": "Private Browsing",
         "description": "Name for the private browsing Firefox container."
+    },
+    "containerPrivateLong": {
+        "message": "Private Browsing (cookies and sessionStorage only)",
+        "description": "Long description for the private browsing Firefox container. This container can only be cleared of its cookies and sessionStorage."
     },
     "cleanConfirm": {
         "message": "Are you sure?",

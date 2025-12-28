@@ -71,6 +71,17 @@ button:active {
 .cleaner-name {
     display: inline-block;
     padding: 0.3rem;
+
+    .cookie-icon {
+        background-image: url("../img/cookie.svg");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 10px;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        vertical-align: middle;
+    }
 }
 .cleaner-popin {
     display: none;
@@ -163,6 +174,11 @@ button:active {
         background-size: 24px;
         width: 24px;
         height: 24px;
+    }
+    .cleaner-name .cookie-icon {
+        background-size: 14px;
+        width: 14px;
+        height: 14px;
     }
     .cleaner-popin {
         padding-top: calc(0.8rem + 0.3rem);

@@ -97,6 +97,7 @@ function createCleanerElement(
 ) {
     const { cookieStoreId, current, name, icon, color, pinOrder, queryOrder } =
         attr;
+    const isPrivate = cookieStoreId === "firefox-private";
 
     const fragment = template.content.cloneNode(true) as Element;
     const cleaner = fragment.querySelector(".cleaner") as CleanerElement;
@@ -122,7 +123,9 @@ function createCleanerElement(
     );
 
     const button = cleaner.querySelector(".cleaner-button") as HTMLElement;
-    button.title = browser.i18n.getMessage("popupCleanTooltip");
+    button.title = browser.i18n.getMessage(
+        isPrivate ? "popupCleanPrivateTooltip" : "popupCleanTooltip",
+    );
     button.addEventListener("click", async ev =>
         cleaner.cleanerClickHandler(ev),
     );
@@ -138,6 +141,13 @@ function createCleanerElement(
 
     const nameElement = fragment.querySelector(".cleaner-name") as HTMLElement;
     nameElement.innerText = name;
+    if (isPrivate) {
+        nameElement.appendChild(document.createTextNode(" "));
+
+        const icon = document.createElement("span");
+        icon.className = "cookie-icon";
+        nameElement.appendChild(icon);
+    }
 
     return cleaner;
 }
