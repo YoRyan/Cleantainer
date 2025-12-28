@@ -35,15 +35,15 @@ export function readOptions(obj: unknown): Options {
         }
 
         if ("shortcuts" in obj) {
-            shortcuts = Array.from(
-                Object.values(new Object(obj.shortcuts)),
-            ).map(readShortcut);
+            shortcuts = Array.from(Object.values(Object(obj.shortcuts))).map(
+                readShortcut,
+            );
         }
 
         if ("pinnedIds" in obj) {
-            pinnedIds = Array.from(
-                Object.values(new Object(obj.pinnedIds)),
-            ).filter(s => typeof s === "string");
+            pinnedIds = Array.from(Object.values(Object(obj.pinnedIds))).filter(
+                s => typeof s === "string",
+            );
         }
 
         if ("uiDensity" in obj && obj.uiDensity === "touch") {
@@ -86,7 +86,7 @@ function readShortcut(obj: unknown): Shortcut {
         }
         if ("userContainerIds" in obj) {
             userContainerIds = Array.from(
-                Object.values(new Object(obj.userContainerIds)),
+                Object.values(Object(obj.userContainerIds)),
             ).map(u => (typeof u === "string" ? u : ""));
         }
         if (

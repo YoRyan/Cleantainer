@@ -35,7 +35,7 @@ async function cleanShortcut(idx: number) {
     if (shortcut.userContainerNames.enabled) {
         let re: RegExp;
         try {
-            re = new RegExp(shortcut.userContainerNames.regex);
+            re = RegExp(shortcut.userContainerNames.regex);
         } catch {
             re = /$impossible/;
         }
