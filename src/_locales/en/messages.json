@@ -210,5 +210,19 @@
                 "example": ".json"
             }
         }
+    },
+    "reviewExtension": {
+        "message": "Like the extension? $REVIEWS$",
+        "description": "Text to ask the user for a review of the extension.",
+        "placeholders": {
+            "reviews": {
+                "content": "$1",
+                "example": "(link to the extension's reviews webpage)"
+            }
+        }
+    },
+    "reviewExtensionAnchor": {
+        "message": "Leave a review!",
+        "description": "Text for the link to the extension's reviews webpage."
     }
 }

@@ -122,3 +122,8 @@ label[for="appearance-density-touch"] .container-density {
 #import-json-picker {
     display: none;
 }
+
+#review-extension {
+    font-size: 90%;
+    font-style: italic;
+}

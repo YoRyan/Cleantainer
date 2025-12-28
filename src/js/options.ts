@@ -1,3 +1,4 @@
+import { createTextWithAnchors } from "./i18n.js";
 import {
     readExtensionShortcuts,
     readLocalOptions,
@@ -11,6 +12,7 @@ async function optionsMain() {
     setupShortcutsSection();
     setupShortcutsDescription();
     setupImportExport();
+    setupReviewText();
 }
 
 async function setupAppearanceSection() {
@@ -211,29 +213,19 @@ async function setShortcutsSectionForIndex(idx: number) {
 }
 
 function setupShortcutsDescription() {
-    const separator = "SHORTCUTS_ANCHOR_HERE";
-    const [before, after] = browser.i18n
-        .getMessage("cleanShortcutDescription", separator)
-        .split(separator, 2);
-
-    const openSettings = document.createElement("a");
-    openSettings.href = "#";
-    openSettings.addEventListener("click", async ev =>
-        browser.commands.openShortcutSettings(),
-    );
-    openSettings.appendChild(
-        document.createTextNode(
-            browser.i18n.getMessage("cleanShortcutDescriptionShortcutAnchor"),
-        ),
+    const [toAppend, [a]] = createTextWithAnchors(
+        "cleanShortcutDescription",
+        "cleanShortcutDescriptionShortcutAnchor",
     );
 
     const p = document.querySelector(
         "#clean-shortcut-description",
     ) as HTMLElement;
-    p.append(
-        document.createTextNode(before),
-        openSettings,
-        document.createTextNode(after),
+    p.append(...toAppend);
+
+    a.href = "#";
+    a.addEventListener("click", async ev =>
+        browser.commands.openShortcutSettings(),
     );
 }
 
@@ -318,6 +310,18 @@ async function exportJsonClickHandler(this: HTMLElement, ev: Event) {
 
     URL.revokeObjectURL(url);
     a.remove();
+}
+
+function setupReviewText() {
+    const [toAppend, [a]] = createTextWithAnchors(
+        "reviewExtension",
+        "reviewExtensionAnchor",
+    );
+
+    const p = document.querySelector("#review-extension") as HTMLElement;
+    p.append(...toAppend);
+
+    a.href = "https://addons.mozilla.org/firefox/addon/cleantainer/reviews/";
 }
 
 class ShortcutSelect extends HTMLSelectElement {
