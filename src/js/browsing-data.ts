@@ -1,3 +1,4 @@
+/** Clean browsing data from a contextual identity. */
 export async function cleanContainer(cookieStoreId: string) {
     let dataToRemove: browser.browsingData.DataTypeSet;
     if (cookieStoreId === "firefox-private") {

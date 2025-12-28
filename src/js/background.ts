@@ -91,8 +91,9 @@ async function showNotification(idx: number, names: string[]) {
     setBadgeText({ text: null });
 }
 
+/** Pause execution for the provided time period. */
 async function sleep(ms: number) {
     const { promise, resolve } = Promise.withResolvers();
     setTimeout(resolve, ms);
-    return promise;
+    return promise as Promise<void>;
 }
