@@ -212,7 +212,7 @@
         }
     },
     "reviewExtension": {
-        "message": "Like the extension? $REVIEWS$",
+        "message": "Like the extension? Consider $REVIEWS$!",
         "description": "Text to ask the user for a review of the extension.",
         "placeholders": {
             "reviews": {
@@ -222,7 +222,7 @@
         }
     },
     "reviewExtensionAnchor": {
-        "message": "Leave a review!",
+        "message": "leaving a review",
         "description": "Text for the link to the extension's reviews webpage."
     }
 }
