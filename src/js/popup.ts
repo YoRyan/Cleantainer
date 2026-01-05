@@ -247,8 +247,7 @@ class CleanerElement extends HTMLLIElement {
     }
 
     setState(cs: CleanerState) {
-        let state: string | undefined;
-        let timer: number | undefined;
+        let state: string | undefined, timer: number | undefined;
         switch (cs) {
             case "load":
                 state = undefined;
