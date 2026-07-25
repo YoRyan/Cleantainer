@@ -317,7 +317,7 @@ class CleanerElement extends HTMLLIElement {
 
         let options = await readLocalOptions(),
             { pinnedIds } = options;
-        // These casts can fail, but nbd if they do--we'll just not save.
+        // These casts can fail, but nbd if they do---we'll just not save.
         const draggedIdx = findValue(pinnedIds, draggedId) as number;
         const thisIdx = findValue(
             pinnedIds,
