@@ -7,7 +7,8 @@
     --identity-icon-color: #37adff;
 }
 
-[data-identity-color="turquoise"] {
+[data-identity-color="turquoise"],
+[data-identity-color="cyan"] {
     --identity-tab-color: #00c79a;
     --identity-icon-color: #00c79a;
 }
@@ -42,7 +43,8 @@
     --identity-icon-color: #af51f5;
 }
 
-[data-identity-color="toolbar"] {
+[data-identity-color="toolbar"],
+[data-identity-color="gray"] {
     --identity-tab-color: light-dark(#0c0c0d, #ffffff);
     --identity-icon-color: light-dark(#0c0c0d, #ffffff);
 }
